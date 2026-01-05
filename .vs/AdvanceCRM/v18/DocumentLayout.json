@@ -1,0 +1,93 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dudhe\\source\\repos\\AdvanceCRM_dotnetcore-remove-saas-application-FinMart\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{428CC8C1-B89D-CF62-6FD6-7E1D76482AF0}|AdvanceCRM\\AdvanceCRM.Web\\AdvanceCRM.Web.csproj|c:\\users\\dudhe\\source\\repos\\advancecrm_dotnetcore-remove-saas-application-finmart\\advancecrm\\advancecrm.web\\modules\\operations\\misdisbursementprocess\\misdisbursementprocessrow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{428CC8C1-B89D-CF62-6FD6-7E1D76482AF0}|AdvanceCRM\\AdvanceCRM.Web\\AdvanceCRM.Web.csproj|solutionrelative:advancecrm\\advancecrm.web\\modules\\operations\\misdisbursementprocess\\misdisbursementprocessrow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{428CC8C1-B89D-CF62-6FD6-7E1D76482AF0}|AdvanceCRM\\AdvanceCRM.Web\\AdvanceCRM.Web.csproj|c:\\users\\dudhe\\source\\repos\\advancecrm_dotnetcore-remove-saas-application-finmart\\advancecrm\\advancecrm.web\\modules\\operations\\misdisbursementprocess\\misdisbursementprocessendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{428CC8C1-B89D-CF62-6FD6-7E1D76482AF0}|AdvanceCRM\\AdvanceCRM.Web\\AdvanceCRM.Web.csproj|solutionrelative:advancecrm\\advancecrm.web\\modules\\operations\\misdisbursementprocess\\misdisbursementprocessendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{428CC8C1-B89D-CF62-6FD6-7E1D76482AF0}|AdvanceCRM\\AdvanceCRM.Web\\AdvanceCRM.Web.csproj|c:\\users\\dudhe\\source\\repos\\advancecrm_dotnetcore-remove-saas-application-finmart\\advancecrm\\advancecrm.web\\modules\\common\\appservices\\misdisbursementprocessexcelexporter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{428CC8C1-B89D-CF62-6FD6-7E1D76482AF0}|AdvanceCRM\\AdvanceCRM.Web\\AdvanceCRM.Web.csproj|solutionrelative:advancecrm\\advancecrm.web\\modules\\common\\appservices\\misdisbursementprocessexcelexporter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{428CC8C1-B89D-CF62-6FD6-7E1D76482AF0}|AdvanceCRM\\AdvanceCRM.Web\\AdvanceCRM.Web.csproj|c:\\users\\dudhe\\source\\repos\\advancecrm_dotnetcore-remove-saas-application-finmart\\advancecrm\\advancecrm.web\\modules\\operations\\misdisbursementprocess\\misdisbursementprocesscolumns.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{428CC8C1-B89D-CF62-6FD6-7E1D76482AF0}|AdvanceCRM\\AdvanceCRM.Web\\AdvanceCRM.Web.csproj|solutionrelative:advancecrm\\advancecrm.web\\modules\\operations\\misdisbursementprocess\\misdisbursementprocesscolumns.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MisDisbursementProcessRow.cs",
+              "DocumentMoniker": "C:\\Users\\dudhe\\source\\repos\\AdvanceCRM_dotnetcore-remove-saas-application-FinMart\\AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessRow.cs",
+              "RelativeDocumentMoniker": "AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessRow.cs",
+              "ToolTip": "C:\\Users\\dudhe\\source\\repos\\AdvanceCRM_dotnetcore-remove-saas-application-FinMart\\AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessRow.cs",
+              "RelativeToolTip": "AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessRow.cs",
+              "ViewState": "AgIAAI4BAAAAAAAAAAA1wJ0BAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T14:57:34.65Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MisDisbursementProcessColumns.cs",
+              "DocumentMoniker": "C:\\Users\\dudhe\\source\\repos\\AdvanceCRM_dotnetcore-remove-saas-application-FinMart\\AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessColumns.cs",
+              "RelativeDocumentMoniker": "AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessColumns.cs",
+              "ToolTip": "C:\\Users\\dudhe\\source\\repos\\AdvanceCRM_dotnetcore-remove-saas-application-FinMart\\AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessColumns.cs",
+              "RelativeToolTip": "AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessColumns.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwCgAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T14:56:37.734Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MisDisbursementProcessEndpoint.cs",
+              "DocumentMoniker": "C:\\Users\\dudhe\\source\\repos\\AdvanceCRM_dotnetcore-remove-saas-application-FinMart\\AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessEndpoint.cs",
+              "RelativeDocumentMoniker": "AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessEndpoint.cs",
+              "ToolTip": "C:\\Users\\dudhe\\source\\repos\\AdvanceCRM_dotnetcore-remove-saas-application-FinMart\\AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessEndpoint.cs",
+              "RelativeToolTip": "AdvanceCRM\\AdvanceCRM.Web\\Modules\\Operations\\MisDisbursementProcess\\MisDisbursementProcessEndpoint.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAArwHcAAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T13:47:33.968Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MISDisbursementProcessExcelExporter.cs",
+              "DocumentMoniker": "C:\\Users\\dudhe\\source\\repos\\AdvanceCRM_dotnetcore-remove-saas-application-FinMart\\AdvanceCRM\\AdvanceCRM.Web\\Modules\\Common\\AppServices\\MISDisbursementProcessExcelExporter.cs",
+              "RelativeDocumentMoniker": "AdvanceCRM\\AdvanceCRM.Web\\Modules\\Common\\AppServices\\MISDisbursementProcessExcelExporter.cs",
+              "ToolTip": "C:\\Users\\dudhe\\source\\repos\\AdvanceCRM_dotnetcore-remove-saas-application-FinMart\\AdvanceCRM\\AdvanceCRM.Web\\Modules\\Common\\AppServices\\MISDisbursementProcessExcelExporter.cs",
+              "RelativeToolTip": "AdvanceCRM\\AdvanceCRM.Web\\Modules\\Common\\AppServices\\MISDisbursementProcessExcelExporter.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAowCwAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-02T14:13:06.765Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

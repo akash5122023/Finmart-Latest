@@ -1,0 +1,16 @@
+2025-12-18 14:09:30.4048 INFO AdvanceCRM.Startup :: Startup 
+2025-12-18 14:09:42.0891 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2025-12-18 14:16:08.6590 INFO AdvanceCRM.Startup :: Startup 
+2025-12-18 14:18:14.7991 INFO AdvanceCRM.Startup :: Startup 
+2025-12-18 14:28:12.1259 INFO AdvanceCRM.Startup :: Startup 
+2025-12-18 14:30:27.8571 INFO AdvanceCRM.Startup :: Startup 
+2025-12-18 14:33:39.6413 INFO AdvanceCRM.Startup :: Startup 
+2025-12-18 14:33:48.3616 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2025-12-18 14:40:17.4324 INFO AdvanceCRM.Startup :: Startup 
+2025-12-18 14:40:26.9249 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2025-12-18 14:43:22.8648 INFO AdvanceCRM.Startup :: Startup 
+2025-12-18 14:43:32.3310 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2025-12-18 14:52:25.2091 INFO AdvanceCRM.Startup :: Startup 
+2025-12-18 14:52:37.3443 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2025-12-18 14:55:33.7638 INFO AdvanceCRM.Startup :: Startup 
+2025-12-18 14:55:44.3439 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 

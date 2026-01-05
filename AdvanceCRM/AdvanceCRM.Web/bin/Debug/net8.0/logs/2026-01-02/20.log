@@ -1,0 +1,18 @@
+2026-01-02 20:06:58.8871 INFO AdvanceCRM.Startup :: Startup 
+2026-01-02 20:07:08.1166 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2026-01-02 20:14:53.0766 INFO AdvanceCRM.Startup :: Startup 
+2026-01-02 20:14:57.4572 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2026-01-02 20:17:04.9727 INFO AdvanceCRM.Startup :: Startup 
+2026-01-02 20:17:09.3270 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2026-01-02 20:25:25.0987 INFO AdvanceCRM.Startup :: Startup 
+2026-01-02 20:25:30.9691 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2026-01-02 20:29:16.4416 INFO AdvanceCRM.Startup :: Startup 
+2026-01-02 20:29:20.7390 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2026-01-02 20:31:02.8897 INFO AdvanceCRM.Startup :: Startup 
+2026-01-02 20:31:07.2974 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2026-01-02 20:34:13.1715 INFO AdvanceCRM.Startup :: Startup 
+2026-01-02 20:34:17.6747 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2026-01-02 20:36:46.9683 INFO AdvanceCRM.Startup :: Startup 
+2026-01-02 20:36:51.2129 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
+2026-01-02 20:38:25.3841 INFO AdvanceCRM.Startup :: Startup 
+2026-01-02 20:38:29.7081 INFO AdvanceCRM.Startup :: No HTTPS endpoint detected. Skipping HTTPS redirection to keep the application reachable behind HTTP-only reverse proxies. 
