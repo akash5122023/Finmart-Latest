@@ -36,12 +36,8 @@
             if (uid != 1) {
                 this.form.CompanyId.readOnly = true;
             }
-           // this.form.TenantId.set_readOnly(true);
-            this.form.TenantId.readOnly=true;
-            this.form.TenantId.element.closest('.field').hide();
-           // this.form.Url.set_readOnly(true);
-            this.form.Url.readOnly = true;
-            this.form.Url.element.closest('.field').hide();
+            // TenantId and Url fields are commented out in UserForm.cs
+            // so they are not available on the form
         }
 
         protected getToolbarButtons() {
