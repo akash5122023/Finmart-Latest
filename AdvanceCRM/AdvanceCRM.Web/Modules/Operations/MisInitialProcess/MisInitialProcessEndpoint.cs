@@ -1,4 +1,5 @@
-﻿using AdvanceCRM.Common.Helpers;
+﻿using AdvanceCRM.Administration;
+using AdvanceCRM.Common.Helpers;
 using AdvanceCRM.FinmartInsideSales;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -186,5 +187,150 @@ namespace AdvanceCRM.Operations.Endpoints
         private static decimal? GetDecimal(object val) { if (val == null) return null; decimal d; return decimal.TryParse(val.ToString(), out d) ? d : null; }
         private static DateTime? GetDate(object val) { if (val == null) return null; DateTime dt; return DateTime.TryParse(val.ToString(), out dt) ? dt : null; }
 
+        [HttpPost, ServiceAuthorize("MISInitialProcess:Move To LogInProcess")]
+        public StandardResponse MoveToLogInProcess(IUnitOfWork uow, SendMailRequest request)
+        {
+            var response = new StandardResponse();
+            var exist = new MisLogInProcessRow();
+            var i = MisLogInProcessRow.Fields;
+            exist = uow.Connection.TryFirst<MisLogInProcessRow>(q => q
+            .SelectTableFields()
+            .Select(i.Id)
+            .Where(i.Id == request.Id));
+
+            if (exist != null)
+            {
+                response.Id = exist.Id.Value;
+                response.Status = "Already Moved!";
+                return response;
+            }
+
+            var sourceInitialProcess = uow.Connection.TryById<MisInitialProcessRow>(request.Id, q => q
+               .SelectTableFields());
+
+            var cmp = CompanyDetailsRow.Fields;
+            var company = uow.Connection.TryById<CompanyDetailsRow>(1, q => q
+                .SelectTableFields()
+                .Select(cmp.AllowMovingNonClosedRecords)
+                );
+
+            if (company?.AllowMovingNonClosedRecords != true)
+            {
+                var initialProcessRow = uow.Connection.TryById<MisInitialProcessRow>(request.Id);
+                if (initialProcessRow == null)
+                    throw new ValidationError("Initial Process record not found");
+            }
+
+            int loginProcessId;
+            try
+            {
+                var conn = uow.Connection;
+                {
+                    String str;
+                    if (sourceInitialProcess != null)
+                    {
+                        str = @"INSERT INTO MISLogInProcess(
+                            SrNo, SourceName, CustomerName, FirmName, BankSourceOrCompanyName, 
+                            FileHandledBy, ContactPersonInTeam, SalesManager, Location, ProductId, 
+                            Requirement, NatureOfBusinessProfile, ProfileOfTheLead, BusinessVintage, 
+                            BusinessDetailId, CompanyTypeId, AccountTypeId, FileReceivedDateTime, 
+                            QueriesGivenTime, FileCompletionDateTime, SystemLoginDate, UnderwritingDate, 
+                            DisbursementDate, Year, MonthId, BankNameId, LoanAccountNumber, 
+                            PrimeEmergingId, MISDirectIndirectId, InhouseBankId, LoanAmount, 
+                            Amount, NetAmt, AdvanceEMI, TOPreviousYear, TOLatestYear, 
+                            ContactNumber, CompanyMailId, EmployeeName, ConfirmationMailTakenOrNot, 
+                            AgreementSigningPersonName, LogInLoanStatusId, SalesLoanStatusId, 
+                            MISDisbursementStatusId, Remark, StageOfTheCase, SubInsurancePF, 
+                            OwnerId, AssignedId, AdditionalInformation
+                        ) VALUES (
+                            @SrNo, @SourceName, @CustomerName, @FirmName, @BankSourceOrCompanyName, 
+                            @FileHandledBy, @ContactPersonInTeam, @SalesManager, @Location, @ProductId, 
+                            @Requirement, @NatureOfBusinessProfile, @ProfileOfTheLead, @BusinessVintage, 
+                            @BusinessDetailId, @CompanyTypeId, @AccountTypeId, @FileReceivedDateTime, 
+                            @QueriesGivenTime, @FileCompletionDateTime, @SystemLoginDate, @UnderwritingDate, 
+                            @DisbursementDate, @Year, @MonthId, @BankNameId, @LoanAccountNumber, 
+                            @PrimeEmergingId, @MISDirectIndirectId, @InhouseBankId, @LoanAmount, 
+                            @Amount, @NetAmt, @AdvanceEMI, @TOPreviousYear, @TOLatestYear, 
+                            @ContactNumber, @CompanyMailId, @EmployeeName, @ConfirmationMailTakenOrNot, 
+                            @AgreementSigningPersonName, @LogInLoanStatusId, @SalesLoanStatusId, 
+                            @MISDisbursementStatusId, @Remark, @StageOfTheCase, @SubInsurancePF, 
+                            @OwnerId, @AssignedId, @AdditionalInformation
+                        )";
+                    }
+                    else
+                    {
+                        throw new ValidationError("Initial Process record not found");
+                    }
+
+                    Dapper.SqlMapper.Execute(conn, str, new
+                    {
+                        SrNo = sourceInitialProcess.SrNo,
+                        SourceName = sourceInitialProcess.SourceName,
+                        CustomerName = sourceInitialProcess.CustomerName,
+                        FirmName = sourceInitialProcess.FirmName,
+                        BankSourceOrCompanyName = sourceInitialProcess.BankSourceOrCompanyName,
+                        FileHandledBy = sourceInitialProcess.FileHandledBy,
+                        ContactPersonInTeam = sourceInitialProcess.ContactPersonInTeam,
+                        SalesManager = sourceInitialProcess.SalesManager,
+                        Location = sourceInitialProcess.Location,
+                        ProductId = sourceInitialProcess.ProductId,
+                        Requirement = sourceInitialProcess.Requirement,
+                        NatureOfBusinessProfile = sourceInitialProcess.NatureOfBusinessProfile,
+                        ProfileOfTheLead = sourceInitialProcess.ProfileOfTheLead,
+                        BusinessVintage = sourceInitialProcess.BusinessVintage,
+                        BusinessDetailId = sourceInitialProcess.BusinessDetailId,
+                        CompanyTypeId = sourceInitialProcess.CompanyTypeId,
+                        AccountTypeId = sourceInitialProcess.AccountTypeId,
+                        FileReceivedDateTime = sourceInitialProcess.FileReceivedDateTime,
+                        QueriesGivenTime = sourceInitialProcess.QueriesGivenTime,
+                        FileCompletionDateTime = sourceInitialProcess.FileCompletionDateTime,
+                        SystemLoginDate = sourceInitialProcess.SystemLoginDate,
+                        UnderwritingDate = sourceInitialProcess.UnderwritingDate,
+                        DisbursementDate = sourceInitialProcess.DisbursementDate,
+                        Year = sourceInitialProcess.Year,
+                        MonthId = sourceInitialProcess.MonthId,
+                        BankNameId = sourceInitialProcess.BankNameId,
+                        LoanAccountNumber = sourceInitialProcess.LoanAccountNumber,
+                        PrimeEmergingId = sourceInitialProcess.PrimeEmergingId,
+                        MISDirectIndirectId = sourceInitialProcess.MisDirectIndirectId,
+                        InhouseBankId = sourceInitialProcess.InhouseBankId,
+                        LoanAmount = sourceInitialProcess.LoanAmount,
+                        Amount = sourceInitialProcess.Amount,
+                        NetAmt = sourceInitialProcess.NetAmt,
+                        AdvanceEMI = sourceInitialProcess.AdvanceEmi,
+                        TOPreviousYear = sourceInitialProcess.ToPreviousYear,
+                        TOLatestYear = sourceInitialProcess.ToLatestYear,
+                        ContactNumber = sourceInitialProcess.ContactNumber,
+                        CompanyMailId = sourceInitialProcess.CompanyMailId,
+                        EmployeeName = sourceInitialProcess.EmployeeName,
+                        ConfirmationMailTakenOrNot = sourceInitialProcess.ConfirmationMailTakenOrNot,
+                        AgreementSigningPersonName = sourceInitialProcess.AgreementSigningPersonName,
+                        LogInLoanStatusId = sourceInitialProcess.LogInLoanStatusId,
+                        SalesLoanStatusId = sourceInitialProcess.SalesLoanStatusId,
+                        MISDisbursementStatusId = sourceInitialProcess.MisDisbursementStatusId,
+                        Remark = sourceInitialProcess.Remark,
+                        StageOfTheCase = sourceInitialProcess.StageOfTheCase,
+                        SubInsurancePF = sourceInitialProcess.SubInsurancePf,
+                        OwnerId = sourceInitialProcess.OwnerId,
+                        AssignedId = sourceInitialProcess.AssignedId,
+                        AdditionalInformation = sourceInitialProcess.AdditionalInformation
+                    });
+
+                    var lastRecord = conn.TryFirst<MisLogInProcessRow>(l => l
+                    .Select(MisLogInProcessRow.Fields.Id)
+                    .OrderBy(MisLogInProcessRow.Fields.Id, desc: true)
+                    );
+                    loginProcessId = lastRecord.Id.Value;
+                }
+                response.Id = loginProcessId;
+                response.Status = "Initial Process moved to Login Process successfully";
+            }
+            catch (Exception ex)
+            {
+                response.Id = -1;
+                response.Status = ex.Message.ToString();
+            }
+            return response;
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace AdvanceCRM.Masters
     [DisplayName("Prime Emerging"), InstanceName("Prime Emerging")]
     [ReadPermission("Masters:Read")]
     [ModifyPermission("Masters:Modify")]
-    [LookupScript("Masters.PrimeEmerging")]
+    [LookupScript("Masters.PrimeEmerging", Permission = "?")]
     public sealed class PrimeEmergingRow : Row<PrimeEmergingRow.RowFields>, IIdRow, INameRow
     {
         [DisplayName("Id"), Identity, IdProperty]

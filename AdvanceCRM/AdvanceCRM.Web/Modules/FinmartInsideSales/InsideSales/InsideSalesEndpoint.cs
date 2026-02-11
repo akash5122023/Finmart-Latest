@@ -1,5 +1,10 @@
 ﻿using AdvanceCRM.Administration;
 using AdvanceCRM.Common.Helpers;
+using AdvanceCRM.Contacts;
+using AdvanceCRM.FinmartInsideSales;
+using AdvanceCRM.Operations;
+using AdvanceCRM.Sales;
+using AdvanceCRM.Template;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
@@ -21,6 +26,12 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
     [ConnectionKey(typeof(MyRow)), ServiceAuthorize(typeof(MyRow))]
     public class InsideSalesController : ServiceEndpoint
     {
+        private readonly ISqlConnections sqlConnections;
+
+        public InsideSalesController(ISqlConnections sqlConnections)
+        {
+            this.sqlConnections = sqlConnections;
+        }
         [HttpPost, AuthorizeCreate(typeof(MyRow))]
         public SaveResponse Create(IUnitOfWork uow, SaveRequest<MyRow> request,
             [FromServices] IInsideSalesSaveHandler handler)
@@ -112,7 +123,8 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
                         {
                             var insidesales = new InsideSalesRow
                             {
-                                MonthMonthsName = ws.Cells[row, 2].Text,
+                                // Lookup Month ID from month name
+                                MonthId = LookupId(uow.Connection, "MonthsInYear", "MonthsName", ws.Cells[row, 2].Text),
                                 FileReceivedDateTime = GetDate(ws.Cells[row, 3].Text),
                                 BankSourceOrCompanyName = ws.Cells[row, 4].Text,
 
@@ -133,14 +145,12 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
                                 Remark = ws.Cells[row, 16].Text,
                                 AdditionalInformation = ws.Cells[row, 17].Text,
 
-                                OwnerUsername = ws.Cells[row, 19].Text, //
-                                AssignedUsername = ws.Cells[row, 20].Text
+                                // Lookup User IDs from usernames
+                                OwnerId = LookupUserId(uow.Connection, ws.Cells[row, 19].Text),
+                                AssignedId = LookupUserId(uow.Connection, ws.Cells[row, 20].Text)
 
                             };
-                            if (insidesales.Id.HasValue && insidesales.Id.Value > 0)
-                            {
-                                skipped++; continue;
-                            }
+
                             saveHandler.Create(uow, new ExcelImportSaveRequest<InsideSalesRow>
                             {
                                 IsExcelImport = true,   // 🔥 THIS disables mandatory validation
@@ -169,28 +179,199 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
             if (string.IsNullOrWhiteSpace(textValue))
                 return null;
 
-            var sql = $"SELECT Id FROM {tableName} WHERE {textColumn} = @textValue";
+            // Whitelist validation to prevent SQL injection
+            var allowedTables = new Dictionary<string, string>
+            {
+                { "TypesOfCompanies", "CompanyTypeName" },
+                { "TypesofProducts", "ProductTypeName" },
+                { "BusinessDetailType", "BusinessDetailTypeName" },
+                { "AccountType", "AccountTypeName" },
+                { "SalesLoanStatus", "SalesLoanStatusName" },
+                { "StageOfTheCase", "CasesStageName" },
+                { "MonthsInYear", "MonthsName" }
+            };
+
+            if (!allowedTables.TryGetValue(tableName, out var validColumn) || validColumn != textColumn)
+                throw new ArgumentException($"Invalid table or column: {tableName}.{textColumn}");
+
+            var sql = $"SELECT Id FROM [{tableName}] WHERE [{textColumn}] = @textValue";
             return connection.Query<int?>(sql, new { textValue }).FirstOrDefault();
         }
 
-        //private int? LookupUserId(IDbConnection connection, string username)
-        //{
-        //    if (string.IsNullOrWhiteSpace(username))
-        //        return null;
+        private int? LookupUserId(IDbConnection connection, string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+                return null;
 
-        //    var user = connection.TryFirst<UserRow>(q =>
-        //    {
-        //        q.Select(f => f.UserId)       // Select the ID
-        //         .Where(f => f.Username == username); // Filter by username
-        //    });
+            var sql = "SELECT UserId FROM [Users] WHERE [Username] = @username";
+            return connection.Query<int?>(sql, new { username }).FirstOrDefault();
+        }
 
-        //    return user?.UserId;
-        //}
+        [HttpPost, ServiceAuthorize("InsideSales:Move To InitialProcess")]
+        public StandardResponse MoveToInitialProcess(IUnitOfWork uow, SendMailRequest request)
+        {
+            var response = new StandardResponse();
+            var exist = new MisInitialProcessRow();
+            var i = MisInitialProcessRow.Fields;
+            exist = uow.Connection.TryFirst<MisInitialProcessRow>(q => q
+            .SelectTableFields()
+            .Select(i.Id)
+            .Where(i.Id == request.Id));
 
+            if (exist != null)
+            {
+                response.Id = exist.Id.Value;
+                response.Status = "Already Moved!";
+                return response;
+            }
 
+            var data = new InsideSalesData();
+
+            var quot = InsideSalesRow.Fields;
+            var sourceInsideSales = uow.Connection.TryById<InsideSalesRow>(request.Id, q => q
+               .SelectTableFields());
+            var cmp = CompanyDetailsRow.Fields;
+            data.Company = uow.Connection.TryById<CompanyDetailsRow>(1, q => q
+                .SelectTableFields()
+                .Select(cmp.AllowMovingNonClosedRecords)
+                );
+            if (data.Company.AllowMovingNonClosedRecords != true)
+            {
+                // ALWAYS load the row from DB
+                var insideSalesRow = uow.Connection.TryById<InsideSalesRow>(request.Id);
+
+                if (insideSalesRow == null)
+                    throw new ValidationError("Inside Sales not found");
+            }
+            //int contactsid;
+            int insalid;
+            try
+            {
+                var conn = uow.Connection;
+                {
+                    String str;
+                    if (sourceInsideSales != null)
+                    {
+                        str = @"INSERT INTO MISInitialProcess(
+                            SrNo, SourceName, CustomerName, FirmName, BankSourceOrCompanyName, 
+                            FileHandledBy, ContactPersonInTeam, SalesManager, Location, ProductId, 
+                            Requirement, NatureOfBusinessProfile, ProfileOfTheLead, BusinessVintage, 
+                            BusinessDetailId, CompanyTypeId, AccountTypeId, FileReceivedDateTime, 
+                            QueriesGivenTime, FileCompletionDateTime, SystemLoginDate, UnderwritingDate, 
+                            DisbursementDate, Year, MonthId, BankNameId, LoanAccountNumber, 
+                            PrimeEmergingId, MISDirectIndirectId, InhouseBankId, LoanAmount, 
+                            Amount, NetAmt, AdvanceEMI, TOPreviousYear, TOLatestYear, 
+                            ContactNumber, CompanyMailId, EmployeeName, ConfirmationMailTakenOrNot, 
+                            AgreementSigningPersonName, LogInLoanStatusId, SalesLoanStatusId, 
+                            MISDisbursementStatusId, Remark, StageOfTheCase, SubInsurancePF, 
+                            OwnerId, AssignedId, AdditionalInformation
+                        ) VALUES (
+                            @SrNo, @SourceName, @CustomerName, @FirmName, @BankSourceOrCompanyName, 
+                            @FileHandledBy, @ContactPersonInTeam, @SalesManager, @Location, @ProductId, 
+                            @Requirement, @NatureOfBusinessProfile, @ProfileOfTheLead, @BusinessVintage, 
+                            @BusinessDetailId, @CompanyTypeId, @AccountTypeId, @FileReceivedDateTime, 
+                            @QueriesGivenTime, @FileCompletionDateTime, @SystemLoginDate, @UnderwritingDate, 
+                            @DisbursementDate, @Year, @MonthId, @BankNameId, @LoanAccountNumber, 
+                            @PrimeEmergingId, @MISDirectIndirectId, @InhouseBankId, @LoanAmount, 
+                            @Amount, @NetAmt, @AdvanceEMI, @TOPreviousYear, @TOLatestYear, 
+                            @ContactNumber, @CompanyMailId, @EmployeeName, @ConfirmationMailTakenOrNot, 
+                            @AgreementSigningPersonName, @LogInLoanStatusId, @SalesLoanStatusId, 
+                            @MISDisbursementStatusId, @Remark, @StageOfTheCase, @SubInsurancePF, 
+                            @OwnerId, @AssignedId, @AdditionalInformation
+                        )";
+                    }
+                    else
+                    {
+                        throw new ValidationError("Inside Sales record not found");
+                    }
+
+                    Dapper.SqlMapper.Execute(conn, str, new
+                    {
+                        SrNo = sourceInsideSales.SrNo,
+                        SourceName = sourceInsideSales.SourceName,
+                        CustomerName = sourceInsideSales.CustomerName,
+                        FirmName = sourceInsideSales.FirmName,
+                        BankSourceOrCompanyName = sourceInsideSales.BankSourceOrCompanyName,
+                        FileHandledBy = sourceInsideSales.FileHandledBy,
+                        ContactPersonInTeam = sourceInsideSales.ContactPersonInTeam,
+                        SalesManager = sourceInsideSales.SalesManager,
+                        Location = sourceInsideSales.Location,
+                        ProductId = sourceInsideSales.ProductId,
+                        Requirement = sourceInsideSales.Requirement,
+                        NatureOfBusinessProfile = sourceInsideSales.NatureOfBusinessProfile,
+                        ProfileOfTheLead = sourceInsideSales.ProfileOfTheLead,
+                        BusinessVintage = sourceInsideSales.BusinessVintage,
+                        BusinessDetailId = sourceInsideSales.BusinessDetailId,
+                        CompanyTypeId = sourceInsideSales.CompanyTypeId,
+                        AccountTypeId = sourceInsideSales.AccountTypeId,
+                        FileReceivedDateTime = sourceInsideSales.FileReceivedDateTime,
+                        QueriesGivenTime = sourceInsideSales.QueriesGivenTime,
+                        FileCompletionDateTime = sourceInsideSales.FileCompletionDateTime,
+                        SystemLoginDate = sourceInsideSales.SystemLoginDate,
+                        UnderwritingDate = sourceInsideSales.UnderwritingDate,
+                        DisbursementDate = sourceInsideSales.DisbursementDate,
+                        Year = sourceInsideSales.Year,
+                        MonthId = sourceInsideSales.MonthId,
+                        BankNameId = sourceInsideSales.BankNameId,
+                        LoanAccountNumber = sourceInsideSales.LoanAccountNumber,
+                        PrimeEmergingId = sourceInsideSales.PrimeEmergingId,
+                        MISDirectIndirectId = sourceInsideSales.MisDirectIndirectId,
+                        InhouseBankId = sourceInsideSales.InhouseBankId,
+                        LoanAmount = sourceInsideSales.LoanAmount,
+                        Amount = sourceInsideSales.Amount,
+                        NetAmt = sourceInsideSales.NetAmt,
+                        AdvanceEMI = sourceInsideSales.AdvanceEmi,
+                        TOPreviousYear = sourceInsideSales.ToPreviousYear,
+                        TOLatestYear = sourceInsideSales.ToLatestYear,
+                        ContactNumber = sourceInsideSales.ContactNumber,
+                        CompanyMailId = sourceInsideSales.CompanyMailId,
+                        EmployeeName = sourceInsideSales.EmployeeName,
+                        ConfirmationMailTakenOrNot = sourceInsideSales.ConfirmationMailTakenOrNot,
+                        AgreementSigningPersonName = sourceInsideSales.AgreementSigningPersonName,
+                        LogInLoanStatusId = sourceInsideSales.LogInLoanStatusId,
+                        SalesLoanStatusId = sourceInsideSales.SalesLoanStatusId,
+                        MISDisbursementStatusId = sourceInsideSales.MisDisbursementStatusId,
+                        Remark = sourceInsideSales.Remark,
+                        StageOfTheCase = sourceInsideSales.StageOfTheCaseId.HasValue ? sourceInsideSales.StageOfTheCaseId.ToString() : null,
+                        SubInsurancePF = sourceInsideSales.SubInsurancePf,
+                        OwnerId = sourceInsideSales.OwnerId,
+                        AssignedId = sourceInsideSales.AssignedId,
+                        AdditionalInformation = sourceInsideSales.AdditionalInformation
+                    });
+                    var inv = InsideSalesRow.Fields;
+                    data.LastInvSO = conn.TryFirst<MisInitialProcessRow>(l => l
+                    .Select(MisInitialProcessRow.Fields.Id)
+                    .OrderBy(MisInitialProcessRow.Fields.Id, desc: true)
+                    );
+                    insalid = data.LastInvSO.Id.Value;
+                }
+                response.Id = insalid;
+                response.Status = "Inside Sales moved to Initial Process successfully";
+            }
+            catch (Exception ex)
+            {
+                response.Id = -1;
+                response.Status = ex.Message.ToString();
+            }
+            return response;
+        }
         private static int? GetInt(object val) { if (val == null) return null; int i; return int.TryParse(val.ToString(), out i) ? i : null; }
         private static decimal? GetDecimal(object val) { if (val == null) return null; decimal d; return decimal.TryParse(val.ToString(), out d) ? d : null; }
         private static DateTime? GetDate(object val) { if (val == null) return null; DateTime dt; return DateTime.TryParse(val.ToString(), out dt) ? dt : null; }
 
+        public class InsideSalesData
+        {
+            public ContactsRow Contact { get; set; }
+            public UserRow User { get; set; }
+            public MyRow InsideSales { get; set; }
+            public InsideSalesRow LastInv { get; set; }
+            public MisInitialProcessRow MisInitialProcess { get; set; }
+            public MisInitialProcessRow LastInvSO { get; set; }
+            public InvoiceRow LastIn { get; set; }
+            //public List<ProductionPlanProductsRow> SalesProducts { get; set; }
+            //public List<ProductionPlanProductsRow> IndentProducts { get; set; }
+            public CompanyDetailsRow Company { get; set; }
+            public InvoiceTemplateRow Template { get; set; }
+        }
     }
 }

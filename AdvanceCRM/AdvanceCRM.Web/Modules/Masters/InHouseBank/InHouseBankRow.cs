@@ -12,7 +12,7 @@ namespace AdvanceCRM.Masters
     [DisplayName("In House Bank"), InstanceName("In House Bank")]
     [ReadPermission("Masters:Read")]
     [ModifyPermission("Masters:Modify")]
-    [LookupScript("Masters.InHouseBank")]
+    [LookupScript("Masters.InHouseBank", Permission = "?")]
     public sealed class InHouseBankRow : Row<InHouseBankRow.RowFields>, IIdRow, INameRow
     {
         [DisplayName("Id"), Identity, IdProperty]

@@ -8,6 +8,7 @@
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<MisLogInProcessRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<MisLogInProcessRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function ImportExcel(request: Serenity.ServiceRequest, onSuccess?: (response: Microsoft.AspNetCore.Mvc.IActionResult) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function MoveToDisbursementProcess(request: SendMailRequest, onSuccess?: (response: StandardResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
         export declare const enum Methods {
             Create = "Operations/MisLogInProcess/Create",
@@ -15,7 +16,8 @@
             Delete = "Operations/MisLogInProcess/Delete",
             Retrieve = "Operations/MisLogInProcess/Retrieve",
             List = "Operations/MisLogInProcess/List",
-            ImportExcel = "Operations/MisLogInProcess/ImportExcel"
+            ImportExcel = "Operations/MisLogInProcess/ImportExcel",
+            MoveToDisbursementProcess = "Operations/MisLogInProcess/MoveToDisbursementProcess"
         }
 
         [
@@ -24,7 +26,8 @@
             'Delete', 
             'Retrieve', 
             'List', 
-            'ImportExcel'
+            'ImportExcel', 
+            'MoveToDisbursementProcess'
         ].forEach(x => {
             (<any>MisLogInProcessService)[x] = function (r, s, o) {
                 return Q.serviceRequest(baseUrl + '/' + x, r, s, o);

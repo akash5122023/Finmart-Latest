@@ -5,6 +5,7 @@ using Serenity.Data.Mapping;
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Security.Permissions;
 
 namespace AdvanceCRM.Masters
 {
@@ -12,7 +13,7 @@ namespace AdvanceCRM.Masters
     [DisplayName("Months In Year"), InstanceName("Months In Year")]
     [ReadPermission("Masters:Read")]
     [ModifyPermission("Masters:Modify")]
-    [LookupScript("Masters.MonthsInYear")]
+    [LookupScript("Masters.MonthsInYear", Permission = "?")]
     public sealed class MonthsInYearRow : Row<MonthsInYearRow.RowFields>, IIdRow, INameRow
     {
         [DisplayName("Id"), Identity, IdProperty]

@@ -12,7 +12,7 @@ namespace AdvanceCRM.Masters
     [DisplayName("Types Of Companies"), InstanceName("Types Of Companies")]
     [ReadPermission("Masters:Read")]
     [ModifyPermission("Masters:Modify")]
-    [LookupScript("Masters.TypesOfCompanies")]
+    [LookupScript("Masters.TypesOfCompanies", Permission = "?")]
     public sealed class TypesOfCompaniesRow : Row<TypesOfCompaniesRow.RowFields>, IIdRow, INameRow
     {
         [DisplayName("Id"), Identity, IdProperty]

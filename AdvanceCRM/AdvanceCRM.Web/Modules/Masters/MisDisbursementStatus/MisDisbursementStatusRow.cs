@@ -12,7 +12,7 @@ namespace AdvanceCRM.Masters
     [DisplayName("Mis Disbursement Status"), InstanceName("Mis Disbursement Status")]
     [ReadPermission("Masters:Read")]
     [ModifyPermission("Masters:Modify")]
-    [LookupScript("Masters.MISDisbursementStatus")]
+    [LookupScript("Masters.MISDisbursementStatus", Permission = "?")]
     public sealed class MisDisbursementStatusRow : Row<MisDisbursementStatusRow.RowFields>, IIdRow, INameRow
     {
         [DisplayName("Id"), Identity, IdProperty]

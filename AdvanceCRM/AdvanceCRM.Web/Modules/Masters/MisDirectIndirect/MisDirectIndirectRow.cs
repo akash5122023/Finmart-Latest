@@ -12,7 +12,7 @@ namespace AdvanceCRM.Masters
     [DisplayName("Mis Direct Indirect"), InstanceName("Mis Direct Indirect")]
     [ReadPermission("Masters:Read")]
     [ModifyPermission("Masters:Modify")]
-    [LookupScript("Masters.MISDirectIndirect")]
+    [LookupScript("Masters.MISDirectIndirect", Permission = "?")]
     public sealed class MisDirectIndirectRow : Row<MisDirectIndirectRow.RowFields>, IIdRow, INameRow
     {
         [DisplayName("Id"), Identity, IdProperty]

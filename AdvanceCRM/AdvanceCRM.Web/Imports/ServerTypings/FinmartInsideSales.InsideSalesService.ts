@@ -8,6 +8,7 @@
         export declare function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<InsideSalesRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<InsideSalesRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
         export declare function ImportExcel(request: Serenity.ServiceRequest, onSuccess?: (response: Microsoft.AspNetCore.Mvc.IActionResult) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        export declare function MoveToInitialProcess(request: SendMailRequest, onSuccess?: (response: StandardResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
 
         export declare const enum Methods {
             Create = "FinmartInsideSales/InsideSales/Create",
@@ -15,7 +16,8 @@
             Delete = "FinmartInsideSales/InsideSales/Delete",
             Retrieve = "FinmartInsideSales/InsideSales/Retrieve",
             List = "FinmartInsideSales/InsideSales/List",
-            ImportExcel = "FinmartInsideSales/InsideSales/ImportExcel"
+            ImportExcel = "FinmartInsideSales/InsideSales/ImportExcel",
+            MoveToInitialProcess = "FinmartInsideSales/InsideSales/MoveToInitialProcess"
         }
 
         [
@@ -24,7 +26,8 @@
             'Delete', 
             'Retrieve', 
             'List', 
-            'ImportExcel'
+            'ImportExcel', 
+            'MoveToInitialProcess'
         ].forEach(x => {
             (<any>InsideSalesService)[x] = function (r, s, o) {
                 return Q.serviceRequest(baseUrl + '/' + x, r, s, o);

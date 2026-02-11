@@ -12,7 +12,7 @@ namespace AdvanceCRM.Masters
     [DisplayName("Cases Stage"), InstanceName("Cases Stage")]
     [ReadPermission("Masters:Read")]
     [ModifyPermission("Masters:Modify")]
-    [LookupScript("Masters.CasesStage")]
+    [LookupScript("Masters.CasesStage", Permission = "?")]
     public sealed class CasesStageRow : Row<CasesStageRow.RowFields>, IIdRow, INameRow
     {
         [DisplayName("Id"), Identity, IdProperty]

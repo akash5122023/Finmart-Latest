@@ -17,6 +17,7 @@ namespace AdvanceCRM.Sales.Forms
         public Int32 ProductsId { get; set; }
         //[_Ext.AutoCompleteEditor(LookupKey = "Products.ProductCodeLookup")]
         [LookupEditor("Products.ProductCodeLookup")]
+        [IgnoreName]
         public String Code { get; set; }
         [OneThirdWidth(UntilNext = true)]
         public String Serial { get; set; }
