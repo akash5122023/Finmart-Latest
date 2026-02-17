@@ -2,6 +2,7 @@
     export interface MisInitialProcessRow {
         Id?: number;
         SrNo?: string;
+        RRSourceId?: number;
         SourceName?: string;
         CustomerName?: string;
         FirmName?: string;
@@ -108,6 +109,8 @@
         AssignedDisplayName?: string;
         AssignedEmail?: string;
         AssignedUpperLevel?: number;
+        LeadStageId?: number;
+        LeadStageName?: string;
         AssignedUpperLevel2?: number;
         AssignedUpperLevel3?: number;
         AssignedUpperLevel4?: number;
@@ -249,6 +252,7 @@
         export declare const enum Fields {
             Id = "Id",
             SrNo = "SrNo",
+            RRSourceId = "RRSourceId",
             SourceName = "SourceName",
             CustomerName = "CustomerName",
             FirmName = "FirmName",
@@ -355,6 +359,8 @@
             AssignedDisplayName = "AssignedDisplayName",
             AssignedEmail = "AssignedEmail",
             AssignedUpperLevel = "AssignedUpperLevel",
+            LeadStageId = "LeadStageId",
+            LeadStageName = "LeadStageName",
             AssignedUpperLevel2 = "AssignedUpperLevel2",
             AssignedUpperLevel3 = "AssignedUpperLevel3",
             AssignedUpperLevel4 = "AssignedUpperLevel4",

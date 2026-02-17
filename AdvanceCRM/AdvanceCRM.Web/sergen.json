@@ -44,6 +44,12 @@
           "PermissionKey": "Administration:General"
         },
         {
+          "Tablename": "dbo.CustomerApproval",
+          "Identifier": "CustomerApproval",
+          "Module": "Masters",
+          "PermissionKey": "Administration:General"
+        },
+        {
           "Tablename": "dbo.Filter",
           "Identifier": "Filter",
           "Module": "Default",
@@ -65,6 +71,12 @@
           "Tablename": "dbo.InsideSales",
           "Identifier": "InsideSales",
           "Module": "Finmart InsideSales",
+          "PermissionKey": "Administration:General"
+        },
+        {
+          "Tablename": "dbo.LeadStage",
+          "Identifier": "LeadStage",
+          "Module": "Masters",
           "PermissionKey": "Administration:General"
         },
         {
@@ -124,6 +136,12 @@
         {
           "Tablename": "dbo.PrimeEmerging",
           "Identifier": "PrimeEmerging",
+          "Module": "Masters",
+          "PermissionKey": "Administration:General"
+        },
+        {
+          "Tablename": "dbo.RRSource",
+          "Identifier": "RrSource",
           "Module": "Masters",
           "PermissionKey": "Administration:General"
         },

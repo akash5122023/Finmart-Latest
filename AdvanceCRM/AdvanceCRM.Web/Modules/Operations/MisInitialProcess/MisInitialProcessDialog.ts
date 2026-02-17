@@ -14,6 +14,28 @@ namespace AdvanceCRM.Operations {
         protected getUpdatePermission() { return MisInitialProcessRow.updatePermission; }
 
         protected form = new MisInitialProcessForm(this.idPrefix);
+
+        protected onSaveSuccess(response: Serenity.SaveResponse): void {
+            // Clear all existing notifications immediately
+            $('.s-Message').remove();
+
+            // Show our custom success message
+            Q.notifySuccess("Saved Successfully");
+
+            // Reload entity without triggering notifications
+            // Use a flag or direct approach to avoid showing messages during reload
+            if (response.EntityId != null) {
+                // Temporarily suppress notifications during reload
+                var oldNotify = Q.notifySuccess;
+                Q.notifySuccess = function() {}; // Suppress
+
+                this.loadById(response.EntityId);
+
+                // Restore notification function
+                Q.notifySuccess = oldNotify;
+            }
+        }
+
         protected getToolbarButtons() {
             var buttons = super.getToolbarButtons();
 

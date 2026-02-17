@@ -14,3 +14,6 @@ using MyPages = AdvanceCRM.Masters.Pages;
 [assembly: NavigationLink(int.MaxValue, "Masters/Mis Direct Indirect", typeof(MyPages.MisDirectIndirectController), icon: null)]
 [assembly: NavigationLink(int.MaxValue, "Masters/Months In Year", typeof(MyPages.MonthsInYearController), icon: null)]
 [assembly: NavigationLink(int.MaxValue, "Masters/Cases Stage", typeof(MyPages.CasesStageController), icon: null)]
+[assembly: NavigationLink(int.MaxValue, "Masters/Lead Stage", typeof(MyPages.LeadStageController), icon: null)]
+[assembly: NavigationLink(int.MaxValue, "Masters/Rr Source", typeof(MyPages.RrSourceController), icon: null)]
+[assembly: NavigationLink(int.MaxValue, "Masters/Customer Approval", typeof(MyPages.CustomerApprovalController), icon: null)]

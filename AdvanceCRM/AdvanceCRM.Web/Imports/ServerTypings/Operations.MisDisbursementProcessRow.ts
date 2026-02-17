@@ -1,14 +1,20 @@
 ﻿namespace AdvanceCRM.Operations {
     export interface MisDisbursementProcessRow {
         Id?: number;
+        CibilScore?: number;
         SrNo?: string;
         SourceName?: string;
+        RRSourceId?: number;
         CustomerName?: string;
         FirmName?: string;
         BankSourceOrCompanyName?: string;
         FileHandledBy?: string;
         ContactPersonInTeam?: string;
         SalesManager?: string;
+        LeadStageId?: number;
+        LeadStageName?: string;
+        CustomerApprovalId?: number;
+        CustomerApprovalType?: string;
         Location?: string;
         ProductId?: number;
         Requirement?: string;
@@ -159,14 +165,20 @@
 
         export declare const enum Fields {
             Id = "Id",
+            CibilScore = "CibilScore",
             SrNo = "SrNo",
             SourceName = "SourceName",
+            RRSourceId = "RRSourceId",
             CustomerName = "CustomerName",
             FirmName = "FirmName",
             BankSourceOrCompanyName = "BankSourceOrCompanyName",
             FileHandledBy = "FileHandledBy",
             ContactPersonInTeam = "ContactPersonInTeam",
             SalesManager = "SalesManager",
+            LeadStageId = "LeadStageId",
+            LeadStageName = "LeadStageName",
+            CustomerApprovalId = "CustomerApprovalId",
+            CustomerApprovalType = "CustomerApprovalType",
             Location = "Location",
             ProductId = "ProductId",
             Requirement = "Requirement",

@@ -33,12 +33,7 @@ namespace AdvanceCRM.Operations
             set => fields.SrNo[this] = value;
         }
 
-        [DisplayName("Source Name"), Size(200)]
-        public String SourceName
-        {
-            get => fields.SourceName[this];
-            set => fields.SourceName[this] = value;
-        }
+        
 
         [DisplayName("Customer Name"), Size(200)]
         public String CustomerName
@@ -136,7 +131,32 @@ namespace AdvanceCRM.Operations
             get => fields.BusinessDetailId[this];
             set => fields.BusinessDetailId[this] = value;
         }
-
+        [DisplayName("Lead Stage"), ForeignKey("[dbo].[LeadStage]", "Id"), LeftJoin("jLeadStage"), TextualField("LeadStageName")]
+        [LookupEditor(typeof(LeadStageRow))]
+        public Int32? LeadStageId
+        {
+            get => fields.LeadStageId[this];
+            set => fields.LeadStageId[this] = value;
+        }
+        [DisplayName("Source Id"), ForeignKey("[dbo].[RRSource]", "Id"), LeftJoin("jRRSource"), TextualField("SourceName")]
+        [LookupEditor(typeof(RrSourceRow))]
+        public Int32? RRSourceId
+        {
+            get => fields.RRSourceId[this];
+            set => fields.RRSourceId[this] = value;
+        }
+        [DisplayName("Source Name"), Expression("jRRSource.[SourceName]")]
+        public String SourceName
+        {
+            get => fields.SourceName[this];
+            set => fields.SourceName[this] = value;
+        }
+        [DisplayName("LeadStage Name"), Expression("jLeadStage.[LeadStageName]")]
+        public String LeadStageName
+        {
+            get => fields.LeadStageName[this];
+            set => fields.LeadStageName[this] = value;
+        }
         [DisplayName("Company Type"), ForeignKey("[dbo].[TypesOfCompanies]", "Id"), LeftJoin("jCompanyType"), TextualField("CompanyTypeCompanyTypeName")]
         public Int32? CompanyTypeId
         {
@@ -207,7 +227,8 @@ namespace AdvanceCRM.Operations
             set => fields.MonthId[this] = value;
         }
 
-        [DisplayName("Bank Name"), ForeignKey("[dbo].[BankName]", "Id"), LeftJoin("jBankName"), TextualField("BankNameBankNames")]
+        [DisplayName("Bank Name"), ForeignKey("[dbo].[BankName]", "Id"), LeftJoin("jBankName"), TextualField("BankNames"), QuickFilter]
+        [LookupEditor(typeof(BankNameRow))]
         public Int32? BankNameId
         {
             get => fields.BankNameId[this];
@@ -382,7 +403,7 @@ namespace AdvanceCRM.Operations
             set => fields.AdditionalInformation[this] = value;
         }
 
-        [DisplayName("Contact"), NotNull, ForeignKey("[dbo].[Contacts]", "Id"), LeftJoin("jContacts"), TextualField("ContactsName")]
+        [DisplayName("Channel Partner"), NotNull, ForeignKey("[dbo].[Contacts]", "Id"), LeftJoin("jContacts"), TextualField("ContactsName")]
         [LookupEditor(typeof(ContactsRow), InplaceAdd = true)]
         public Int32? ContactsId
         {
@@ -1646,6 +1667,7 @@ namespace AdvanceCRM.Operations
         {
             public Int32Field Id;
             public StringField SrNo;
+            public Int32Field RRSourceId;
             public StringField SourceName;
             public StringField CustomerName;
             public StringField FirmName;
@@ -1766,6 +1788,8 @@ namespace AdvanceCRM.Operations
             public StringField AssignedDisplayName;
             public StringField AssignedEmail;
             public Int32Field AssignedUpperLevel;
+            public Int32Field LeadStageId;
+            public StringField LeadStageName;
             public Int32Field AssignedUpperLevel2;
             public Int32Field AssignedUpperLevel3;
             public Int32Field AssignedUpperLevel4;

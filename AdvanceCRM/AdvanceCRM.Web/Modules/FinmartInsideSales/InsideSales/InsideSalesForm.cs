@@ -14,17 +14,48 @@ namespace AdvanceCRM.FinmartInsideSales.Forms
     [BasedOnRow(typeof(InsideSalesRow), CheckNames = true)]
     public class InsideSalesForm
     {
+        [Category("Channel Partner Details")]
+        [HalfWidth]
+        public Int32 ContactsId { get; set; }
+        [Hidden]
+        public Int32 ContactsContactType { get; set; }
+        [Hidden]
+        public String ContactsName { get; set; }
+
+        [Hidden]
+        public String ContactsEmail { get; set; }
+        [HalfWidth, ReadOnly(true), DisplayName("Contact Phone")]
+        public String ContactsPhone { get; set; }
+        [Hidden]
+        public String ContactsWhatsapp { get; set; }
+        [Hidden, ReadOnly(true)]
+        public String ContactsAddress { get; set; }
+        [HalfWidth, FormCssClass("line-break-sm")]
+        public Int32 ContactPersonId { get; set; }
+        [Hidden]
+        public String ContactPersonName { get; set; }
+        [ReadOnly(true), HalfWidth]
+        public String ContactPersonPhone { get; set; }
+        [Hidden]
+        public String ContactPersonWhatsapp { get; set; }
+        [Hidden]
+        public String ContactPersonProject { get; set; }
+        [Hidden, ReadOnly(true)]
+        public String ContactPersonAddress { get; set; }
         [Category("Basic Information")]
 
         [HalfWidth, LookupEditor(typeof(MonthsInYearRow))]
         [DisplayName("Month")]
         public Int32 MonthId { get; set; }
 
-        [HalfWidth, DisplayName("File Received Date")]
+        [HalfWidth, DateTimeEditor, DisplayName("File Received Date")]
         public DateTime FileReceivedDateTime { get; set; }
 
-        [HalfWidth, DisplayName("Company Name")]
-        public String FirmName { get; set; }
+        //[HalfWidth, DisplayName("Customer Name")]
+        //public String CustomerName { get; set; }
+
+        //[HalfWidth, DisplayName("Company Name")]
+        //public String FirmName { get; set; }
 
         [HalfWidth, LookupEditor(typeof(TypesOfCompaniesRow))]
         [DisplayName("Types of Companies")]
@@ -34,8 +65,8 @@ namespace AdvanceCRM.FinmartInsideSales.Forms
         [HalfWidth, DisplayName("Profile of the Lead")]
         public String ProfileOfTheLead { get; set; }
 
-        [HalfWidth, DisplayName("Contact Number")]
-        public String ContactNumber { get; set; }
+        //[HalfWidth, DisplayName("Contact Number")]
+        //public String ContactNumber { get; set; }
 
         [HalfWidth, DisplayName("Company/Individual Mail ID")]
         public String CompanyMailId { get; set; }
@@ -69,6 +100,7 @@ namespace AdvanceCRM.FinmartInsideSales.Forms
         public Int32 SalesLoanStatusId { get; set; }
 
         [HalfWidth, DisplayName("Loan Amount")]
+        [EditorType("LoanAmountEditor")]
         public Decimal LoanAmount { get; set; }
 
         [FullWidth, TextAreaEditor(Rows = 2)]
@@ -86,7 +118,7 @@ namespace AdvanceCRM.FinmartInsideSales.Forms
         [DisplayName("Created By")]
         public Int32 OwnerId { get; set; }
 
-        [HalfWidth, LookupEditor(typeof(UserRow))]
+        [HalfWidth, LookupEditor("Administration.InitialProcessUserLookup")]
         [DisplayName("Assigned To")]
         public Int32 AssignedId { get; set; }
     }

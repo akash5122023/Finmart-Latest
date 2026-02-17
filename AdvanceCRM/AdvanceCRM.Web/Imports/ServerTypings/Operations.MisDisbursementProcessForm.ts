@@ -4,9 +4,12 @@
         Year: Serenity.IntegerEditor;
         MonthId: Serenity.LookupEditor;
         BankNameId: Serenity.LookupEditor;
-        SourceName: Serenity.StringEditor;
+        RRSourceId: Serenity.LookupEditor;
         CustomerName: Serenity.StringEditor;
         BankSourceOrCompanyName: Serenity.StringEditor;
+        CibilScore: Serenity.IntegerEditor;
+        LeadStageId: Serenity.LookupEditor;
+        CustomerApprovalId: Serenity.LookupEditor;
         Amount: Serenity.DecimalEditor;
         NetAmt: Serenity.DecimalEditor;
         MisDisbursementStatusId: Serenity.LookupEditor;
@@ -22,7 +25,6 @@
         AgreementSigningPersonName: Serenity.StringEditor;
         AdditionalInformation: Serenity.TextAreaEditor;
         OwnerId: Serenity.LookupEditor;
-        AssignedId: Serenity.LookupEditor;
     }
 
     export class MisDisbursementProcessForm extends Serenity.PrefixedContext {
@@ -48,9 +50,12 @@
                     'Year', w1,
                     'MonthId', w2,
                     'BankNameId', w2,
-                    'SourceName', w0,
+                    'RRSourceId', w2,
                     'CustomerName', w0,
                     'BankSourceOrCompanyName', w0,
+                    'CibilScore', w1,
+                    'LeadStageId', w2,
+                    'CustomerApprovalId', w2,
                     'Amount', w3,
                     'NetAmt', w3,
                     'MisDisbursementStatusId', w2,
@@ -65,8 +70,7 @@
                     'ConfirmationMailTakenOrNot', w4,
                     'AgreementSigningPersonName', w0,
                     'AdditionalInformation', w5,
-                    'OwnerId', w2,
-                    'AssignedId', w2
+                    'OwnerId', w2
                 ]);
             }
         }

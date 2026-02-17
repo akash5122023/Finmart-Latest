@@ -67,39 +67,11 @@ namespace AdvanceCRM.Contacts {
             });
 
             this.form.ContactType.change(e => {
-                if (this.form.ContactType.value == "1") {
-                    this.form.AccountsEmail.getGridField().toggle(false);
-                    this.form.PurchaseEmail.getGridField().toggle(false);
-                    this.form.SalesEmail.getGridField().toggle(false);
-                    this.form.ServiceEmail.getGridField().toggle(false);
-                    this.form.SubContacts.getGridField().toggle(false);
-                    this.form.ResidentialPhone.getGridField().toggle(true);
-                    this.form.OfficePhone.getGridField().toggle(true);
-                    this.form.Gender.getGridField().toggle(true);
-                    this.form.Religion.getGridField().toggle(true);
-                    this.form.AreaId.getGridField().toggle(true);
-                    this.form.MaritalStatus.getGridField().toggle(true);
-                    this.form.MarriageAnniversary.getGridField().toggle(false);
-                    this.form.Birthdate.getGridField().toggle(true);
-                    this.form.DateOfIncorporation.getGridField().toggle(false);
-                }
-                else if (this.form.ContactType.value == "2") {
-                    this.form.AccountsEmail.getGridField().toggle(true);
-                    this.form.PurchaseEmail.getGridField().toggle(true);
-                    this.form.SalesEmail.getGridField().toggle(true);
-                    this.form.ServiceEmail.getGridField().toggle(true);
-                    this.form.SubContacts.getGridField().toggle(true);
-                    this.form.ResidentialPhone.getGridField().toggle(false);
-                    this.form.OfficePhone.getGridField().toggle(false);
-                    this.form.Gender.getGridField().toggle(false);
-                    this.form.Religion.getGridField().toggle(false);
-                    this.form.AreaId.getGridField().toggle(true);
-                    this.form.MaritalStatus.getGridField().toggle(false);
-                    this.form.MarriageAnniversary.getGridField().toggle(false);
-                    this.form.Birthdate.getGridField().toggle(false);
-                    this.form.DateOfIncorporation.getGridField().toggle(true);
-                }
+                this.updateFieldsBasedOnContactType();
             });
+
+            // Initial call to set fields based on default/loaded value
+            this.updateFieldsBasedOnContactType();
             this.form.Phone.change(e => {
                 if (this.form.Phone.value == "") {
                     this.form.Whatsapp.value = "+91 " + this.form.Phone.value;
@@ -229,12 +201,73 @@ namespace AdvanceCRM.Contacts {
                     this.form.Reseller.getGridField().toggle(false);
                 }
             });
-
-
         }
 
         loadEntity(entity: ContactsRow) {
             super.loadEntity(entity);
+            // Update fields after entity is loaded
+            this.updateFieldsBasedOnContactType();
+        }
+
+        private updateFieldsBasedOnContactType() {
+            var contactType = this.form.ContactType.value;
+
+            // Get label elements for dynamic fields
+            var nameLabel = this.form.Name.getGridField().find('label');
+            var phoneLabel = this.form.Phone.getGridField().find('label');
+            var emailLabel = this.form.Email.getGridField().find('label');
+
+            // ContactType 1 = Individual, ContactType 2 = Organization
+            if (contactType == "1") {
+                // Individual - change labels
+                nameLabel.text('Customer Name');
+                phoneLabel.text('Contact Phone');
+                emailLabel.text('Individual Email');
+
+                // Individual - show individual fields, hide organization fields
+                this.form.AccountsEmail.getGridField().toggle(false);
+                this.form.PurchaseEmail.getGridField().toggle(false);
+                this.form.SalesEmail.getGridField().toggle(false);
+                this.form.ServiceEmail.getGridField().toggle(false);
+                this.form.SubContacts.getGridField().toggle(false);
+                this.form.ResidentialPhone.getGridField().toggle(true);
+                this.form.OfficePhone.getGridField().toggle(true);
+                this.form.Gender.getGridField().toggle(true);
+                this.form.Religion.getGridField().toggle(true);
+                this.form.AreaId.getGridField().toggle(true);
+                this.form.MaritalStatus.getGridField().toggle(true);
+                this.form.MarriageAnniversary.getGridField().toggle(false);
+                this.form.Birthdate.getGridField().toggle(true);
+                this.form.DateOfIncorporation.getGridField().toggle(false);
+            }
+            else if (contactType == "2") {
+                // Organization - change labels
+                nameLabel.text('Firm Name');
+                phoneLabel.text('Firm Phone');
+                emailLabel.text('Firm Email');
+
+                // Organization - show organization fields, hide individual fields
+                this.form.AccountsEmail.getGridField().toggle(true);
+                this.form.PurchaseEmail.getGridField().toggle(true);
+                this.form.SalesEmail.getGridField().toggle(true);
+                this.form.ServiceEmail.getGridField().toggle(true);
+                this.form.SubContacts.getGridField().toggle(true);
+                this.form.ResidentialPhone.getGridField().toggle(false);
+                this.form.OfficePhone.getGridField().toggle(false);
+                this.form.Gender.getGridField().toggle(false);
+                this.form.Religion.getGridField().toggle(false);
+                this.form.AreaId.getGridField().toggle(true);
+                this.form.MaritalStatus.getGridField().toggle(false);
+                this.form.MarriageAnniversary.getGridField().toggle(false);
+                this.form.Birthdate.getGridField().toggle(false);
+                this.form.DateOfIncorporation.getGridField().toggle(true);
+            }
+            else {
+                // No selection - reset labels
+                nameLabel.text('Firm/CustomerName');
+                phoneLabel.text('Phone');
+                emailLabel.text('Email');
+            }
         }
 
         onDialogOpen() {

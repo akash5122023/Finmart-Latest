@@ -32,7 +32,14 @@ namespace AdvanceCRM.Operations
             set => fields.SrNo[this] = value;
         }
 
-        [DisplayName("Source Name"), Size(200)]
+        [DisplayName("Source Id"), ForeignKey("[dbo].[RRSource]", "Id"), LeftJoin("jRRSource"), TextualField("SourceName")]
+        [LookupEditor(typeof(RrSourceRow))]
+        public Int32? RRSourceId
+        {
+            get => fields.RRSourceId[this];
+            set => fields.RRSourceId[this] = value;
+        }
+        [DisplayName("Source Name"), Expression("jRRSource.[SourceName]")]
         public String SourceName
         {
             get => fields.SourceName[this];
@@ -45,7 +52,13 @@ namespace AdvanceCRM.Operations
             get => fields.CustomerName[this];
             set => fields.CustomerName[this] = value;
         }
-
+        [DisplayName("Lead Stage"), ForeignKey("[dbo].[LeadStage]", "Id"), LeftJoin("jLeadStage"), TextualField("LeadStageName")]
+        [LookupEditor(typeof(LeadStageRow))]
+        public Int32? LeadStageId
+        {
+            get => fields.LeadStageId[this];
+            set => fields.LeadStageId[this] = value;
+        }
         [DisplayName("Firm Name"), Size(200)]
         public String FirmName
         {
@@ -376,7 +389,12 @@ namespace AdvanceCRM.Operations
             get => fields.SalesLoanStatusId[this];
             set => fields.SalesLoanStatusId[this] = value;
         }
-
+        [DisplayName("CIBIL Score")]
+        public Int32? CibilScore
+        {
+            get => fields.CibilScore[this];
+            set => fields.CibilScore[this] = value;
+        }
         [DisplayName("Mis Disbursement Status"), Column("MISDisbursementStatusId"), ForeignKey("[dbo].[MISDisbursementStatus]", "Id"), LeftJoin("jMisDisbursementStatus"), TextualField("MisDisbursementStatusMisDisbursementStatusType")]
         public Int32? MisDisbursementStatusId
         {
@@ -635,7 +653,12 @@ namespace AdvanceCRM.Operations
             get => fields.OwnerUid[this];
             set => fields.OwnerUid[this] = value;
         }
-
+        [DisplayName("LeadStage Name"), Expression("jLeadStage.[LeadStageName]")]
+        public String LeadStageName
+        {
+            get => fields.LeadStageName[this];
+            set => fields.LeadStageName[this] = value;
+        }
         [DisplayName("Owner Non Operational"), Expression("jOwner.[NonOperational]")]
         public Boolean? OwnerNonOperational
         {
@@ -1034,6 +1057,7 @@ namespace AdvanceCRM.Operations
         public class RowFields : RowFieldsBase
         {
             public Int32Field Id;
+            public Int32Field CibilScore;
             public StringField SrNo;
             public StringField SourceName;
             public StringField CustomerName;
@@ -1073,6 +1097,7 @@ namespace AdvanceCRM.Operations
             public StringField ContactNumber;
             public StringField CompanyMailId;
             public StringField EmployeeName;
+            public Int32Field RRSourceId;
             public StringField ConfirmationMailTakenOrNot;
             public StringField AgreementSigningPersonName;
             public Int32Field LogInLoanStatusId;
@@ -1138,6 +1163,8 @@ namespace AdvanceCRM.Operations
             public BooleanField OwnerEnquiry;
             public BooleanField OwnerQuotation;
             public BooleanField OwnerTasks;
+            public Int32Field LeadStageId;
+            public StringField LeadStageName;
             public BooleanField OwnerContacts;
             public BooleanField OwnerPurchase;
             public BooleanField OwnerSales;

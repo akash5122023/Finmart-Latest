@@ -25,11 +25,12 @@ namespace AdvanceCRM.Operations.Forms
         [DisplayName("Month")]
         public Int32 MonthId { get; set; }
 
-        [HalfWidth, DisplayName("Date")]
+        [HalfWidth, DateTimeEditor, DisplayName("Date")]
         public DateTime FileReceivedDateTime { get; set; }
 
-        [HalfWidth]
-        public string SourceName { get; set; }
+        [HalfWidth, LookupEditor(typeof(RrSourceRow))]
+        [DisplayName("Source Name")]
+        public Int32 RRSourceId { get; set; }
 
         [HalfWidth, LookupEditor(typeof(BankNameRow))]
         [DisplayName("Bank Names")]
@@ -50,6 +51,8 @@ namespace AdvanceCRM.Operations.Forms
 
         [HalfWidth]
         public string ContactNumber { get; set; }
+        [HalfWidth]
+        public Int32 CibilScore { get; set; }
 
         [HalfWidth, LookupEditor(typeof(PrimeEmergingRow))]
         [DisplayName("Prime Or Emerging")]
@@ -57,6 +60,9 @@ namespace AdvanceCRM.Operations.Forms
 
         [HalfWidth]
         public string Location { get; set; }
+        [HalfWidth, LookupEditor(typeof(LeadStageRow))]
+        [DisplayName("Lead Stage")]
+        public Int32 LeadStageId { get; set; }
 
         [HalfWidth, LookupEditor(typeof(InHouseBankRow))]
         [DisplayName("InHouse Or Bank")]
@@ -73,10 +79,10 @@ namespace AdvanceCRM.Operations.Forms
         public string Remark { get; set; }
         [FullWidth, TextAreaEditor(Rows = 2)]
         public String? AdditionalInformation { get; set; }
-        [HalfWidth]
+        [HalfWidth, DateTimeEditor]
         public DateTime SystemLoginDate { get; set; }
 
-        [HalfWidth]
+        [HalfWidth, DateTimeEditor]
         public DateTime UnderwritingDate { get; set; }
 
         [HalfWidth]
@@ -97,7 +103,7 @@ namespace AdvanceCRM.Operations.Forms
         // ====== SECTION 5 - Loan Information ======
         [Category("💰 Financial Details")]
 
-        [HalfWidth]
+        [HalfWidth, DateTimeEditor]
         public DateTime DisbursementDate { get; set; }
 
         [HalfWidth]
@@ -107,7 +113,7 @@ namespace AdvanceCRM.Operations.Forms
         [DisplayName("Created By")]
         public Int32 OwnerId { get; set; }
 
-        [HalfWidth, LookupEditor(typeof(UserRow))]
+        [HalfWidth, LookupEditor("Administration.DisbursementProcessUserLookup")]
         [DisplayName("Assigned To")]
         public Int32 AssignedId { get; set; }
     }

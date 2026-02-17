@@ -8321,6 +8321,24 @@ section.content > .s-DataGrid {
 .s-Masters-CasesStageDialog .caption {
   width: 150px;
 }
+.s-Masters-LeadStageDialog > .size {
+  width: 650px;
+}
+.s-Masters-LeadStageDialog .caption {
+  width: 150px;
+}
+.s-Masters-RrSourceDialog > .size {
+  width: 650px;
+}
+.s-Masters-RrSourceDialog .caption {
+  width: 150px;
+}
+.s-Masters-CustomerApprovalDialog > .size {
+  width: 650px;
+}
+.s-Masters-CustomerApprovalDialog .caption {
+  width: 150px;
+}
 .s-Products-ProductsDialog > .size {
   width: 650px;
 }

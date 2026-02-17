@@ -1,6 +1,7 @@
 ﻿namespace AdvanceCRM.Operations {
     export interface MisLogInProcessRow {
         Id?: number;
+        CibilScore?: number;
         SrNo?: string;
         SourceName?: string;
         CustomerName?: string;
@@ -40,6 +41,7 @@
         ContactNumber?: string;
         CompanyMailId?: string;
         EmployeeName?: string;
+        RRSourceId?: number;
         ConfirmationMailTakenOrNot?: string;
         AgreementSigningPersonName?: string;
         LogInLoanStatusId?: number;
@@ -92,6 +94,8 @@
         OwnerEnquiry?: boolean;
         OwnerQuotation?: boolean;
         OwnerTasks?: boolean;
+        LeadStageId?: number;
+        LeadStageName?: string;
         OwnerContacts?: boolean;
         OwnerPurchase?: boolean;
         OwnerSales?: boolean;
@@ -159,6 +163,7 @@
 
         export declare const enum Fields {
             Id = "Id",
+            CibilScore = "CibilScore",
             SrNo = "SrNo",
             SourceName = "SourceName",
             CustomerName = "CustomerName",
@@ -198,6 +203,7 @@
             ContactNumber = "ContactNumber",
             CompanyMailId = "CompanyMailId",
             EmployeeName = "EmployeeName",
+            RRSourceId = "RRSourceId",
             ConfirmationMailTakenOrNot = "ConfirmationMailTakenOrNot",
             AgreementSigningPersonName = "AgreementSigningPersonName",
             LogInLoanStatusId = "LogInLoanStatusId",
@@ -250,6 +256,8 @@
             OwnerEnquiry = "OwnerEnquiry",
             OwnerQuotation = "OwnerQuotation",
             OwnerTasks = "OwnerTasks",
+            LeadStageId = "LeadStageId",
+            LeadStageName = "LeadStageName",
             OwnerContacts = "OwnerContacts",
             OwnerPurchase = "OwnerPurchase",
             OwnerSales = "OwnerSales",

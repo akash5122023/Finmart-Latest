@@ -180,6 +180,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Modules\Common\Reports\" />
+    <Folder Include="Modules\Reports\InsideSales\" />
     <Folder Include="wwwroot\Scripts\colorpicker\" />
   </ItemGroup>
   <Import Project="$(SolutionDir)Serenity\build\submodule.targets" Condition="Exists('$(SolutionDir)Serenity\build\submodule.targets')" />

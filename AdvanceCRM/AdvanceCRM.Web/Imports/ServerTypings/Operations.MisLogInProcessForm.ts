@@ -3,26 +3,28 @@
         ContactPersonInTeam: Serenity.StringEditor;
         Year: Serenity.IntegerEditor;
         MonthId: Serenity.LookupEditor;
-        FileReceivedDateTime: Serenity.DateEditor;
-        SourceName: Serenity.StringEditor;
+        FileReceivedDateTime: Serenity.DateTimeEditor;
+        RRSourceId: Serenity.LookupEditor;
         BankNameId: Serenity.LookupEditor;
         ProductId: Serenity.LookupEditor;
         CustomerName: Serenity.StringEditor;
         FirmName: Serenity.StringEditor;
         ContactNumber: Serenity.StringEditor;
+        CibilScore: Serenity.IntegerEditor;
         PrimeEmergingId: Serenity.LookupEditor;
         Location: Serenity.StringEditor;
+        LeadStageId: Serenity.LookupEditor;
         InhouseBankId: Serenity.LookupEditor;
         LogInLoanStatusId: Serenity.LookupEditor;
         Remark: Serenity.TextAreaEditor;
         AdditionalInformation: Serenity.TextAreaEditor;
-        SystemLoginDate: Serenity.DateEditor;
-        UnderwritingDate: Serenity.DateEditor;
+        SystemLoginDate: Serenity.DateTimeEditor;
+        UnderwritingDate: Serenity.DateTimeEditor;
         SalesManager: Serenity.StringEditor;
         NatureOfBusinessProfile: Serenity.StringEditor;
         ToPreviousYear: Serenity.StringEditor;
         ToLatestYear: Serenity.StringEditor;
-        DisbursementDate: Serenity.DateEditor;
+        DisbursementDate: Serenity.DateTimeEditor;
         LoanAccountNumber: Serenity.StringEditor;
         OwnerId: Serenity.LookupEditor;
         AssignedId: Serenity.LookupEditor;
@@ -42,7 +44,7 @@
                 var w0 = s.StringEditor;
                 var w1 = s.IntegerEditor;
                 var w2 = s.LookupEditor;
-                var w3 = s.DateEditor;
+                var w3 = s.DateTimeEditor;
                 var w4 = s.TextAreaEditor;
 
                 Q.initFormType(MisLogInProcessForm, [
@@ -50,14 +52,16 @@
                     'Year', w1,
                     'MonthId', w2,
                     'FileReceivedDateTime', w3,
-                    'SourceName', w0,
+                    'RRSourceId', w2,
                     'BankNameId', w2,
                     'ProductId', w2,
                     'CustomerName', w0,
                     'FirmName', w0,
                     'ContactNumber', w0,
+                    'CibilScore', w1,
                     'PrimeEmergingId', w2,
                     'Location', w0,
+                    'LeadStageId', w2,
                     'InhouseBankId', w2,
                     'LogInLoanStatusId', w2,
                     'Remark', w4,

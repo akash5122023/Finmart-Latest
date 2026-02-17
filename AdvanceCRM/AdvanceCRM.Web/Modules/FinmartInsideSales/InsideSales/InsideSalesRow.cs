@@ -1,4 +1,5 @@
-﻿using AdvanceCRM.Masters;
+﻿using AdvanceCRM.Contacts;
+using AdvanceCRM.Masters;
 using Serenity;
 using Serenity.ComponentModel;
 using Serenity.Data;
@@ -51,6 +52,20 @@ namespace AdvanceCRM.FinmartInsideSales
         {
             get => fields.FirmName[this];
             set => fields.FirmName[this] = value;
+        }
+        [DisplayName("Contact"), ForeignKey("[dbo].[Contacts]", "Id"), LeftJoin("jContacts"), TextualField("ContactsName")]
+        [LookupEditor(typeof(ContactsRow), InplaceAdd = true)]
+        public Int32? ContactsId
+        {
+            get { return Fields.ContactsId[this]; }
+            set { Fields.ContactsId[this] = value; }
+        }
+        [DisplayName("Contact Person"), ForeignKey("[dbo].[SubContacts]", "Id"), LeftJoin("jContactPerson"), TextualField("ContactPersonName")]
+        [LookupEditor(typeof(SubContactsRow), CascadeFrom = "ContactsId", CascadeValue = "ContactsId")]
+        public Int32? ContactPersonId
+        {
+            get { return Fields.ContactPersonId[this]; }
+            set { Fields.ContactPersonId[this] = value; }
         }
 
         [DisplayName("Bank Source Or Company Name"), Size(200)]
@@ -388,6 +403,7 @@ namespace AdvanceCRM.FinmartInsideSales
         }
 
         [DisplayName("Owner"), ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jOwner"), TextualField("OwnerUsername"), ReadOnly(true)]
+        [Administration.UserEditor]
         public Int32? OwnerId
         {
             get => fields.OwnerId[this];
@@ -395,6 +411,7 @@ namespace AdvanceCRM.FinmartInsideSales
         }
 
         [DisplayName("Assigned"), ForeignKey("[dbo].[Users]", "UserId"), LeftJoin("jAssigned"), TextualField("AssignedUsername"),NotNull]
+        [Administration.UserEditor]
         public Int32? AssignedId
         {
             get => fields.AssignedId[this];
@@ -1044,7 +1061,533 @@ namespace AdvanceCRM.FinmartInsideSales
             get => fields.AssignedPlan[this];
             set => fields.AssignedPlan[this] = value;
         }
+        [DisplayName("Contacts Contact Type"), Expression("jContacts.[ContactType]")]
+        public Int32? ContactsContactType
+        {
+            get { return Fields.ContactsContactType[this]; }
+            set { Fields.ContactsContactType[this] = value; }
+        }
+        [DisplayName("Contact"), Expression("jContacts.[Name]"), QuickSearch]
+        public String ContactsName
+        {
+            get { return Fields.ContactsName[this]; }
+            set { Fields.ContactsName[this] = value; }
+        }
 
+        [DisplayName("Phone"), Expression("jContacts.[Phone]"), QuickSearch, LookupInclude]
+        public String ContactsPhone
+        {
+            get { return Fields.ContactsPhone[this]; }
+            set { Fields.ContactsPhone[this] = value; }
+        }
+
+        [DisplayName("Contacts Email"), Expression("jContacts.[Email]"), LookupInclude]
+        public String ContactsEmail
+        {
+            get { return Fields.ContactsEmail[this]; }
+            set { Fields.ContactsEmail[this] = value; }
+        }
+        [DisplayName("Contact Person"), Expression("jContactPerson.[Name]"), QuickSearch]
+        public String ContactPersonName
+        {
+            get { return Fields.ContactPersonName[this]; }
+            set { Fields.ContactPersonName[this] = value; }
+        }
+        [DisplayName("Address"), Expression("jContacts.[Address]"), TextAreaEditor(Rows = 4)]
+        public String ContactsAddress
+        {
+            get { return Fields.ContactsAddress[this]; }
+            set { Fields.ContactsAddress[this] = value; }
+        }
+
+        [DisplayName("Contacts City Id"), Expression("jContacts.[CityId]")]
+        public Int32? ContactsCityId
+        {
+            get { return Fields.ContactsCityId[this]; }
+            set { Fields.ContactsCityId[this] = value; }
+        }
+
+        [DisplayName("Contacts State Id"), Expression("jContacts.[StateId]")]
+        public Int32? ContactsStateId
+        {
+            get { return Fields.ContactsStateId[this]; }
+            set { Fields.ContactsStateId[this] = value; }
+        }
+
+        [DisplayName("Contacts Pin"), Expression("jContacts.[Pin]")]
+        public String ContactsPin
+        {
+            get { return Fields.ContactsPin[this]; }
+            set { Fields.ContactsPin[this] = value; }
+        }
+
+        [DisplayName("Contacts Country"), Expression("jContacts.[Country]")]
+        public Int32? ContactsCountry
+        {
+            get { return Fields.ContactsCountry[this]; }
+            set { Fields.ContactsCountry[this] = value; }
+        }
+
+        [DisplayName("Contacts Website"), Expression("jContacts.[Website]")]
+        public String ContactsWebsite
+        {
+            get { return Fields.ContactsWebsite[this]; }
+            set { Fields.ContactsWebsite[this] = value; }
+        }
+
+        [DisplayName("Contacts Additional Info"), Expression("jContacts.[AdditionalInfo]")]
+        public String ContactsAdditionalInfo
+        {
+            get { return Fields.ContactsAdditionalInfo[this]; }
+            set { Fields.ContactsAdditionalInfo[this] = value; }
+        }
+
+        [DisplayName("Contacts Residential Phone"), Expression("jContacts.[ResidentialPhone]")]
+        public String ContactsResidentialPhone
+        {
+            get { return Fields.ContactsResidentialPhone[this]; }
+            set { Fields.ContactsResidentialPhone[this] = value; }
+        }
+
+        [DisplayName("Contacts Office Phone"), Expression("jContacts.[OfficePhone]")]
+        public String ContactsOfficePhone
+        {
+            get { return Fields.ContactsOfficePhone[this]; }
+            set { Fields.ContactsOfficePhone[this] = value; }
+        }
+
+        [DisplayName("Contacts Gender"), Expression("jContacts.[Gender]")]
+        public Int32? ContactsGender
+        {
+            get { return Fields.ContactsGender[this]; }
+            set { Fields.ContactsGender[this] = value; }
+        }
+
+        [DisplayName("Contacts Religion"), Expression("jContacts.[Religion]")]
+        public Int32? ContactsReligion
+        {
+            get { return Fields.ContactsReligion[this]; }
+            set { Fields.ContactsReligion[this] = value; }
+        }
+
+        [DisplayName("Contacts Area Id"), Expression("jContacts.[AreaId]")]
+        public Int32? ContactsAreaId
+        {
+            get { return Fields.ContactsAreaId[this]; }
+            set { Fields.ContactsAreaId[this] = value; }
+        }
+
+        [DisplayName("Contacts Marital Status"), Expression("jContacts.[MaritalStatus]")]
+        public Int32? ContactsMaritalStatus
+        {
+            get { return Fields.ContactsMaritalStatus[this]; }
+            set { Fields.ContactsMaritalStatus[this] = value; }
+        }
+
+        [DisplayName("Contacts Marriage Anniversary"), Expression("jContacts.[MarriageAnniversary]")]
+        public DateTime? ContactsMarriageAnniversary
+        {
+            get { return Fields.ContactsMarriageAnniversary[this]; }
+            set { Fields.ContactsMarriageAnniversary[this] = value; }
+        }
+
+        [DisplayName("Contacts Birthdate"), Expression("jContacts.[Birthdate]")]
+        public DateTime? ContactsBirthdate
+        {
+            get { return Fields.ContactsBirthdate[this]; }
+            set { Fields.ContactsBirthdate[this] = value; }
+        }
+
+        [DisplayName("Contacts Date Of Incorporation"), Expression("jContacts.[DateOfIncorporation]")]
+        public DateTime? ContactsDateOfIncorporation
+        {
+            get { return Fields.ContactsDateOfIncorporation[this]; }
+            set { Fields.ContactsDateOfIncorporation[this] = value; }
+        }
+
+        [DisplayName("Contacts Category Id"), Expression("jContacts.[CategoryId]")]
+        public Int32? ContactsCategoryId
+        {
+            get { return Fields.ContactsCategoryId[this]; }
+            set { Fields.ContactsCategoryId[this] = value; }
+        }
+
+        [DisplayName("Contacts Grade Id"), Expression("jContacts.[GradeId]")]
+        public Int32? ContactsGradeId
+        {
+            get { return Fields.ContactsGradeId[this]; }
+            set { Fields.ContactsGradeId[this] = value; }
+        }
+
+        [DisplayName("Contacts Type"), Expression("jContacts.[Type]")]
+        public Int32? ContactsType
+        {
+            get { return Fields.ContactsType[this]; }
+            set { Fields.ContactsType[this] = value; }
+        }
+
+        [DisplayName("Contacts Owner Id"), Expression("jContacts.[OwnerId]")]
+        public Int32? ContactsOwnerId
+        {
+            get { return Fields.ContactsOwnerId[this]; }
+            set { Fields.ContactsOwnerId[this] = value; }
+        }
+
+        [DisplayName("Contacts Assigned Id"), Expression("jContacts.[AssignedId]")]
+        public Int32? ContactsAssignedId
+        {
+            get { return Fields.ContactsAssignedId[this]; }
+            set { Fields.ContactsAssignedId[this] = value; }
+        }
+
+        [DisplayName("Contacts Channel Category"), Expression("jContacts.[ChannelCategory]")]
+        public Int32? ContactsChannelCategory
+        {
+            get { return Fields.ContactsChannelCategory[this]; }
+            set { Fields.ContactsChannelCategory[this] = value; }
+        }
+
+        [DisplayName("Contacts National Distributor"), Expression("jContacts.[NationalDistributor]")]
+        public Int32? ContactsNationalDistributor
+        {
+            get { return Fields.ContactsNationalDistributor[this]; }
+            set { Fields.ContactsNationalDistributor[this] = value; }
+        }
+
+        [DisplayName("Contacts Stockist"), Expression("jContacts.[Stockist]")]
+        public Int32? ContactsStockist
+        {
+            get { return Fields.ContactsStockist[this]; }
+            set { Fields.ContactsStockist[this] = value; }
+        }
+
+        [DisplayName("Contacts Distributor"), Expression("jContacts.[Distributor]")]
+        public Int32? ContactsDistributor
+        {
+            get { return Fields.ContactsDistributor[this]; }
+            set { Fields.ContactsDistributor[this] = value; }
+        }
+
+        [DisplayName("Contacts Dealer"), Expression("jContacts.[Dealer]")]
+        public Int32? ContactsDealer
+        {
+            get { return Fields.ContactsDealer[this]; }
+            set { Fields.ContactsDealer[this] = value; }
+        }
+
+        [DisplayName("Contacts Wholesaler"), Expression("jContacts.[Wholesaler]")]
+        public Int32? ContactsWholesaler
+        {
+            get { return Fields.ContactsWholesaler[this]; }
+            set { Fields.ContactsWholesaler[this] = value; }
+        }
+
+        [DisplayName("Contacts Reseller"), Expression("jContacts.[Reseller]")]
+        public Int32? ContactsReseller
+        {
+            get { return Fields.ContactsReseller[this]; }
+            set { Fields.ContactsReseller[this] = value; }
+        }
+
+        [DisplayName("Contacts GSTIN"), Expression("jContacts.[GSTIN]")]
+        public String ContactsGstin
+        {
+            get { return Fields.ContactsGstin[this]; }
+            set { Fields.ContactsGstin[this] = value; }
+        }
+
+        [DisplayName("Contacts Pan No"), Expression("jContacts.[PANNo]")]
+        public String ContactsPanNo
+        {
+            get { return Fields.ContactsPanNo[this]; }
+            set { Fields.ContactsPanNo[this] = value; }
+        }
+
+        [DisplayName("Contacts Cc Emails"), Expression("jContacts.[CCEmails]")]
+        public String ContactsCcEmails
+        {
+            get { return Fields.ContactsCcEmails[this]; }
+            set { Fields.ContactsCcEmails[this] = value; }
+        }
+
+        [DisplayName("Contacts Bcc Emails"), Expression("jContacts.[BCCEmails]")]
+        public String ContactsBccEmails
+        {
+            get { return Fields.ContactsBccEmails[this]; }
+            set { Fields.ContactsBccEmails[this] = value; }
+        }
+
+        [DisplayName("Contacts Attachment"), Expression("jContacts.[Attachment]")]
+        public String ContactsAttachment
+        {
+            get { return Fields.ContactsAttachment[this]; }
+            set { Fields.ContactsAttachment[this] = value; }
+        }
+
+        [DisplayName("Contacts E Com GSTIN"), Expression("jContacts.[EComGSTIN]")]
+        public String ContactsEComGstin
+        {
+            get { return Fields.ContactsEComGstin[this]; }
+            set { Fields.ContactsEComGstin[this] = value; }
+        }
+
+        [DisplayName("Contacts Creditors Opening"), Expression("jContacts.[CreditorsOpening]")]
+        public Double? ContactsCreditorsOpening
+        {
+            get { return Fields.ContactsCreditorsOpening[this]; }
+            set { Fields.ContactsCreditorsOpening[this] = value; }
+        }
+
+        [DisplayName("Contacts Debtors Opening"), Expression("jContacts.[DebtorsOpening]")]
+        public Double? ContactsDebtorsOpening
+        {
+            get { return Fields.ContactsDebtorsOpening[this]; }
+            set { Fields.ContactsDebtorsOpening[this] = value; }
+        }
+
+        [DisplayName("Contacts Bank Name"), Expression("jContacts.[BankName]")]
+        public String ContactsBankName
+        {
+            get { return Fields.ContactsBankName[this]; }
+            set { Fields.ContactsBankName[this] = value; }
+        }
+
+        [DisplayName("Contacts Account Number"), Expression("jContacts.[AccountNumber]")]
+        public String ContactsAccountNumber
+        {
+            get { return Fields.ContactsAccountNumber[this]; }
+            set { Fields.ContactsAccountNumber[this] = value; }
+        }
+
+        [DisplayName("Contacts Ifsc"), Expression("jContacts.[IFSC]")]
+        public String ContactsIfsc
+        {
+            get { return Fields.ContactsIfsc[this]; }
+            set { Fields.ContactsIfsc[this] = value; }
+        }
+
+        [DisplayName("Contacts Bank Type"), Expression("jContacts.[BankType]")]
+        public String ContactsBankType
+        {
+            get { return Fields.ContactsBankType[this]; }
+            set { Fields.ContactsBankType[this] = value; }
+        }
+
+        [DisplayName("Contacts Branch"), Expression("jContacts.[Branch]")]
+        public String ContactsBranch
+        {
+            get { return Fields.ContactsBranch[this]; }
+            set { Fields.ContactsBranch[this] = value; }
+        }
+
+        [DisplayName("Contacts Accounts Email"), Expression("jContacts.[AccountsEmail]")]
+        public String ContactsAccountsEmail
+        {
+            get { return Fields.ContactsAccountsEmail[this]; }
+            set { Fields.ContactsAccountsEmail[this] = value; }
+        }
+
+        [DisplayName("Contacts Purchase Email"), Expression("jContacts.[PurchaseEmail]")]
+        public String ContactsPurchaseEmail
+        {
+            get { return Fields.ContactsPurchaseEmail[this]; }
+            set { Fields.ContactsPurchaseEmail[this] = value; }
+        }
+
+        [DisplayName("Contacts Service Email"), Expression("jContacts.[ServiceEmail]")]
+        public String ContactsServiceEmail
+        {
+            get { return Fields.ContactsServiceEmail[this]; }
+            set { Fields.ContactsServiceEmail[this] = value; }
+        }
+
+        [DisplayName("Contacts Sales Email"), Expression("jContacts.[SalesEmail]")]
+        public String ContactsSalesEmail
+        {
+            get { return Fields.ContactsSalesEmail[this]; }
+            set { Fields.ContactsSalesEmail[this] = value; }
+        }
+
+        [DisplayName("Contacts Credit Days"), Expression("jContacts.[CreditDays]")]
+        public Int32? ContactsCreditDays
+        {
+            get { return Fields.ContactsCreditDays[this]; }
+            set { Fields.ContactsCreditDays[this] = value; }
+        }
+
+        [DisplayName("Contacts Customer Type"), Expression("jContacts.[CustomerType]")]
+        public Int32? ContactsCustomerType
+        {
+            get { return Fields.ContactsCustomerType[this]; }
+            set { Fields.ContactsCustomerType[this] = value; }
+        }
+
+        [DisplayName("Contacts Trasportation Id"), Expression("jContacts.[TrasportationId]")]
+        public Int32? ContactsTrasportationId
+        {
+            get { return Fields.ContactsTrasportationId[this]; }
+            set { Fields.ContactsTrasportationId[this] = value; }
+        }
+
+        [DisplayName("Contacts Tehsil Id"), Expression("jContacts.[TehsilId]")]
+        public Int32? ContactsTehsilId
+        {
+            get { return Fields.ContactsTehsilId[this]; }
+            set { Fields.ContactsTehsilId[this] = value; }
+        }
+
+        [DisplayName("Contacts Village Id"), Expression("jContacts.[VillageId]")]
+        public Int32? ContactsVillageId
+        {
+            get { return Fields.ContactsVillageId[this]; }
+            set { Fields.ContactsVillageId[this] = value; }
+        }
+
+        [DisplayName("Contacts Whatsapp"), Expression("jContacts.[Whatsapp]")]
+        public String ContactsWhatsapp
+        {
+            get { return Fields.ContactsWhatsapp[this]; }
+            set { Fields.ContactsWhatsapp[this] = value; }
+        }
+        [DisplayName("Contact Person Phone"), Expression("jContactPerson.[Phone]")]
+        public String ContactPersonPhone
+        {
+            get => fields.ContactPersonPhone[this];
+            set => fields.ContactPersonPhone[this] = value;
+        }
+
+        [DisplayName("Contact Person Residential Phone"), Expression("jContactPerson.[ResidentialPhone]")]
+        public String ContactPersonResidentialPhone
+        {
+            get => fields.ContactPersonResidentialPhone[this];
+            set => fields.ContactPersonResidentialPhone[this] = value;
+        }
+
+        [DisplayName("Contact Person Email"), Expression("jContactPerson.[Email]")]
+        public String ContactPersonEmail
+        {
+            get => fields.ContactPersonEmail[this];
+            set => fields.ContactPersonEmail[this] = value;
+        }
+
+        [DisplayName("Contact Person Designation"), Expression("jContactPerson.[Designation]")]
+        public String ContactPersonDesignation
+        {
+            get => fields.ContactPersonDesignation[this];
+            set => fields.ContactPersonDesignation[this] = value;
+        }
+
+        [DisplayName("Contact Person Address"), Expression("jContactPerson.[Address]")]
+        public String ContactPersonAddress
+        {
+            get => fields.ContactPersonAddress[this];
+            set => fields.ContactPersonAddress[this] = value;
+        }
+
+        [DisplayName("Contact Person Gender"), Expression("jContactPerson.[Gender]")]
+        public Int32? ContactPersonGender
+        {
+            get => fields.ContactPersonGender[this];
+            set => fields.ContactPersonGender[this] = value;
+        }
+
+        [DisplayName("Contact Person Religion"), Expression("jContactPerson.[Religion]")]
+        public Int32? ContactPersonReligion
+        {
+            get => fields.ContactPersonReligion[this];
+            set => fields.ContactPersonReligion[this] = value;
+        }
+
+        [DisplayName("Contact Person Marital Status"), Expression("jContactPerson.[MaritalStatus]")]
+        public Int32? ContactPersonMaritalStatus
+        {
+            get => fields.ContactPersonMaritalStatus[this];
+            set => fields.ContactPersonMaritalStatus[this] = value;
+        }
+
+        [DisplayName("Contact Person Marriage Anniversary"), Expression("jContactPerson.[MarriageAnniversary]")]
+        public DateTime? ContactPersonMarriageAnniversary
+        {
+            get => fields.ContactPersonMarriageAnniversary[this];
+            set => fields.ContactPersonMarriageAnniversary[this] = value;
+        }
+
+        [DisplayName("Contact Person Birthdate"), Expression("jContactPerson.[Birthdate]")]
+        public DateTime? ContactPersonBirthdate
+        {
+            get => fields.ContactPersonBirthdate[this];
+            set => fields.ContactPersonBirthdate[this] = value;
+        }
+
+        [DisplayName("Contact Person Contacts Id"), Expression("jContactPerson.[ContactsId]")]
+        public Int32? ContactPersonContactsId
+        {
+            get => fields.ContactPersonContactsId[this];
+            set => fields.ContactPersonContactsId[this] = value;
+        }
+
+        [DisplayName("Contact Person Project"), Expression("jContactPerson.[Project]")]
+        public String ContactPersonProject
+        {
+            get => fields.ContactPersonProject[this];
+            set => fields.ContactPersonProject[this] = value;
+        }
+
+        [DisplayName("Contact Person Whatsapp"), Expression("jContactPerson.[Whatsapp]")]
+        public String ContactPersonWhatsapp
+        {
+            get => fields.ContactPersonWhatsapp[this];
+            set => fields.ContactPersonWhatsapp[this] = value;
+        }
+
+        [DisplayName("Contact Person Passport Number"), Expression("jContactPerson.[PassportNumber]")]
+        public String ContactPersonPassportNumber
+        {
+            get => fields.ContactPersonPassportNumber[this];
+            set => fields.ContactPersonPassportNumber[this] = value;
+        }
+
+        [DisplayName("Contact Person First Name"), Expression("jContactPerson.[FirstName]")]
+        public String ContactPersonFirstName
+        {
+            get => fields.ContactPersonFirstName[this];
+            set => fields.ContactPersonFirstName[this] = value;
+        }
+
+        [DisplayName("Contact Person Last Name"), Expression("jContactPerson.[LastName]")]
+        public String ContactPersonLastName
+        {
+            get => fields.ContactPersonLastName[this];
+            set => fields.ContactPersonLastName[this] = value;
+        }
+
+        [DisplayName("Contact Person Expiry Date"), Expression("jContactPerson.[ExpiryDate]")]
+        public DateTime? ContactPersonExpiryDate
+        {
+            get => fields.ContactPersonExpiryDate[this];
+            set => fields.ContactPersonExpiryDate[this] = value;
+        }
+
+        [DisplayName("Contact Person Aadhar No"), Expression("jContactPerson.[AadharNo]")]
+        public String ContactPersonAadharNo
+        {
+            get => fields.ContactPersonAadharNo[this];
+            set => fields.ContactPersonAadharNo[this] = value;
+        }
+
+        [DisplayName("Contact Person Pan No"), Expression("jContactPerson.[PANNo]")]
+        public String ContactPersonPanNo
+        {
+            get => fields.ContactPersonPanNo[this];
+            set => fields.ContactPersonPanNo[this] = value;
+        }
+
+        [DisplayName("Contact Person File Attachments"), Expression("jContactPerson.[FileAttachments]")]
+        public String ContactPersonFileAttachments
+        {
+            get => fields.ContactPersonFileAttachments[this];
+            set => fields.ContactPersonFileAttachments[this] = value;
+        }
         public InsideSalesRow()
             : base()
         {
@@ -1060,6 +1603,8 @@ namespace AdvanceCRM.FinmartInsideSales
         public class RowFields : RowFieldsBase
         {
             public Int32Field Id;
+            public Int32Field ContactsId;
+            public Int32Field ContactPersonId;
             public StringField SrNo;
             public StringField SourceName;
             public StringField CustomerName;
@@ -1176,6 +1721,85 @@ namespace AdvanceCRM.FinmartInsideSales
             public Int32Field OwnerTenantId;
             public StringField OwnerUrl;
             public StringField OwnerPlan;
+
+            public Int32Field ContactsType;
+            public Int32Field ContactsOwnerId;
+            public Int32Field ContactsAssignedId;
+            public Int32Field ContactsChannelCategory;
+            public Int32Field ContactsNationalDistributor;
+            public Int32Field ContactsStockist;
+            public Int32Field ContactsDistributor;
+            public Int32Field ContactsDealer;
+            public Int32Field ContactsWholesaler;
+            public Int32Field ContactsReseller;
+            public StringField ContactsGstin;
+            public StringField ContactsPanNo;
+            public StringField ContactsCcEmails;
+            public StringField ContactsBccEmails;
+            public StringField ContactsAttachment;
+            public StringField ContactsEComGstin;
+            public DoubleField ContactsCreditorsOpening;
+            public DoubleField ContactsDebtorsOpening;
+            public StringField ContactsBankName;
+            public StringField ContactsAccountNumber;
+            public StringField ContactsIfsc;
+            public StringField ContactsBankType;
+            public StringField ContactsBranch;
+            public StringField ContactsAccountsEmail;
+            public StringField ContactsPurchaseEmail;
+            public StringField ContactsServiceEmail;
+            public StringField ContactsSalesEmail;
+            public Int32Field ContactsCreditDays;
+            public Int32Field ContactsCustomerType;
+            public Int32Field ContactsTrasportationId;
+            public Int32Field ContactsTehsilId;
+            public Int32Field ContactsVillageId;
+            public StringField ContactsWhatsapp;
+            public Int32Field ContactsContactType;
+            public StringField ContactsName;
+            public StringField ContactsPhone;
+            public StringField ContactsEmail;
+            public StringField ContactsAddress;
+            public Int32Field ContactsCityId;
+            public Int32Field ContactsStateId;
+            public StringField ContactsPin;
+            public Int32Field ContactsCountry;
+            public StringField ContactsWebsite;
+            public StringField ContactsAdditionalInfo;
+            public StringField ContactsResidentialPhone;
+            public StringField ContactPersonName;
+            public StringField ContactsOfficePhone;
+            public Int32Field ContactsGender;
+            public Int32Field ContactsReligion;
+            public Int32Field ContactsAreaId;
+            public Int32Field ContactsMaritalStatus;
+            public DateTimeField ContactsMarriageAnniversary;
+            public DateTimeField ContactsBirthdate;
+            public DateTimeField ContactsDateOfIncorporation;
+            public Int32Field ContactsCategoryId;
+            public Int32Field ContactsGradeId;
+
+            //public StringField ContactPersonName;
+            public StringField ContactPersonPhone;
+            public StringField ContactPersonResidentialPhone;
+            public StringField ContactPersonEmail;
+            public StringField ContactPersonDesignation;
+            public StringField ContactPersonAddress;
+            public Int32Field ContactPersonGender;
+            public Int32Field ContactPersonReligion;
+            public Int32Field ContactPersonMaritalStatus;
+            public DateTimeField ContactPersonMarriageAnniversary;
+            public DateTimeField ContactPersonBirthdate;
+            public Int32Field ContactPersonContactsId;
+            public StringField ContactPersonProject;
+            public StringField ContactPersonWhatsapp;
+            public StringField ContactPersonPassportNumber;
+            public StringField ContactPersonFirstName;
+            public StringField ContactPersonLastName;
+            public DateTimeField ContactPersonExpiryDate;
+            public StringField ContactPersonAadharNo;
+            public StringField ContactPersonPanNo;
+            public StringField ContactPersonFileAttachments;
 
             public StringField AssignedUsername;
             public StringField AssignedDisplayName;

@@ -31,8 +31,9 @@ namespace AdvanceCRM.Operations.Forms
         [DisplayName("Bank Name")]
         public Int32 BankNameId { get; set; }
 
-        [HalfWidth]
-        public string SourceName { get; set; }
+        [HalfWidth, LookupEditor(typeof(RrSourceRow))]
+        [DisplayName("Source Name")]
+        public Int32 RRSourceId { get; set; }
 
         // ====== SECTION 2 - Applicant Information ======
         [Category("👤 Applicant Details")]
@@ -44,10 +45,18 @@ namespace AdvanceCRM.Operations.Forms
         [HalfWidth]
         [DisplayName("Bank Source / Company Name (Eg: Truewin, Finmart, Other)")]
         public string BankSourceOrCompanyName { get; set; }
+        [HalfWidth]
+        public Int32 CibilScore { get; set; }       = 0;
+
+        [HalfWidth, LookupEditor(typeof(LeadStageRow))]
+        [DisplayName("Lead Stage")]
+        public Int32 LeadStageId { get; set; }
 
         // ====== SECTION 3 - Financial Information ======
         [Category("💰 Financial Details")]
-
+        [HalfWidth, LookupEditor(typeof(CustomerApprovalRow))]
+        [DisplayName("Customer Approval")]
+        public Int32 CustomerApprovalId { get; set; }
         [HalfWidth]
         public decimal Amount { get; set; }
 
@@ -109,8 +118,8 @@ namespace AdvanceCRM.Operations.Forms
         [DisplayName("Created By")]
         public Int32 OwnerId { get; set; }
 
-        [HalfWidth, LookupEditor(typeof(UserRow))]
-        [DisplayName("Assigned To")]
-        public Int32 AssignedId { get; set; }
+        //[HalfWidth, LookupEditor("Administration.DisbursementProcessUserLookup")]
+        //[DisplayName("Assigned To")]
+        //public Int32 AssignedId { get; set; }
     }
 }

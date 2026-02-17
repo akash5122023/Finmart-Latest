@@ -261,6 +261,7 @@ namespace MVC
                 public const string InventoryDashboardIndex = "~/Modules/Common/Dashboard/InventoryDashboardIndex.cshtml";
                 public const string IVRDashboardIndex = "~/Modules/Common/Dashboard/IVRDashboardIndex.cshtml";
                 public const string LogInProcessIndex = "~/Modules/Common/Dashboard/LogInProcessIndex.cshtml";
+                public const string SalesOperationsDashboardIndex = "~/Modules/Common/Dashboard/SalesOperationsDashboardIndex.cshtml";
                 public const string TeamDashboardData = "~/Modules/Common/Dashboard/TeamDashboardData.cshtml";
                 public const string TeamDashboardIndex = "~/Modules/Common/Dashboard/TeamDashboardIndex.cshtml";
             }
@@ -476,6 +477,11 @@ namespace MVC
                 public const string ComplaintTypeIndex = "~/Modules/Masters/ComplaintType/ComplaintTypeIndex.cshtml";
             }
 
+            public static class CustomerApproval
+            {
+                public const string CustomerApprovalIndex = "~/Modules/Masters/CustomerApproval/CustomerApprovalIndex.cshtml";
+            }
+
             public static class Days
             {
                 public const string DaysIndex = "~/Modules/Masters/Days/DaysIndex.cshtml";
@@ -499,6 +505,11 @@ namespace MVC
             public static class InHouseBank
             {
                 public const string InHouseBankIndex = "~/Modules/Masters/InHouseBank/InHouseBankIndex.cshtml";
+            }
+
+            public static class LeadStage
+            {
+                public const string LeadStageIndex = "~/Modules/Masters/LeadStage/LeadStageIndex.cshtml";
             }
 
             public static class LogInLoanStatus
@@ -559,6 +570,11 @@ namespace MVC
             public static class QuotationTermsMaster
             {
                 public const string QuotationTermsMasterIndex = "~/Modules/Masters/QuotationTermsMaster/QuotationTermsMasterIndex.cshtml";
+            }
+
+            public static class RrSource
+            {
+                public const string RrSourceIndex = "~/Modules/Masters/RrSource/RrSourceIndex.cshtml";
             }
 
             public static class SalesLoanStatus

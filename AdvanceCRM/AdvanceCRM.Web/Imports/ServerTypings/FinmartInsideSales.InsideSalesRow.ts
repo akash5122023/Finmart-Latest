@@ -1,6 +1,8 @@
 ﻿namespace AdvanceCRM.FinmartInsideSales {
     export interface InsideSalesRow {
         Id?: number;
+        ContactsId?: number;
+        ContactPersonId?: number;
         SrNo?: string;
         SourceName?: string;
         CustomerName?: string;
@@ -103,6 +105,82 @@
         OwnerTenantId?: number;
         OwnerUrl?: string;
         OwnerPlan?: string;
+        ContactsType?: number;
+        ContactsOwnerId?: number;
+        ContactsAssignedId?: number;
+        ContactsChannelCategory?: number;
+        ContactsNationalDistributor?: number;
+        ContactsStockist?: number;
+        ContactsDistributor?: number;
+        ContactsDealer?: number;
+        ContactsWholesaler?: number;
+        ContactsReseller?: number;
+        ContactsGstin?: string;
+        ContactsPanNo?: string;
+        ContactsCcEmails?: string;
+        ContactsBccEmails?: string;
+        ContactsAttachment?: string;
+        ContactsEComGstin?: string;
+        ContactsCreditorsOpening?: number;
+        ContactsDebtorsOpening?: number;
+        ContactsBankName?: string;
+        ContactsAccountNumber?: string;
+        ContactsIfsc?: string;
+        ContactsBankType?: string;
+        ContactsBranch?: string;
+        ContactsAccountsEmail?: string;
+        ContactsPurchaseEmail?: string;
+        ContactsServiceEmail?: string;
+        ContactsSalesEmail?: string;
+        ContactsCreditDays?: number;
+        ContactsCustomerType?: number;
+        ContactsTrasportationId?: number;
+        ContactsTehsilId?: number;
+        ContactsVillageId?: number;
+        ContactsWhatsapp?: string;
+        ContactsContactType?: number;
+        ContactsName?: string;
+        ContactsPhone?: string;
+        ContactsEmail?: string;
+        ContactsAddress?: string;
+        ContactsCityId?: number;
+        ContactsStateId?: number;
+        ContactsPin?: string;
+        ContactsCountry?: number;
+        ContactsWebsite?: string;
+        ContactsAdditionalInfo?: string;
+        ContactsResidentialPhone?: string;
+        ContactPersonName?: string;
+        ContactsOfficePhone?: string;
+        ContactsGender?: number;
+        ContactsReligion?: number;
+        ContactsAreaId?: number;
+        ContactsMaritalStatus?: number;
+        ContactsMarriageAnniversary?: string;
+        ContactsBirthdate?: string;
+        ContactsDateOfIncorporation?: string;
+        ContactsCategoryId?: number;
+        ContactsGradeId?: number;
+        ContactPersonPhone?: string;
+        ContactPersonResidentialPhone?: string;
+        ContactPersonEmail?: string;
+        ContactPersonDesignation?: string;
+        ContactPersonAddress?: string;
+        ContactPersonGender?: number;
+        ContactPersonReligion?: number;
+        ContactPersonMaritalStatus?: number;
+        ContactPersonMarriageAnniversary?: string;
+        ContactPersonBirthdate?: string;
+        ContactPersonContactsId?: number;
+        ContactPersonProject?: string;
+        ContactPersonWhatsapp?: string;
+        ContactPersonPassportNumber?: string;
+        ContactPersonFirstName?: string;
+        ContactPersonLastName?: string;
+        ContactPersonExpiryDate?: string;
+        ContactPersonAadharNo?: string;
+        ContactPersonPanNo?: string;
+        ContactPersonFileAttachments?: string;
         AssignedUsername?: string;
         AssignedDisplayName?: string;
         AssignedEmail?: string;
@@ -160,6 +238,8 @@
 
         export declare const enum Fields {
             Id = "Id",
+            ContactsId = "ContactsId",
+            ContactPersonId = "ContactPersonId",
             SrNo = "SrNo",
             SourceName = "SourceName",
             CustomerName = "CustomerName",
@@ -262,6 +342,82 @@
             OwnerTenantId = "OwnerTenantId",
             OwnerUrl = "OwnerUrl",
             OwnerPlan = "OwnerPlan",
+            ContactsType = "ContactsType",
+            ContactsOwnerId = "ContactsOwnerId",
+            ContactsAssignedId = "ContactsAssignedId",
+            ContactsChannelCategory = "ContactsChannelCategory",
+            ContactsNationalDistributor = "ContactsNationalDistributor",
+            ContactsStockist = "ContactsStockist",
+            ContactsDistributor = "ContactsDistributor",
+            ContactsDealer = "ContactsDealer",
+            ContactsWholesaler = "ContactsWholesaler",
+            ContactsReseller = "ContactsReseller",
+            ContactsGstin = "ContactsGstin",
+            ContactsPanNo = "ContactsPanNo",
+            ContactsCcEmails = "ContactsCcEmails",
+            ContactsBccEmails = "ContactsBccEmails",
+            ContactsAttachment = "ContactsAttachment",
+            ContactsEComGstin = "ContactsEComGstin",
+            ContactsCreditorsOpening = "ContactsCreditorsOpening",
+            ContactsDebtorsOpening = "ContactsDebtorsOpening",
+            ContactsBankName = "ContactsBankName",
+            ContactsAccountNumber = "ContactsAccountNumber",
+            ContactsIfsc = "ContactsIfsc",
+            ContactsBankType = "ContactsBankType",
+            ContactsBranch = "ContactsBranch",
+            ContactsAccountsEmail = "ContactsAccountsEmail",
+            ContactsPurchaseEmail = "ContactsPurchaseEmail",
+            ContactsServiceEmail = "ContactsServiceEmail",
+            ContactsSalesEmail = "ContactsSalesEmail",
+            ContactsCreditDays = "ContactsCreditDays",
+            ContactsCustomerType = "ContactsCustomerType",
+            ContactsTrasportationId = "ContactsTrasportationId",
+            ContactsTehsilId = "ContactsTehsilId",
+            ContactsVillageId = "ContactsVillageId",
+            ContactsWhatsapp = "ContactsWhatsapp",
+            ContactsContactType = "ContactsContactType",
+            ContactsName = "ContactsName",
+            ContactsPhone = "ContactsPhone",
+            ContactsEmail = "ContactsEmail",
+            ContactsAddress = "ContactsAddress",
+            ContactsCityId = "ContactsCityId",
+            ContactsStateId = "ContactsStateId",
+            ContactsPin = "ContactsPin",
+            ContactsCountry = "ContactsCountry",
+            ContactsWebsite = "ContactsWebsite",
+            ContactsAdditionalInfo = "ContactsAdditionalInfo",
+            ContactsResidentialPhone = "ContactsResidentialPhone",
+            ContactPersonName = "ContactPersonName",
+            ContactsOfficePhone = "ContactsOfficePhone",
+            ContactsGender = "ContactsGender",
+            ContactsReligion = "ContactsReligion",
+            ContactsAreaId = "ContactsAreaId",
+            ContactsMaritalStatus = "ContactsMaritalStatus",
+            ContactsMarriageAnniversary = "ContactsMarriageAnniversary",
+            ContactsBirthdate = "ContactsBirthdate",
+            ContactsDateOfIncorporation = "ContactsDateOfIncorporation",
+            ContactsCategoryId = "ContactsCategoryId",
+            ContactsGradeId = "ContactsGradeId",
+            ContactPersonPhone = "ContactPersonPhone",
+            ContactPersonResidentialPhone = "ContactPersonResidentialPhone",
+            ContactPersonEmail = "ContactPersonEmail",
+            ContactPersonDesignation = "ContactPersonDesignation",
+            ContactPersonAddress = "ContactPersonAddress",
+            ContactPersonGender = "ContactPersonGender",
+            ContactPersonReligion = "ContactPersonReligion",
+            ContactPersonMaritalStatus = "ContactPersonMaritalStatus",
+            ContactPersonMarriageAnniversary = "ContactPersonMarriageAnniversary",
+            ContactPersonBirthdate = "ContactPersonBirthdate",
+            ContactPersonContactsId = "ContactPersonContactsId",
+            ContactPersonProject = "ContactPersonProject",
+            ContactPersonWhatsapp = "ContactPersonWhatsapp",
+            ContactPersonPassportNumber = "ContactPersonPassportNumber",
+            ContactPersonFirstName = "ContactPersonFirstName",
+            ContactPersonLastName = "ContactPersonLastName",
+            ContactPersonExpiryDate = "ContactPersonExpiryDate",
+            ContactPersonAadharNo = "ContactPersonAadharNo",
+            ContactPersonPanNo = "ContactPersonPanNo",
+            ContactPersonFileAttachments = "ContactPersonFileAttachments",
             AssignedUsername = "AssignedUsername",
             AssignedDisplayName = "AssignedDisplayName",
             AssignedEmail = "AssignedEmail",

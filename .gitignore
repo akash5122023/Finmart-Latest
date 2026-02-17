@@ -212,3 +212,4 @@ internal-nlog.txt
 CopilotIndices/
 CopilotSnapshots/
 copilot-chat/
+/AdvanceCRM/AdvanceCRM.Web/appsettings.json
