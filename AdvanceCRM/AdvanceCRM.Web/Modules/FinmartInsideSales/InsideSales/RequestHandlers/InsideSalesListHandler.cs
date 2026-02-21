@@ -28,8 +28,14 @@ namespace AdvanceCRM.FinmartInsideSales
             {
                 var fld = MyRow.Fields;
                 // User can see records where they are either the Owner or Assigned user
+                // Also allow users with InitialProcess read permission to see records assigned to them
                 query.Where(new Criteria(fld.OwnerId) == user.UserId | 
-                           new Criteria(fld.AssignedId) == user.UserId);
+                           new Criteria(fld.AssignedId) == user.UserId |
+                           new Criteria(fld.OwnerUpperLevel) == user.UserId |
+                           new Criteria(fld.OwnerUpperLevel2) == user.UserId |
+                           new Criteria(fld.OwnerUpperLevel3) == user.UserId |
+                           new Criteria(fld.OwnerUpperLevel4) == user.UserId |
+                           new Criteria(fld.OwnerUpperLevel5) == user.UserId);
             }
         }
     }
