@@ -207,7 +207,7 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
             return connection.Query<int?>(sql, new { username }).FirstOrDefault();
         }
 
-        [HttpPost, ServiceAuthorize(PermissionKeys.Update)]
+        [HttpPost, ServiceAuthorize("InsideSales:Move To InitialProcess")]
         public StandardResponse MoveToInitialProcess(IUnitOfWork uow, SendMailRequest request)
         {
             var response = new StandardResponse();

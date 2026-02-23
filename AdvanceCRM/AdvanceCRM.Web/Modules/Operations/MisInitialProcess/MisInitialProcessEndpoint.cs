@@ -66,15 +66,15 @@ namespace AdvanceCRM.Operations.Endpoints
         {
             request ??= new ListRequest { Take = 0 }; // Defensive: always have a request
 
+            // Include all expression/view fields that the Excel exporter needs
             request.IncludeColumns = new HashSet<string>
             {
                 nameof(MisInitialProcessRow.ContactPersonName),
                 nameof(MisInitialProcessRow.ContactPersonPhone),
+                nameof(MisInitialProcessRow.ContactPersonEmail),
+                nameof(MisInitialProcessRow.ContactPersonAddress),
+                nameof(MisInitialProcessRow.SourceName),
                 nameof(MisInitialProcessRow.ProductProductTypeName),
-                nameof(MisInitialProcessRow.ContactPersonEmail),
-                nameof(MisInitialProcessRow.ContactPersonEmail),
-                //nameof(MisInitialProcessRow.SalesLoanStatusSalesLoanStatusName),
-                //nameof(MisInitialProcessRow.StageOfTheCaseCasesStageName),
                 nameof(MisInitialProcessRow.OwnerUsername),
                 nameof(MisInitialProcessRow.AssignedUsername)
              };
@@ -179,7 +179,22 @@ namespace AdvanceCRM.Operations.Endpoints
             if (string.IsNullOrWhiteSpace(textValue))
                 return null;
 
-            var sql = $"SELECT Id FROM {tableName} WHERE {textColumn} = @textValue";
+            // Whitelist validation to prevent SQL injection
+            var allowedTables = new Dictionary<string, string>
+            {
+                { "TypesOfCompanies", "CompanyTypeName" },
+                { "TypesofProducts", "ProductTypeName" },
+                { "BusinessDetailType", "BusinessDetailTypeName" },
+                { "AccountType", "AccountTypeName" },
+                { "SalesLoanStatus", "SalesLoanStatusName" },
+                { "StageOfTheCase", "CasesStageName" },
+                { "MonthsInYear", "MonthsName" }
+            };
+
+            if (!allowedTables.TryGetValue(tableName, out var validColumn) || validColumn != textColumn)
+                throw new ArgumentException($"Invalid table or column: {tableName}.{textColumn}");
+
+            var sql = $"SELECT Id FROM [{tableName}] WHERE [{textColumn}] = @textValue";
             return connection.Query<int?>(sql, new { textValue }).FirstOrDefault();
         }
 
@@ -205,8 +220,10 @@ namespace AdvanceCRM.Operations.Endpoints
                 return response;
             }
 
+            var f = MisInitialProcessRow.Fields;
             var sourceInitialProcess = uow.Connection.TryById<MisInitialProcessRow>(request.Id, q => q
-               .SelectTableFields());
+               .SelectTableFields()
+               .Select(f.SourceName));  // Include expression field
 
             var cmp = CompanyDetailsRow.Fields;
             var company = uow.Connection.TryById<CompanyDetailsRow>(1, q => q

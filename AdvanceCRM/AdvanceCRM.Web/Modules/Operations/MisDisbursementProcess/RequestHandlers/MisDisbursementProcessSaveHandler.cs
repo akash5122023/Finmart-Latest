@@ -25,17 +25,39 @@ namespace AdvanceCRM.Operations
         {
             base.BeforeSave();
 
-            // Auto-set OwnerId to current user on create
-            if (IsCreate)
+            // Get current user - try multiple methods to ensure we get the user
+            int? currentUserId = null;
+
+            // Method 1: Try from Context.User claims
+            var userDef = Context.User?.ToUserDefinition();
+            if (userDef != null && userDef.UserId > 0)
             {
-                var user = (UserDefinition)Context.User.ToUserDefinition();
-                if (user != null)
+                currentUserId = userDef.UserId;
+            }
+
+            // Method 2: Fallback to Authorization.UserDefinition
+            if (!currentUserId.HasValue || currentUserId == 0)
+            {
+                var authUser = Authorization.UserDefinition as UserDefinition;
+                if (authUser != null && authUser.UserId > 0)
                 {
-                    // Set OwnerId (creator) to current user if not already set
-                    if (Row.OwnerId == null || Row.OwnerId == 0)
-                    {
-                        Row.OwnerId = user.UserId;
-                    }
+                    currentUserId = authUser.UserId;
+                }
+            }
+
+            // Auto-set OwnerId and AssignedId to current user on create
+            if (IsCreate && currentUserId.HasValue && currentUserId > 0)
+            {
+                // Set OwnerId (creator) to current user if not already set
+                if (!Row.OwnerId.HasValue || Row.OwnerId == 0)
+                {
+                    Row.OwnerId = currentUserId;
+                }
+
+                // Set AssignedId to current user if not already set
+                if (!Row.AssignedId.HasValue || Row.AssignedId == 0)
+                {
+                    Row.AssignedId = currentUserId;
                 }
             }
         }

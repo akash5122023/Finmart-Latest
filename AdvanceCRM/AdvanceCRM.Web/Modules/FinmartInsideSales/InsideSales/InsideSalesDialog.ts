@@ -117,10 +117,14 @@
                             response => {
                                 if (response.Id > 0) {
                                     Q.notifySuccess(response.Status);
+
                                     // Only open InitialProcess dialog if user has permission
                                     if (Authorization.hasPermission("MISInitialProcess:Read")) {
                                         new Operations.MisInitialProcessDialog().loadByIdAndOpenDialog(response.Id);
                                     }
+
+                                    // Close current dialog
+                                    this.dialogClose();
                                 }
                                 else
                                     Q.notifyError(response.Status)

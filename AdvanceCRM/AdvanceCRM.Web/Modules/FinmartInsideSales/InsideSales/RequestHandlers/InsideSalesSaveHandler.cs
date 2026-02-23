@@ -1,5 +1,6 @@
 ﻿using AdvanceCRM.Administration;
 using AdvanceCRM.Common.Helpers;
+using Serenity;
 using Serenity.Services;
 using Serenity.Web;
 using MyRequest = Serenity.Services.SaveRequest<AdvanceCRM.FinmartInsideSales.InsideSalesRow>;
@@ -21,23 +22,39 @@ namespace AdvanceCRM.FinmartInsideSales
         {
             base.BeforeSave();
 
-            // Auto-set OwnerId and AssignedId to current user on create
-            if (IsCreate)
-            {
-                var user = (UserDefinition)Context.User.ToUserDefinition();
-                if (user != null)
-                {
-                    // Set OwnerId (creator) to current user if not already set
-                    if (Row.OwnerId == null || Row.OwnerId == 0)
-                    {
-                        Row.OwnerId = user.UserId;
-                    }
+            // Get current user - try multiple methods to ensure we get the user
+            int? currentUserId = null;
 
-                    // Set AssignedId to current user if not already set
-                    if (Row.AssignedId == null || Row.AssignedId == 0)
-                    {
-                        Row.AssignedId = user.UserId;
-                    }
+            // Method 1: Try from Context.User claims
+            var userDef = Context.User?.ToUserDefinition();
+            if (userDef != null && userDef.UserId > 0)
+            {
+                currentUserId = userDef.UserId;
+            }
+
+            // Method 2: Fallback to Authorization.UserDefinition
+            if (!currentUserId.HasValue || currentUserId == 0)
+            {
+                var authUser = Authorization.UserDefinition as UserDefinition;
+                if (authUser != null && authUser.UserId > 0)
+                {
+                    currentUserId = authUser.UserId;
+                }
+            }
+
+            // Auto-set OwnerId and AssignedId to current user on create
+            if (IsCreate && currentUserId.HasValue && currentUserId > 0)
+            {
+                // Set OwnerId (creator) to current user if not already set
+                if (!Row.OwnerId.HasValue || Row.OwnerId == 0)
+                {
+                    Row.OwnerId = currentUserId;
+                }
+
+                // Set AssignedId to current user if not already set
+                if (!Row.AssignedId.HasValue || Row.AssignedId == 0)
+                {
+                    Row.AssignedId = currentUserId;
                 }
             }
         }

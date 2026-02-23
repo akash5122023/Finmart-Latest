@@ -15,7 +15,7 @@
         {
             IdField = UserRow.Fields.UserId.PropertyName;
             TextField = UserRow.Fields.DisplayName.PropertyName;
-            Expiration = TimeSpan.FromDays(-1);
+            Expiration = TimeSpan.FromMinutes(1);
         }
 
         protected override void PrepareQuery(SqlQuery query)
@@ -38,7 +38,7 @@
 
             return LocalCache.GetLocalStoreOnly(
                 "UserLookup:" + this.ScriptName + ":" + user.CompanyId,
-                TimeSpan.FromHours(1),
+                TimeSpan.FromMinutes(1),
                 new UserRow().GetFields().GenerationKey,
                 () => base.GetScript()
             );

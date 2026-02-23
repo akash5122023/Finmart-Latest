@@ -11,8 +11,8 @@ namespace AdvanceCRM.Common
 
     [ConnectionKey("Default"), Module("Common"), TableName("[dbo].[NotificationUsers]")]
     [DisplayName("Notification Users"), InstanceName("Notification Users")]
-    [ReadPermission("")]
-    [ModifyPermission("")]
+    [ReadPermission("?")]
+    [ModifyPermission("?")]
     public sealed class NotificationUsersRow : Row<NotificationUsersRow.RowFields>, IIdRow
     {
         [DisplayName("Id"), Identity,IdProperty]

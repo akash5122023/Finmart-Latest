@@ -48,10 +48,10 @@
         export const idProperty = 'Id';
         export const nameProperty = 'Text';
         export const localTextPrefix = 'Common.Notifications';
-        export const deletePermission = '';
-        export const insertPermission = '';
-        export const readPermission = '';
-        export const updatePermission = '';
+        export const deletePermission = '?';
+        export const insertPermission = '?';
+        export const readPermission = '?';
+        export const updatePermission = '?';
 
         export declare const enum Fields {
             Id = "Id",

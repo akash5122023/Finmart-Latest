@@ -6,7 +6,7 @@ namespace AdvanceCRM
     {
         public static UserDefinition ToUserDefinition(this ClaimsPrincipal principal)
         {
-            if (principal == null || !principal.Identity.IsAuthenticated)
+            if (principal == null || principal.Identity == null || !principal.Identity.IsAuthenticated)
                 return null;
 
             return new UserDefinition
@@ -15,9 +15,8 @@ namespace AdvanceCRM
                 Username = principal.Identity?.Name,
                 CompanyId = int.TryParse(principal.FindFirst("CompanyId")?.Value, out var cid) ? cid : 0,
                 DisplayName = principal.FindFirst("DisplayName")?.Value,
-                BranchId = int.TryParse(principal.FindFirst("BranchId")?.Value, out var bid) ? (int?)bid : null,
-                // convert boolean flag to int for UpperLevel property
-                UpperLevel = bool.TryParse(principal.FindFirst("UpperLevel")?.Value, out var upper) && upper ? 1 : 0
+                BranchId = int.TryParse(principal.FindFirst("BranchId")?.Value, out var bid) && bid > 0 ? (int?)bid : null,
+                UpperLevel = int.TryParse(principal.FindFirst("UpperLevel")?.Value, out var upper) ? upper : 0
             };
         }
     }

@@ -19,7 +19,7 @@ namespace AdvanceCRM.Administration.Scripts
         {
             IdField = UserRow.Fields.UserId.PropertyName;
             TextField = UserRow.Fields.DisplayName.PropertyName;
-            Expiration = TimeSpan.FromDays(-1);
+            Expiration = TimeSpan.FromMinutes(1);
         }
 
         protected override void PrepareQuery(SqlQuery query)
@@ -39,7 +39,7 @@ namespace AdvanceCRM.Administration.Scripts
                     .Where(
                         UserRow.Fields.CompanyId == user.CompanyId &
                         UserRow.Fields.IsActive == 1 &
-                        r.RoleName == "InsideSales"
+                        (r.RoleName == "InsideSales" | r.RoleName == "SInsideSales" | r.RoleName.Contains("InsideSales"))
                     );
             }
         }
@@ -53,7 +53,7 @@ namespace AdvanceCRM.Administration.Scripts
 
             return LocalCache.GetLocalStoreOnly(
                 "InsideSalesUserLookup:" + this.ScriptName + ":" + user.CompanyId,
-                TimeSpan.FromHours(1),
+                TimeSpan.FromMinutes(1),
                 new UserRow().GetFields().GenerationKey,
                 () => base.GetScript()
             );
@@ -71,7 +71,7 @@ namespace AdvanceCRM.Administration.Scripts
         {
             IdField = UserRow.Fields.UserId.PropertyName;
             TextField = UserRow.Fields.DisplayName.PropertyName;
-            Expiration = TimeSpan.FromDays(-1);
+            Expiration = TimeSpan.FromMinutes(1);
         }
 
         protected override void PrepareQuery(SqlQuery query)
@@ -91,7 +91,7 @@ namespace AdvanceCRM.Administration.Scripts
                     .Where(
                         UserRow.Fields.CompanyId == user.CompanyId &
                         UserRow.Fields.IsActive == 1 &
-                        r.RoleName == "InitialProcess"
+                        (r.RoleName == "InitialProcess" | r.RoleName == "SInitialProcess" | r.RoleName.Contains("InitialProcess"))
                     );
             }
         }
@@ -105,7 +105,7 @@ namespace AdvanceCRM.Administration.Scripts
 
             return LocalCache.GetLocalStoreOnly(
                 "InitialProcessUserLookup:" + this.ScriptName + ":" + user.CompanyId,
-                TimeSpan.FromHours(1),
+                TimeSpan.FromMinutes(1),
                 new UserRow().GetFields().GenerationKey,
                 () => base.GetScript()
             );
@@ -123,7 +123,7 @@ namespace AdvanceCRM.Administration.Scripts
         {
             IdField = UserRow.Fields.UserId.PropertyName;
             TextField = UserRow.Fields.DisplayName.PropertyName;
-            Expiration = TimeSpan.FromDays(-1);
+            Expiration = TimeSpan.FromMinutes(1);
         }
 
         protected override void PrepareQuery(SqlQuery query)
@@ -143,7 +143,7 @@ namespace AdvanceCRM.Administration.Scripts
                     .Where(
                         UserRow.Fields.CompanyId == user.CompanyId &
                         UserRow.Fields.IsActive == 1 &
-                        r.RoleName == "LogInProcess"
+                        (r.RoleName == "LogInProcess" | r.RoleName == "SLogInProcess" | r.RoleName.Contains("LoginProcess"))
                     );
             }
         }
@@ -157,7 +157,7 @@ namespace AdvanceCRM.Administration.Scripts
 
             return LocalCache.GetLocalStoreOnly(
                 "LogInProcessUserLookup:" + this.ScriptName + ":" + user.CompanyId,
-                TimeSpan.FromHours(1),
+                TimeSpan.FromMinutes(1),
                 new UserRow().GetFields().GenerationKey,
                 () => base.GetScript()
             );
@@ -175,7 +175,7 @@ namespace AdvanceCRM.Administration.Scripts
         {
             IdField = UserRow.Fields.UserId.PropertyName;
             TextField = UserRow.Fields.DisplayName.PropertyName;
-            Expiration = TimeSpan.FromDays(-1);
+            Expiration = TimeSpan.FromMinutes(1);
         }
 
         protected override void PrepareQuery(SqlQuery query)
@@ -195,7 +195,7 @@ namespace AdvanceCRM.Administration.Scripts
                     .Where(
                         UserRow.Fields.CompanyId == user.CompanyId &
                         UserRow.Fields.IsActive == 1 &
-                        r.RoleName == "DisbursementProcess"
+                        (r.RoleName == "DisbursementProcess" | r.RoleName == "SDisbursementProcess" | r.RoleName.Contains("DisbursementProcess"))
                     );
             }
         }
@@ -209,7 +209,7 @@ namespace AdvanceCRM.Administration.Scripts
 
             return LocalCache.GetLocalStoreOnly(
                 "DisbursementProcessUserLookup:" + this.ScriptName + ":" + user.CompanyId,
-                TimeSpan.FromHours(1),
+                TimeSpan.FromMinutes(1),
                 new UserRow().GetFields().GenerationKey,
                 () => base.GetScript()
             );

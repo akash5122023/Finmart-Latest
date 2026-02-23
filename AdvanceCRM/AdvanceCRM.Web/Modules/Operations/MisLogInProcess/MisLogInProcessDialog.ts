@@ -51,8 +51,15 @@ namespace AdvanceCRM.Operations {
                         },
                             response => {
                                 if (response.Id > 0) {
-                                    Q.notifyInfo(response.Status);
-                                    new Operations.MisDisbursementProcessDialog().loadByIdAndOpenDialog(response.Id);
+                                    Q.notifySuccess(response.Status);
+
+                                    // Only try to open DisbursementProcess dialog if user has read permission
+                                    if (Authorization.hasPermission("MISDisbursementProcess:Read")) {
+                                        new Operations.MisDisbursementProcessDialog().loadByIdAndOpenDialog(response.Id);
+                                    }
+
+                                    // Close current dialog
+                                    this.dialogClose();
                                 }
                                 else
                                     Q.notifyError(response.Status)

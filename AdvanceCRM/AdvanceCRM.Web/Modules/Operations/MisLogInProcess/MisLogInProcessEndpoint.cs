@@ -202,8 +202,10 @@ namespace AdvanceCRM.Operations.Endpoints
                 return response;
             }
 
+            var f = MisLogInProcessRow.Fields;
             var sourceLogInProcess = uow.Connection.TryById<MisLogInProcessRow>(request.Id, q => q
-               .SelectTableFields());
+               .SelectTableFields()
+               .Select(f.SourceName));  // Include expression field
 
             var cmp = CompanyDetailsRow.Fields;
             var company = uow.Connection.TryById<CompanyDetailsRow>(1, q => q

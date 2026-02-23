@@ -51,8 +51,15 @@ namespace AdvanceCRM.Operations {
                         },
                             response => {
                                 if (response.Id > 0) {
-                                    Q.notifyInfo(response.Status);
-                                    new Operations.MisLogInProcessDialog().loadByIdAndOpenDialog(response.Id);
+                                    Q.notifySuccess(response.Status);
+
+                                    // Only try to open LogInProcess dialog if user has read permission
+                                    if (Authorization.hasPermission("MISLogInProcess:Read")) {
+                                        new Operations.MisLogInProcessDialog().loadByIdAndOpenDialog(response.Id);
+                                    }
+
+                                    // Close current dialog or refresh the grid
+                                    this.dialogClose();
                                 }
                                 else
                                     Q.notifyError(response.Status)
