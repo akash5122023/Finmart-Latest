@@ -39,7 +39,7 @@ namespace AdvanceCRM.Administration.Scripts
                     .Where(
                         UserRow.Fields.CompanyId == user.CompanyId &
                         UserRow.Fields.IsActive == 1 &
-                        (r.RoleName == "InsideSales" | r.RoleName == "SInsideSales" | r.RoleName.Contains("InsideSales"))
+                        (r.RoleName == "InsideSales")
                     );
             }
         }
@@ -91,7 +91,7 @@ namespace AdvanceCRM.Administration.Scripts
                     .Where(
                         UserRow.Fields.CompanyId == user.CompanyId &
                         UserRow.Fields.IsActive == 1 &
-                        (r.RoleName == "InitialProcess" | r.RoleName == "SInitialProcess" | r.RoleName.Contains("InitialProcess"))
+                        (r.RoleName == "InitialProcess")
                     );
             }
         }
@@ -143,7 +143,7 @@ namespace AdvanceCRM.Administration.Scripts
                     .Where(
                         UserRow.Fields.CompanyId == user.CompanyId &
                         UserRow.Fields.IsActive == 1 &
-                        (r.RoleName == "LogInProcess" | r.RoleName == "SLogInProcess" | r.RoleName.Contains("LoginProcess"))
+                        (r.RoleName == "LogInProcess")
                     );
             }
         }
@@ -195,7 +195,7 @@ namespace AdvanceCRM.Administration.Scripts
                     .Where(
                         UserRow.Fields.CompanyId == user.CompanyId &
                         UserRow.Fields.IsActive == 1 &
-                        (r.RoleName == "DisbursementProcess" | r.RoleName == "SDisbursementProcess" | r.RoleName.Contains("DisbursementProcess"))
+                        (r.RoleName == "DisbursementProcess")
                     );
             }
         }

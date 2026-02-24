@@ -9,6 +9,7 @@
         Phone: Serenity.StringEditor;
         Email: Serenity.EmailEditor;
         Address: Serenity.TextAreaEditor;
+        ProductId: Serenity.LookupEditor;
         Country: Serenity.EnumEditor;
         StateId: Serenity.LookupEditor;
         CityId: Serenity.LookupEditor;
@@ -104,6 +105,7 @@
                     'Phone', w3,
                     'Email', w4,
                     'Address', w5,
+                    'ProductId', w2,
                     'Country', w0,
                     'StateId', w2,
                     'CityId', w2,

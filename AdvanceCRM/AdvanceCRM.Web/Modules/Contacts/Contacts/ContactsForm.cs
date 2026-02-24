@@ -1,12 +1,14 @@
 ﻿
 namespace AdvanceCRM.Contacts.Forms
 {
+    using AdvanceCRM.Masters;
+    using Microsoft.AspNetCore.Mvc;
     using Serenity;
     using Serenity.ComponentModel;
-    using Serenity.Data;  using Microsoft.AspNetCore.Mvc;
+    using Serenity.Data;  
     using System;
-    using System.ComponentModel;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.IO;
 
 
@@ -36,6 +38,9 @@ namespace AdvanceCRM.Contacts.Forms
         [HalfWidth]
         public String Email { get; set; }
         public String Address { get; set; }
+        [HalfWidth, LookupEditor(typeof(TypesOfProductsRow))]
+        [DisplayName("Loan Products")]
+        public Int32? ProductId { get; set; }
         [HalfWidth, DefaultValue(81)]
         public Int32 Country { get; set; }
         [HalfWidth]

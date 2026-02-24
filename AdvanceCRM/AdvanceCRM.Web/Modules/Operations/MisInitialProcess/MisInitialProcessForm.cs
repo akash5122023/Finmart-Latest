@@ -14,35 +14,35 @@ namespace AdvanceCRM.Operations.Forms
     [BasedOnRow(typeof(MisInitialProcessRow), CheckNames = true)]
     public class MisInitialProcessForm
     {
-        //[Category("Channel Partner Details")]
-        //[HalfWidth]
-        //public Int32 ContactsId { get; set; }
-        //[Hidden]
-        //public Int32 ContactsContactType { get; set; }
-        //[Hidden]
-        //public String ContactsName { get; set; }
+        [Category("Contacts Details")]
+        [HalfWidth]
+        public Int32 ContactsId { get; set; }
+        [Hidden]
+        public Int32 ContactsContactType { get; set; }
+        [Hidden]
+        public String ContactsName { get; set; }
 
-        //[Hidden]
-        //public String ContactsEmail { get; set; }
-        //[HalfWidth, ReadOnly(true)]
-        ////[LookupEditor("Contacts.ContactPhoneLookup")]
-        //public String ContactsPhone { get; set; }
-        //[Hidden]
-        //public String ContactsWhatsapp { get; set; }
-        //[Hidden,ReadOnly(true)]
-        //public String ContactsAddress { get; set; }
-        //[HalfWidth, FormCssClass("line-break-sm")]
-        //public Int32 ContactPersonId { get; set; }
-        //[Hidden]
-        //public String ContactPersonName { get; set; }
-        //[ReadOnly(true), HalfWidth]
-        //public String ContactPersonPhone { get; set; }
-        //[Hidden]
-        //public String ContactPersonWhatsapp { get; set; }
-        //[Hidden,ReadOnly(true), HalfWidth]
-        //public String ContactPersonProject { get; set; }
-        //[Hidden,ReadOnly(true)]
-        //public String ContactPersonAddress { get; set; }
+        [Hidden]
+        public String ContactsEmail { get; set; }
+        [HalfWidth, ReadOnly(true)]
+        //[LookupEditor("Contacts.ContactPhoneLookup")]
+        public String ContactsPhone { get; set; }
+        [Hidden]
+        public String ContactsWhatsapp { get; set; }
+        [Hidden, ReadOnly(true)]
+        public String ContactsAddress { get; set; }
+        [HalfWidth, FormCssClass("line-break-sm")]
+        public Int32 ContactPersonId { get; set; }
+        [Hidden]
+        public String ContactPersonName { get; set; }
+        [ReadOnly(true), HalfWidth]
+        public String ContactPersonPhone { get; set; }
+        [Hidden]
+        public String ContactPersonWhatsapp { get; set; }
+        [Hidden]
+        public String ContactPersonProject { get; set; }
+        [Hidden, ReadOnly(true)]
+        public String ContactPersonAddress { get; set; }
         [Category("Basic Information")]
 
         //[HalfWidth, DisplayName("Sr No")]

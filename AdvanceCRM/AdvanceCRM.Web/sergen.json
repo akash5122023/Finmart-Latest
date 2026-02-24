@@ -32,6 +32,12 @@
           "PermissionKey": "Administration:General"
         },
         {
+          "Tablename": "dbo.ChannelPartner",
+          "Identifier": "ChannelPartner",
+          "Module": "ChannelPartner",
+          "PermissionKey": "Administration:General"
+        },
+        {
           "Tablename": "dbo.City",
           "Identifier": "City",
           "Module": "Administration",

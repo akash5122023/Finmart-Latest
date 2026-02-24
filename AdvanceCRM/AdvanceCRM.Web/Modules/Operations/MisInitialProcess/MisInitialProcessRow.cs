@@ -403,7 +403,7 @@ namespace AdvanceCRM.Operations
             set => fields.AdditionalInformation[this] = value;
         }
 
-        [DisplayName("Channel Partner"), NotNull, ForeignKey("[dbo].[Contacts]", "Id"), LeftJoin("jContacts"), TextualField("ContactsName")]
+        [DisplayName("Contacts"), NotNull, ForeignKey("[dbo].[Contacts]", "Id"), LeftJoin("jContacts"), TextualField("ContactsName")]
         [LookupEditor(typeof(ContactsRow), InplaceAdd = true)]
         public Int32? ContactsId
         {

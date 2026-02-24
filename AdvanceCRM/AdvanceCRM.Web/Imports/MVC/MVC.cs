@@ -235,6 +235,15 @@ namespace MVC
 
         }
 
+        public static class ChannelPartner
+        {
+            public static class ChannelPartner_
+            {
+                public const string ChannelPartnerIndex = "~/Modules/ChannelPartner/ChannelPartner/ChannelPartnerIndex.cshtml";
+            }
+
+        }
+
         public static class Common
         {
             public static class Activation

@@ -1,5 +1,18 @@
 ﻿namespace AdvanceCRM.Operations {
     export interface MisInitialProcessForm {
+        ContactsId: Serenity.LookupEditor;
+        ContactsContactType: Serenity.IntegerEditor;
+        ContactsName: Serenity.StringEditor;
+        ContactsEmail: Serenity.StringEditor;
+        ContactsPhone: Serenity.StringEditor;
+        ContactsWhatsapp: Serenity.StringEditor;
+        ContactsAddress: Serenity.TextAreaEditor;
+        ContactPersonId: Serenity.LookupEditor;
+        ContactPersonName: Serenity.StringEditor;
+        ContactPersonPhone: Serenity.StringEditor;
+        ContactPersonWhatsapp: Serenity.StringEditor;
+        ContactPersonProject: Serenity.StringEditor;
+        ContactPersonAddress: Serenity.StringEditor;
         RRSourceId: Serenity.LookupEditor;
         CustomerName: Serenity.StringEditor;
         FirmName: Serenity.StringEditor;
@@ -28,24 +41,38 @@
 
                 var s = Serenity;
                 var w0 = s.LookupEditor;
-                var w1 = s.StringEditor;
-                var w2 = s.TextAreaEditor;
-                var w3 = s.DecimalEditor;
-                var w4 = s.DateTimeEditor;
+                var w1 = s.IntegerEditor;
+                var w2 = s.StringEditor;
+                var w3 = s.TextAreaEditor;
+                var w4 = s.DecimalEditor;
+                var w5 = s.DateTimeEditor;
 
                 Q.initFormType(MisInitialProcessForm, [
+                    'ContactsId', w0,
+                    'ContactsContactType', w1,
+                    'ContactsName', w2,
+                    'ContactsEmail', w2,
+                    'ContactsPhone', w2,
+                    'ContactsWhatsapp', w2,
+                    'ContactsAddress', w3,
+                    'ContactPersonId', w0,
+                    'ContactPersonName', w2,
+                    'ContactPersonPhone', w2,
+                    'ContactPersonWhatsapp', w2,
+                    'ContactPersonProject', w2,
+                    'ContactPersonAddress', w2,
                     'RRSourceId', w0,
-                    'CustomerName', w1,
-                    'FirmName', w1,
+                    'CustomerName', w2,
+                    'FirmName', w2,
                     'LeadStageId', w0,
                     'ProductId', w0,
-                    'Requirement', w2,
+                    'Requirement', w3,
                     'BankNameId', w0,
-                    'LoanAmount', w3,
-                    'FileReceivedDateTime', w4,
-                    'QueriesGivenTime', w4,
-                    'FileCompletionDateTime', w4,
-                    'AdditionalInformation', w2,
+                    'LoanAmount', w4,
+                    'FileReceivedDateTime', w5,
+                    'QueriesGivenTime', w5,
+                    'FileCompletionDateTime', w5,
+                    'AdditionalInformation', w3,
                     'OwnerId', w0,
                     'AssignedId', w0
                 ]);

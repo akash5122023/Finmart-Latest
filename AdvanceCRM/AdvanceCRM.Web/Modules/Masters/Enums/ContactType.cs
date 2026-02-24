@@ -9,6 +9,8 @@ namespace AdvanceCRM.Masters
         [Description("Customer")]
         Customer = 1,
         [Description("Vendor")]
-        Vendor = 2
+        Vendor = 2,
+        [Description("ChannelPartner")]
+        ChannelPartner = 3
     }
 }

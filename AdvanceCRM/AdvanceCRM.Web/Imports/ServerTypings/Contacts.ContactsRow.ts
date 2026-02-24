@@ -35,6 +35,7 @@
         Reseller?: number;
         GSTIN?: string;
         PANNo?: string;
+        ProductId?: number;
         CCEmails?: string;
         BCCEmails?: string;
         Attachment?: string;
@@ -139,6 +140,7 @@
             Reseller = "Reseller",
             GSTIN = "GSTIN",
             PANNo = "PANNo",
+            ProductId = "ProductId",
             CCEmails = "CCEmails",
             BCCEmails = "BCCEmails",
             Attachment = "Attachment",

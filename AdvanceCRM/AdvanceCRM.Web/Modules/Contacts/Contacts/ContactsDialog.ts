@@ -58,6 +58,8 @@ namespace AdvanceCRM.Contacts {
                         this.element.find(".category-title:contains('Channels')").parent().toggle(true);
                     }
                 }
+                // Update labels based on CustomerType
+                this.updateLabelsBasedOnCustomerType();
             });
 
             this.form.Name.change(e => {
@@ -72,6 +74,7 @@ namespace AdvanceCRM.Contacts {
 
             // Initial call to set fields based on default/loaded value
             this.updateFieldsBasedOnContactType();
+            this.updateLabelsBasedOnCustomerType();
             this.form.Phone.change(e => {
                 if (this.form.Phone.value == "") {
                     this.form.Whatsapp.value = "+91 " + this.form.Phone.value;
@@ -207,6 +210,7 @@ namespace AdvanceCRM.Contacts {
             super.loadEntity(entity);
             // Update fields after entity is loaded
             this.updateFieldsBasedOnContactType();
+            this.updateLabelsBasedOnCustomerType();
         }
 
         private updateFieldsBasedOnContactType() {
@@ -267,6 +271,41 @@ namespace AdvanceCRM.Contacts {
                 nameLabel.text('Firm/CustomerName');
                 phoneLabel.text('Phone');
                 emailLabel.text('Email');
+            }
+        }
+
+        private updateLabelsBasedOnCustomerType() {
+            var customerType = this.form.CustomerType.value;
+
+            // Get label elements for dynamic fields
+            var nameLabel = this.form.Name.getGridField().find('label');
+            var phoneLabel = this.form.Phone.getGridField().find('label');
+            var countryLabel = this.form.Country.getGridField().find('label');
+            var stateLabel = this.form.StateId.getGridField().find('label');
+            var cityLabel = this.form.CityId.getGridField().find('label');
+            var tehsilLabel = this.form.TehsilId.getGridField().find('label');
+            var villagelabel = this.form.VillageId.getGridField().find('label');
+
+            // CustomerType 3 = ChannelPartner
+            if (customerType == "3") {
+                // ChannelPartner - change labels with CP prefix
+                nameLabel.text('CP Name');
+                phoneLabel.text('CP Contact Number');
+                countryLabel.text('CP Country');
+                stateLabel.text('CP State');
+                cityLabel.text('CP City/District');
+                tehsilLabel.text('CP District');
+                villagelabel.text('CP Village');
+            }
+            else {
+                // Reset labels to default
+                nameLabel.text('CompanyName/Name');
+                phoneLabel.text('Phone');
+                countryLabel.text('Country');
+                stateLabel.text('State');
+                cityLabel.text('City/District');
+                tehsilLabel.text('Tehsil');
+                villagelabel.text('Village');
             }
         }
 

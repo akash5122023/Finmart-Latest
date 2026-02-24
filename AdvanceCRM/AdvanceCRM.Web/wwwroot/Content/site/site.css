@@ -9834,6 +9834,12 @@ section.content > .s-DataGrid {
 .s-Operations-MisDisbursementProcessDialog .caption {
   width: 150px;
 }
+.s-ChannelPartner-ChannelPartnerDialog > .size {
+  width: 650px;
+}
+.s-ChannelPartner-ChannelPartnerDialog .caption {
+  width: 150px;
+}
 .main-header .logo {
   width: 400px;
   overflow: visible;

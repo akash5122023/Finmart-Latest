@@ -53,7 +53,13 @@ namespace AdvanceCRM.Contacts
             get { return Fields.Phone[this]; }
             set { Fields.Phone[this] = value; }
         }
-
+        [DisplayName("Loan Products"), ForeignKey("[dbo].[TypesofProducts]", "Id"), LeftJoin("jTypesofProducts"), TextualField("ProductTypeName"), QuickFilter]
+        [LookupEditor(typeof(TypesOfProductsRow))]
+        public Int32? ProductId
+        {
+            get { return Fields.ProductId[this]; }
+            set { Fields.ProductId[this] = value; }
+        }
         [DisplayName("Email"), Size(100), EmailEditor,LookupInclude]
         public String Email
         {
@@ -728,6 +734,7 @@ namespace AdvanceCRM.Contacts
             public Int32Field Reseller;
             public StringField GSTIN;
             public StringField PANNo;
+            public Int32Field ProductId;
             public StringField CCEmails;
             public StringField BCCEmails;
             public StringField Attachment;
