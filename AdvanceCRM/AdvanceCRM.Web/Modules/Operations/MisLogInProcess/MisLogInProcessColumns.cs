@@ -15,40 +15,73 @@ namespace AdvanceCRM.Operations.Columns
     {
         [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
         public Int32 Id { get; set; }
-        public String SourceName { get; set; }
-        public String CustomerName { get; set; }
-        public String FirmName { get; set; }
-        public String ContactPersonInTeam { get; set; }
-        public String SalesManager { get; set; }
-        public String Location { get; set; }
-        [LookupEditor(typeof(TypesOfProductsRow))]
-        public Int32 ProductId { get; set; }
 
-        //public String ProductProductTypeName { get; set; }
-        public String NatureOfBusinessProfile { get; set; }
-        public DateTime SystemLoginDate { get; set; }
-        public DateTime UnderwritingDate { get; set; }
-        public DateTime DisbursementDate { get; set; }
+        // General Information
+        [Width(150)]
+        public String ContactPersonInTeam { get; set; }
+        [Width(80)]
         public String Year { get; set; }
+        [Width(100)]
         public String MonthMonthsName { get; set; }
-        [LookupEditor(typeof(BankNameRow))]
-        public Int32 BankNameId { get; set; }
-       // public String BankNameBankNames { get; set; }
-        public String LoanAccountNumber { get; set; }
-        [LookupEditor(typeof(PrimeEmergingRow))]
-        public Int32 PrimeEmergingId { get; set; }
-        //public String PrimeEmergingPrimeEmergingName { get; set; }
-        [LookupEditor(typeof(InHouseBankRow))]
-        public Int32 InhouseBankId { get; set; }
-        //public String InhouseBankInHouseBankType { get; set; }
-        [LookupEditor(typeof(LogInLoanStatusRow))]
-        public Int32 LogInLoanStatusId { get; set; }
-        //public String LogInLoanStatusLogInLoanStatusName { get; set; }
-        public Decimal ToPreviousYear { get; set; }
-        public Decimal ToLatestYear { get; set; }
+        [Width(140)]
+        public DateTime FileReceivedDateTime { get; set; }
+        [Width(120)]
+        public String SourceName { get; set; }
+        [Width(120)]
+        public String BankNameBankNames { get; set; }
+        [Width(130)]
+        public String ProductProductTypeName { get; set; }
+
+        // Customer Details
+        [Width(150)]
+        public String CustomerName { get; set; }
+        [Width(150)]
+        public String FirmName { get; set; }
+        [Width(120)]
         public String ContactNumber { get; set; }
+        [Width(80)]
+        public Int32 CibilScore { get; set; }
+        [Width(120)]
+        public String PrimeEmergingPrimeEmergingName { get; set; }
+        [Width(120)]
+        public String Location { get; set; }
+        [Width(100)]
+        public String LeadStageName { get; set; }
+        [Width(120)]
+        public String InhouseBankInHouseBankType { get; set; }
+
+        // Process Details
+        [Width(130)]
+        public String LogInLoanStatusLogInLoanStatusName { get; set; }
+        [Width(200)]
         public String Remark { get; set; }
+        [Width(200)]
+        public String AdditionalInformation { get; set; }
+        [Width(140)]
+        public DateTime SystemLoginDate { get; set; }
+        [Width(140)]
+        public DateTime UnderwritingDate { get; set; }
+        [Width(120)]
+        public String SalesManager { get; set; }
+
+        // Business Profile
+        [Width(150)]
+        public String NatureOfBusinessProfile { get; set; }
+        [Width(100), AlignRight]
+        public Decimal ToPreviousYear { get; set; }
+        [Width(100), AlignRight]
+        public Decimal ToLatestYear { get; set; }
+
+        // Financial Details
+        [Width(140)]
+        public DateTime DisbursementDate { get; set; }
+        [Width(150)]
+        public String LoanAccountNumber { get; set; }
+
+        // Ownership / Assignment
+        [Width(120)]
         public String OwnerUsername { get; set; }
+        [Width(120)]
         public String AssignedUsername { get; set; }
     }
 }

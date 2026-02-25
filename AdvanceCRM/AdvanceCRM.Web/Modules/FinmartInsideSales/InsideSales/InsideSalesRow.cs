@@ -53,7 +53,7 @@ namespace AdvanceCRM.FinmartInsideSales
             get => fields.FirmName[this];
             set => fields.FirmName[this] = value;
         }
-        [DisplayName("Contact"), ForeignKey("[dbo].[Contacts]", "Id"), LeftJoin("jContacts"), TextualField("ContactsName")]
+        [DisplayName("Contact"),NotNull, ForeignKey("[dbo].[Contacts]", "Id"), LeftJoin("jContacts"), TextualField("ContactsName")]
         [LookupEditor(typeof(ContactsRow), InplaceAdd = true)]
         public Int32? ContactsId
         {
@@ -425,56 +425,56 @@ namespace AdvanceCRM.FinmartInsideSales
             set => fields.AdditionalInformation[this] = value;
         }
 
-        [DisplayName("Product Product Type Name"), Expression("jTypesofProducts.[ProductTypeName]")]
+        [DisplayName("Product Type Name"), Expression("jTypesofProducts.[ProductTypeName]")]
         public String ProductProductTypeName
         {
             get => fields.ProductProductTypeName[this];
             set => fields.ProductProductTypeName[this] = value;
         }
 
-        [DisplayName("Business Detail Business Detail Type"), Expression("jBusinessDetail.[BusinessDetailType]")]
+        [DisplayName("Business Detail Type"), Expression("jBusinessDetail.[BusinessDetailType]")]
         public String BusinessDetailBusinessDetailType
         {
             get => fields.BusinessDetailBusinessDetailType[this];
             set => fields.BusinessDetailBusinessDetailType[this] = value;
         }
 
-        [DisplayName("Company Type Company Type Name"), Expression("jTypesOfCompanies.[CompanyTypeName]")]
+        [DisplayName("Company Type Name"), Expression("jTypesOfCompanies.[CompanyTypeName]")]
         public String CompanyTypeCompanyTypeName
         {
             get => fields.CompanyTypeCompanyTypeName[this];
             set => fields.CompanyTypeCompanyTypeName[this] = value;
         }
 
-        [DisplayName("Account Type Account Type Name"), Expression("jTypesOfAccounts.[AccountTypeName]")]
+        [DisplayName("Account Type Name"), Expression("jTypesOfAccounts.[AccountTypeName]")]
         public String AccountTypeAccountTypeName
         {
             get => fields.AccountTypeAccountTypeName[this];
             set => fields.AccountTypeAccountTypeName[this] = value;
         }
 
-        [DisplayName("Month Months Name"), Expression("jMonthsInYear.[MonthsName]")]
+        [DisplayName("Month Name"), Expression("jMonthsInYear.[MonthsName]")]
         public String MonthMonthsName
         {
             get => fields.MonthMonthsName[this];
             set => fields.MonthMonthsName[this] = value;
         }
 
-        [DisplayName("Bank Name Bank Names"), Expression("jBankName.[BankNames]")]
+        [DisplayName("Bank Name"), Expression("jBankName.[BankNames]")]
         public String BankNameBankNames
         {
             get => fields.BankNameBankNames[this];
             set => fields.BankNameBankNames[this] = value;
         }
 
-        [DisplayName("Prime Emerging Prime Emerging Name"), Expression("jPrimeEmerging.[PrimeEmergingName]")]
+        [DisplayName("Prime Emerging"), Expression("jPrimeEmerging.[PrimeEmergingName]")]
         public String PrimeEmergingPrimeEmergingName
         {
             get => fields.PrimeEmergingPrimeEmergingName[this];
             set => fields.PrimeEmergingPrimeEmergingName[this] = value;
         }
 
-        [DisplayName("Mis Direct Indirect Mis Direct Indirect Type"), Expression("jMisDirectIndirect.[MISDirectIndirectType]")]
+        [DisplayName("Mis Direct Indirect"), Expression("jMisDirectIndirect.[MISDirectIndirectType]")]
         public String MisDirectIndirectMisDirectIndirectType
         {
             get => fields.MisDirectIndirectMisDirectIndirectType[this];
@@ -488,28 +488,28 @@ namespace AdvanceCRM.FinmartInsideSales
             set => fields.InhouseBankInHouseBankType[this] = value;
         }
 
-        [DisplayName("Log In Loan Status Log In Loan Status Name"), Expression("jLogInLoanStatus.[LogInLoanStatusName]")]
+        [DisplayName("LogIn Loan Status"), Expression("jLogInLoanStatus.[LogInLoanStatusName]")]
         public String LogInLoanStatusLogInLoanStatusName
         {
             get => fields.LogInLoanStatusLogInLoanStatusName[this];
             set => fields.LogInLoanStatusLogInLoanStatusName[this] = value;
         }
 
-        [DisplayName("Sales Loan Status Sales Loan Status Name"), Expression("jSalesLoanStatus.[SalesLoanStatusName]")]
+        [DisplayName("Sales Loan Status"), Expression("jSalesLoanStatus.[SalesLoanStatusName]")]
         public String SalesLoanStatusSalesLoanStatusName
         {
             get => fields.SalesLoanStatusSalesLoanStatusName[this];
             set => fields.SalesLoanStatusSalesLoanStatusName[this] = value;
         }
 
-        [DisplayName("Mis Disbursement Status Mis Disbursement Status Type"), Expression("jMisDisbursementStatus.[MISDisbursementStatusType]")]
+        [DisplayName("Mis Disbursement Status"), Expression("jMisDisbursementStatus.[MISDisbursementStatusType]")]
         public String MisDisbursementStatusMisDisbursementStatusType
         {
             get => fields.MisDisbursementStatusMisDisbursementStatusType[this];
             set => fields.MisDisbursementStatusMisDisbursementStatusType[this] = value;
         }
 
-        [DisplayName("Stage Of The Case Cases Stage Name"), Expression("jCasesStage.[CasesStageName]")]
+        [DisplayName("Stage Of The Case"), Expression("jCasesStage.[CasesStageName]")]
         public String StageOfTheCaseCasesStageName
         {
             get => fields.StageOfTheCaseCasesStageName[this];

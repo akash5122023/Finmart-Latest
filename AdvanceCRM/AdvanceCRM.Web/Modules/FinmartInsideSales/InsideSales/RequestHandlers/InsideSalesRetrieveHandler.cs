@@ -17,5 +17,27 @@ namespace AdvanceCRM.FinmartInsideSales
              : base(context)
         {
         }
+
+        protected override void PrepareQuery(SqlQuery query)
+        {
+            base.PrepareQuery(query);
+
+            // Ensure all expression fields from joined tables are included
+            var f = MyRow.Fields;
+            query.Select(f.ContactsName);
+            query.Select(f.ContactsPhone);
+            query.Select(f.ContactsEmail);
+            query.Select(f.ContactPersonName);
+            query.Select(f.ContactPersonPhone);
+            query.Select(f.MonthMonthsName);
+            query.Select(f.ProductProductTypeName);
+            query.Select(f.BusinessDetailBusinessDetailType);
+            query.Select(f.CompanyTypeCompanyTypeName);
+            query.Select(f.AccountTypeAccountTypeName);
+            query.Select(f.SalesLoanStatusSalesLoanStatusName);
+            query.Select(f.StageOfTheCaseCasesStageName);
+            query.Select(f.OwnerUsername);
+            query.Select(f.AssignedUsername);
+        }
     }
 }

@@ -45,8 +45,9 @@ namespace AdvanceCRM.Operations.Forms
         [HalfWidth]
         [DisplayName("Bank Source / Company Name (Eg: Truewin, Finmart, Other)")]
         public string BankSourceOrCompanyName { get; set; }
-        [HalfWidth]
-        public Int32 CibilScore { get; set; }       = 0;
+        [HalfWidth, IntegerEditor(MinValue = 100, MaxValue = 999)]
+        [Hint("Enter 3 digit score (100-999)")]
+        public Int32 CibilScore { get; set; }
 
         [HalfWidth, LookupEditor(typeof(LeadStageRow))]
         [DisplayName("Lead Stage")]

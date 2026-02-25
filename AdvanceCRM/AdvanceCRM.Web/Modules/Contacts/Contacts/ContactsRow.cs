@@ -60,6 +60,16 @@ namespace AdvanceCRM.Contacts
             get { return Fields.ProductId[this]; }
             set { Fields.ProductId[this] = value; }
         }
+
+        [DisplayName("Loan Products (Multiple)")]
+        [LookupEditor(typeof(TypesOfProductsRow), Multiple = true), NotMapped]
+        [LinkingSetRelation(typeof(ContactsMultiProductRow), "ContactsId", "ProductId")]
+        public List<Int32> ProductIdList
+        {
+            get { return Fields.ProductIdList[this]; }
+            set { Fields.ProductIdList[this] = value; }
+        }
+
         [DisplayName("Email"), Size(100), EmailEditor,LookupInclude]
         public String Email
         {
@@ -417,7 +427,7 @@ namespace AdvanceCRM.Contacts
             set { Fields.CreditDays[this] = value; }
         }
 
-        [DisplayName("Customer Type"), DefaultValue("1"), NotNull]
+        [DisplayName("Customer Type"), DefaultValue("1"), NotNull, LookupInclude]
         public Masters.ContactTypeMaster? CustomerType
         {
             get { return (Masters.ContactTypeMaster?)Fields.CustomerType[this]; }
@@ -790,10 +800,11 @@ namespace AdvanceCRM.Contacts
             public Int32Field VillageStateId;
             public Int32Field VillageCityId;
             public Int32Field VillageTehsilId;
-            
+
             public readonly RowListField<SubContactsRow> SubContacts;
             public readonly ListField<Int32> MultiAssignList;
             public readonly ListField<Int32> ContactAddinfoList;
+            public readonly ListField<Int32> ProductIdList;
 
             public RowListField<NoteRow> NoteList;
 

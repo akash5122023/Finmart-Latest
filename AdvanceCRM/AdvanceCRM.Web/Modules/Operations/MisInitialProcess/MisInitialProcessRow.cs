@@ -139,7 +139,7 @@ namespace AdvanceCRM.Operations
             set => fields.LeadStageId[this] = value;
         }
         [DisplayName("Source Id"), ForeignKey("[dbo].[RRSource]", "Id"), LeftJoin("jRRSource"), TextualField("SourceName")]
-        [LookupEditor(typeof(RrSourceRow))]
+        [LookupEditor(typeof(RrSourceRow), InplaceAdd = true)]
         public Int32? RRSourceId
         {
             get => fields.RRSourceId[this];
@@ -403,8 +403,15 @@ namespace AdvanceCRM.Operations
             set => fields.AdditionalInformation[this] = value;
         }
 
+        [DisplayName("Customer Type"), NotMapped]
+        public Masters.ContactTypeMaster? CustomerType
+        {
+            get => (Masters.ContactTypeMaster?)Fields.CustomerType[this];
+            set => Fields.CustomerType[this] = (Int32?)value;
+        }
+
         [DisplayName("Contacts"), NotNull, ForeignKey("[dbo].[Contacts]", "Id"), LeftJoin("jContacts"), TextualField("ContactsName")]
-        [LookupEditor(typeof(ContactsRow), InplaceAdd = true)]
+        [LookupEditor(typeof(ContactsRow), InplaceAdd = true, CascadeFrom = "CustomerType", CascadeField = "CustomerType")]
         public Int32? ContactsId
         {
             get { return Fields.ContactsId[this]; }
@@ -1916,6 +1923,7 @@ namespace AdvanceCRM.Operations
             public StringField ContactPersonAadharNo;
             public StringField ContactPersonPanNo;
             public StringField ContactPersonFileAttachments;
+            public Int32Field CustomerType;
         }
     }
 }

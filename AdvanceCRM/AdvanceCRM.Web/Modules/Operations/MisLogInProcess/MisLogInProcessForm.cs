@@ -51,7 +51,8 @@ namespace AdvanceCRM.Operations.Forms
 
         [HalfWidth]
         public string ContactNumber { get; set; }
-        [HalfWidth]
+        [HalfWidth, IntegerEditor(MinValue = 100, MaxValue = 999)]
+        [Hint("Enter 3 digit score (100-999)")]
         public Int32 CibilScore { get; set; }
 
         [HalfWidth, LookupEditor(typeof(PrimeEmergingRow))]

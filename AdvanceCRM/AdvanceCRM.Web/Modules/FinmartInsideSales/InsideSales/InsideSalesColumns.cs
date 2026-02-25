@@ -15,40 +15,57 @@ namespace AdvanceCRM.FinmartInsideSales.Columns
     {
         [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
         public Int32 Id { get; set; }
-        public String FirmName { get; set; }
-        [LookupEditor(typeof(MonthsInYearRow))]
-        public Int32 MonthId { get; set; }
-        [LookupEditor(typeof(TypesOfProductsRow))]
-        public Int32 ProductId { get; set; }
-        //public String ProductTypeName { get; set; }
-        public String NatureOfBusinessProfile { get; set; }
-        public String ProfileOfTheLead { get; set; }
-        public String BusinessVintage { get; set; }
-        [LookupEditor(typeof(BusinessDetailsRow))]
-        public Int32 BusinessDetailId { get; set; }
-        //public String BusinessDetailBusinessDetailType { get; set; }
-        [LookupEditor(typeof(TypesOfCompaniesRow))]
-        public Int32 CompanyTypeId { get; set; }
-        //public String CompanyTypeCompanyTypeName { get; set; }
-        [LookupEditor(typeof(TypesOfAccountsRow))]
-        public Int32 AccountTypeId { get; set; }
-       // public String AccountTypeAccountTypeName { get; set; }
-        public DateTime FileReceivedDateTime { get; set; }
-        
+
+        // Channel Partner Details
+        [Width(150), EditLink]
+        public String ContactsName { get; set; }
+        [Width(120)]
+        public String ContactsPhone { get; set; }
+        [Width(120)]
+        public String ContactPersonName { get; set; }
+        [Width(120)]
+        public String ContactPersonPhone { get; set; }
+
+        // Basic Information
+        [Width(100)]
         public String MonthMonthsName { get; set; }
-        [LookupEditor(typeof(SalesLoanStatusRow))]
-        public Int32 SalesLoanStatusId { get; set; }
-        //public String SalesLoanStatusSalesLoanStatusName { get; set; }
-        public Decimal LoanAmount { get; set; }
-       
-        public String ContactNumber { get; set; }
+        [Width(140)]
+        public DateTime FileReceivedDateTime { get; set; }
+        [Width(120)]
+        public String CompanyTypeCompanyTypeName { get; set; }
+        [Width(150)]
+        public String ProfileOfTheLead { get; set; }
+        [Width(180)]
         public String CompanyMailId { get; set; }
-        /// <summary>        
+
+        // Product / Business Details
+        [Width(130)]
+        public String ProductProductTypeName { get; set; }
+        [Width(150)]
+        public String NatureOfBusinessProfile { get; set; }
+        [Width(120)]
+        public String BusinessVintage { get; set; }
+        [Width(130)]
+        public String BusinessDetailBusinessDetailType { get; set; }
+        [Width(130)]
+        public String AccountTypeAccountTypeName { get; set; }
+
+        // Loan Information
+        [Width(130)]
+        public String SalesLoanStatusSalesLoanStatusName { get; set; }
+        [Width(100), AlignRight]
+        public Decimal LoanAmount { get; set; }
+        [Width(200)]
         public String Remark { get; set; }
-        [LookupEditor(typeof(CasesStageRow))]
-        public Int32 StageOfTheCaseId { get; set; }
-        //public String StageOfTheCaseCasesStageName { get; set; }
+        [Width(200)]
+        public String AdditionalInformation { get; set; }
+        [Width(140)]
+        public String StageOfTheCaseCasesStageName { get; set; }
+
+        // Ownership / Assignment
+        [Width(120)]
         public String OwnerUsername { get; set; }
+        [Width(120)]
         public String AssignedUsername { get; set; }
     }
 }

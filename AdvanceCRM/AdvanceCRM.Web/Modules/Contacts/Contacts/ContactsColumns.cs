@@ -24,6 +24,8 @@ namespace AdvanceCRM.Contacts.Columns
         public DateTime DateCreated { get; set; }
         [EditLink, Width(120), QuickFilter, QuickSearch]
         public String Name { get; set; }
+        [Width(200), DisplayName("Loan Products")]
+        public List<Int32> ProductIdList { get; set; }
         [QuickSearch]
         public String Phone { get; set; }
         [QuickSearch]

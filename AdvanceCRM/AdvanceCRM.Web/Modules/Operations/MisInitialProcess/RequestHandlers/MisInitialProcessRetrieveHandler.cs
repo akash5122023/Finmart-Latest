@@ -17,5 +17,32 @@ namespace AdvanceCRM.Operations
              : base(context)
         {
         }
+
+        protected override void PrepareQuery(SqlQuery query)
+        {
+            base.PrepareQuery(query);
+
+            // Ensure all expression fields from joined tables are included
+            var f = MyRow.Fields;
+            query.Select(f.ContactsPhone);
+            query.Select(f.ContactsEmail);
+            query.Select(f.ContactsName);
+            query.Select(f.ContactsAddress);
+            query.Select(f.ContactsWhatsapp);
+            query.Select(f.ContactsContactType);
+            query.Select(f.ContactsCustomerType);
+            query.Select(f.ContactPersonName);
+            query.Select(f.ContactPersonPhone);
+            query.Select(f.ContactPersonEmail);
+            query.Select(f.ContactPersonAddress);
+            query.Select(f.ContactPersonWhatsapp);
+            query.Select(f.ContactPersonProject);
+            query.Select(f.SourceName);
+            query.Select(f.LeadStageName);
+            query.Select(f.ProductProductTypeName);
+            query.Select(f.BankNameBankNames);
+            query.Select(f.OwnerUsername);
+            query.Select(f.AssignedUsername);
+        }
     }
 }

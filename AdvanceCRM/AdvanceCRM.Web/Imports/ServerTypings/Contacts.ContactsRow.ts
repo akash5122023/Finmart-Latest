@@ -82,6 +82,7 @@
         SubContacts?: SubContactsRow[];
         MultiAssignList?: number[];
         ContactAddinfoList?: number[];
+        ProductIdList?: number[];
         NoteList?: Common.NoteRow[];
         PassportNumber?: string;
         FirstName?: string;
@@ -187,6 +188,7 @@
             SubContacts = "SubContacts",
             MultiAssignList = "MultiAssignList",
             ContactAddinfoList = "ContactAddinfoList",
+            ProductIdList = "ProductIdList",
             NoteList = "NoteList",
             PassportNumber = "PassportNumber",
             FirstName = "FirstName",

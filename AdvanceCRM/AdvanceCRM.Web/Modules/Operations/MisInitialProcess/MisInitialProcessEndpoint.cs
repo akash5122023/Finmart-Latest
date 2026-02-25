@@ -258,7 +258,7 @@ namespace AdvanceCRM.Operations.Endpoints
                             ContactNumber, CompanyMailId, EmployeeName, ConfirmationMailTakenOrNot, 
                             AgreementSigningPersonName, LogInLoanStatusId, SalesLoanStatusId, 
                             MISDisbursementStatusId, Remark, StageOfTheCase, SubInsurancePF, 
-                            OwnerId, AssignedId, AdditionalInformation
+                            OwnerId, AssignedId, AdditionalInformation, RRSourceId, LeadStageId
                         ) VALUES (
                             @SrNo, @SourceName, @CustomerName, @FirmName, @BankSourceOrCompanyName, 
                             @FileHandledBy, @ContactPersonInTeam, @SalesManager, @Location, @ProductId, 
@@ -271,7 +271,7 @@ namespace AdvanceCRM.Operations.Endpoints
                             @ContactNumber, @CompanyMailId, @EmployeeName, @ConfirmationMailTakenOrNot, 
                             @AgreementSigningPersonName, @LogInLoanStatusId, @SalesLoanStatusId, 
                             @MISDisbursementStatusId, @Remark, @StageOfTheCase, @SubInsurancePF, 
-                            @OwnerId, @AssignedId, @AdditionalInformation
+                            @OwnerId, @AssignedId, @AdditionalInformation, @RRSourceId, @LeadStageId
                         )";
                     }
                     else
@@ -330,7 +330,9 @@ namespace AdvanceCRM.Operations.Endpoints
                         SubInsurancePF = sourceInitialProcess.SubInsurancePf,
                         OwnerId = sourceInitialProcess.OwnerId,
                         AssignedId = sourceInitialProcess.AssignedId,
-                        AdditionalInformation = sourceInitialProcess.AdditionalInformation
+                        AdditionalInformation = sourceInitialProcess.AdditionalInformation,
+                        RRSourceId = sourceInitialProcess.RRSourceId,
+                        LeadStageId = sourceInitialProcess.LeadStageId
                     });
 
                     var lastRecord = conn.TryFirst<MisLogInProcessRow>(l => l

@@ -240,7 +240,7 @@ namespace AdvanceCRM.Operations.Endpoints
                             ContactNumber, CompanyMailId, EmployeeName, ConfirmationMailTakenOrNot, 
                             AgreementSigningPersonName, LogInLoanStatusId, SalesLoanStatusId, 
                             MISDisbursementStatusId, Remark, StageOfTheCase, SubInsurancePF, 
-                            OwnerId, AssignedId, AdditionalInformation
+                            OwnerId, AssignedId, AdditionalInformation, RRSourceId, LeadStageId, CibilScore
                         ) VALUES (
                             @SrNo, @SourceName, @CustomerName, @FirmName, @BankSourceOrCompanyName, 
                             @FileHandledBy, @ContactPersonInTeam, @SalesManager, @Location, @ProductId, 
@@ -253,7 +253,7 @@ namespace AdvanceCRM.Operations.Endpoints
                             @ContactNumber, @CompanyMailId, @EmployeeName, @ConfirmationMailTakenOrNot, 
                             @AgreementSigningPersonName, @LogInLoanStatusId, @SalesLoanStatusId, 
                             @MISDisbursementStatusId, @Remark, @StageOfTheCase, @SubInsurancePF, 
-                            @OwnerId, @AssignedId, @AdditionalInformation
+                            @OwnerId, @AssignedId, @AdditionalInformation, @RRSourceId, @LeadStageId, @CibilScore
                         )";
                     }
                     else
@@ -312,7 +312,10 @@ namespace AdvanceCRM.Operations.Endpoints
                         SubInsurancePF = sourceLogInProcess.SubInsurancePf,
                         OwnerId = sourceLogInProcess.OwnerId,
                         AssignedId = sourceLogInProcess.AssignedId,
-                        AdditionalInformation = sourceLogInProcess.AdditionalInformation
+                        AdditionalInformation = sourceLogInProcess.AdditionalInformation,
+                        RRSourceId = sourceLogInProcess.RRSourceId,
+                        LeadStageId = sourceLogInProcess.LeadStageId,
+                        CibilScore = sourceLogInProcess.CibilScore
                     });
 
                     var lastRecord = conn.TryFirst<MisDisbursementProcessRow>(l => l

@@ -15,40 +15,67 @@ namespace AdvanceCRM.Operations.Columns
     {
         [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
         public Int32 Id { get; set; }
-        public String SourceName { get; set; }
-        public String CustomerName { get; set; }
-        public String BankSourceOrCompanyName { get; set; }
+
+        // General Information
+        [Width(150)]
         public String ContactPersonInTeam { get; set; }
-        public String Location { get; set; }
-        public String ProductProductTypeName { get; set; }
-       // public DateTime DisbursementDate { get; set; }
+        [Width(80)]
         public String Year { get; set; }
-        [LookupEditor(typeof(MonthsInYearRow))]
-        public Int32 MonthId { get; set; }
-        //public String MonthMonthsName { get; set; }
-        [LookupEditor(typeof(TypesOfProductsRow))]
-        public Int32 ProductId { get; set; }
-        [LookupEditor(typeof(BankNameRow))]
-        public Int32 BankNameId { get; set; }
-        //public String BankNameBankNames { get; set; }
-        public String LoanAccountNumber { get; set; }
-        [LookupEditor(typeof(PrimeEmergingRow))]
-        public Int32 PrimeEmergingId { get; set; }
-        //public String PrimeEmergingPrimeEmergingName { get; set; }
-        [LookupEditor(typeof(MisDirectIndirectRow))]
-        public Int32 MisDirectIndirectId { get; set; }
-        //public String MisDirectIndirectMisDirectIndirectType { get; set; }
-        //public String InhouseBankInHouseBankType { get; set; }
-        [LookupEditor(typeof(MisDisbursementStatusRow))]
-        public Int32 MisDisbursementStatusId { get; set; }
-        //public String MisDisbursementStatusMisDisbursementStatusType { get; set; }
+        [Width(100)]
+        public String MonthMonthsName { get; set; }
+        [Width(120)]
+        public String BankNameBankNames { get; set; }
+        [Width(120)]
+        public String SourceName { get; set; }
+
+        // Applicant Details
+        [Width(150)]
+        public String CustomerName { get; set; }
+        [Width(180)]
+        public String BankSourceOrCompanyName { get; set; }
+        [Width(80)]
+        public Int32 CibilScore { get; set; }
+        [Width(100)]
+        public String LeadStageName { get; set; }
+
+        // Financial Details
+        [Width(130)]
+        public String CustomerApprovalType { get; set; }
+        [Width(100), AlignRight]
         public Decimal Amount { get; set; }
+        [Width(100), AlignRight]
         public Decimal NetAmt { get; set; }
-        public String EmployeeName { get; set; }
-        public String ConfirmationMailTakenOrNot { get; set; }
-        public String AgreementSigningPersonName { get; set; }
+        [Width(150)]
+        public String MisDisbursementStatusMisDisbursementStatusType { get; set; }
+        [Width(100)]
+        public String AdvanceEmi { get; set; }
+        [Width(120)]
         public String SubInsurancePf { get; set; }
+        [Width(130)]
+        public String ProductProductTypeName { get; set; }
+        [Width(120)]
+        public String PrimeEmergingPrimeEmergingName { get; set; }
+
+        // Category & Location
+        [Width(120)]
+        public String Location { get; set; }
+        [Width(120)]
+        public String MisDirectIndirectMisDirectIndirectType { get; set; }
+        [Width(120)]
+        public String EmployeeName { get; set; }
+        [Width(150)]
+        public String LoanAccountNumber { get; set; }
+
+        // Agreement & Verification
+        [Width(130)]
+        public String ConfirmationMailTakenOrNot { get; set; }
+        [Width(150)]
+        public String AgreementSigningPersonName { get; set; }
+        [Width(200)]
+        public String AdditionalInformation { get; set; }
+
+        // Ownership / Assignment
+        [Width(120)]
         public String OwnerUsername { get; set; }
-        public String AssignedUsername { get; set; }
     }
 }

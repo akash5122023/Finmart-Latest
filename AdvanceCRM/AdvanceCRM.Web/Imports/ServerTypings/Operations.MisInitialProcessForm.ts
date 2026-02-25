@@ -1,5 +1,6 @@
 ﻿namespace AdvanceCRM.Operations {
     export interface MisInitialProcessForm {
+        CustomerType: Serenity.EnumEditor;
         ContactsId: Serenity.LookupEditor;
         ContactsContactType: Serenity.IntegerEditor;
         ContactsName: Serenity.StringEditor;
@@ -40,41 +41,43 @@
                 MisInitialProcessForm.init = true;
 
                 var s = Serenity;
-                var w0 = s.LookupEditor;
-                var w1 = s.IntegerEditor;
-                var w2 = s.StringEditor;
-                var w3 = s.TextAreaEditor;
-                var w4 = s.DecimalEditor;
-                var w5 = s.DateTimeEditor;
+                var w0 = s.EnumEditor;
+                var w1 = s.LookupEditor;
+                var w2 = s.IntegerEditor;
+                var w3 = s.StringEditor;
+                var w4 = s.TextAreaEditor;
+                var w5 = s.DecimalEditor;
+                var w6 = s.DateTimeEditor;
 
                 Q.initFormType(MisInitialProcessForm, [
-                    'ContactsId', w0,
-                    'ContactsContactType', w1,
-                    'ContactsName', w2,
-                    'ContactsEmail', w2,
-                    'ContactsPhone', w2,
-                    'ContactsWhatsapp', w2,
-                    'ContactsAddress', w3,
-                    'ContactPersonId', w0,
-                    'ContactPersonName', w2,
-                    'ContactPersonPhone', w2,
-                    'ContactPersonWhatsapp', w2,
-                    'ContactPersonProject', w2,
-                    'ContactPersonAddress', w2,
-                    'RRSourceId', w0,
-                    'CustomerName', w2,
-                    'FirmName', w2,
-                    'LeadStageId', w0,
-                    'ProductId', w0,
-                    'Requirement', w3,
-                    'BankNameId', w0,
-                    'LoanAmount', w4,
-                    'FileReceivedDateTime', w5,
-                    'QueriesGivenTime', w5,
-                    'FileCompletionDateTime', w5,
-                    'AdditionalInformation', w3,
-                    'OwnerId', w0,
-                    'AssignedId', w0
+                    'CustomerType', w0,
+                    'ContactsId', w1,
+                    'ContactsContactType', w2,
+                    'ContactsName', w3,
+                    'ContactsEmail', w3,
+                    'ContactsPhone', w3,
+                    'ContactsWhatsapp', w3,
+                    'ContactsAddress', w4,
+                    'ContactPersonId', w1,
+                    'ContactPersonName', w3,
+                    'ContactPersonPhone', w3,
+                    'ContactPersonWhatsapp', w3,
+                    'ContactPersonProject', w3,
+                    'ContactPersonAddress', w3,
+                    'RRSourceId', w1,
+                    'CustomerName', w3,
+                    'FirmName', w3,
+                    'LeadStageId', w1,
+                    'ProductId', w1,
+                    'Requirement', w4,
+                    'BankNameId', w1,
+                    'LoanAmount', w5,
+                    'FileReceivedDateTime', w6,
+                    'QueriesGivenTime', w6,
+                    'FileCompletionDateTime', w6,
+                    'AdditionalInformation', w4,
+                    'OwnerId', w1,
+                    'AssignedId', w1
                 ]);
             }
         }

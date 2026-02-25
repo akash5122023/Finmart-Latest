@@ -38,9 +38,9 @@ namespace AdvanceCRM.Contacts.Forms
         [HalfWidth]
         public String Email { get; set; }
         public String Address { get; set; }
-        [HalfWidth, LookupEditor(typeof(TypesOfProductsRow))]
+        [HalfWidth, LookupEditor(typeof(TypesOfProductsRow), Multiple = true)]
         [DisplayName("Loan Products")]
-        public Int32? ProductId { get; set; }
+        public List<Int32> ProductIdList { get; set; }
         [HalfWidth, DefaultValue(81)]
         public Int32 Country { get; set; }
         [HalfWidth]

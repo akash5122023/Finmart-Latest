@@ -264,7 +264,7 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
                             ContactNumber, CompanyMailId, EmployeeName, ConfirmationMailTakenOrNot, 
                             AgreementSigningPersonName, LogInLoanStatusId, SalesLoanStatusId, 
                             MISDisbursementStatusId, Remark, StageOfTheCase, SubInsurancePF, 
-                            OwnerId, AssignedId, AdditionalInformation
+                            OwnerId, AssignedId, AdditionalInformation, ContactsId, ContactPersonId
                         ) VALUES (
                             @SrNo, @SourceName, @CustomerName, @FirmName, @BankSourceOrCompanyName, 
                             @FileHandledBy, @ContactPersonInTeam, @SalesManager, @Location, @ProductId, 
@@ -277,7 +277,7 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
                             @ContactNumber, @CompanyMailId, @EmployeeName, @ConfirmationMailTakenOrNot, 
                             @AgreementSigningPersonName, @LogInLoanStatusId, @SalesLoanStatusId, 
                             @MISDisbursementStatusId, @Remark, @StageOfTheCase, @SubInsurancePF, 
-                            @OwnerId, @AssignedId, @AdditionalInformation
+                            @OwnerId, @AssignedId, @AdditionalInformation, @ContactsId, @ContactPersonId
                         )";
                     }
                     else
@@ -336,7 +336,9 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
                         SubInsurancePF = sourceInsideSales.SubInsurancePf,
                         OwnerId = sourceInsideSales.OwnerId,
                         AssignedId = sourceInsideSales.AssignedId,
-                        AdditionalInformation = sourceInsideSales.AdditionalInformation
+                        AdditionalInformation = sourceInsideSales.AdditionalInformation,
+                        ContactsId = sourceInsideSales.ContactsId,
+                        ContactPersonId = sourceInsideSales.ContactPersonId
                     });
                     var inv = InsideSalesRow.Fields;
                     data.LastInvSO = conn.TryFirst<MisInitialProcessRow>(l => l

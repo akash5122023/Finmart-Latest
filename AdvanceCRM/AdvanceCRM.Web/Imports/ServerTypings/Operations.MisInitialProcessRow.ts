@@ -233,6 +233,7 @@
         ContactPersonAadharNo?: string;
         ContactPersonPanNo?: string;
         ContactPersonFileAttachments?: string;
+        CustomerType?: Masters.ContactTypeMaster;
     }
 
     export namespace MisInitialProcessRow {
@@ -482,7 +483,8 @@
             ContactPersonExpiryDate = "ContactPersonExpiryDate",
             ContactPersonAadharNo = "ContactPersonAadharNo",
             ContactPersonPanNo = "ContactPersonPanNo",
-            ContactPersonFileAttachments = "ContactPersonFileAttachments"
+            ContactPersonFileAttachments = "ContactPersonFileAttachments",
+            CustomerType = "CustomerType"
         }
     }
 }
