@@ -43,13 +43,17 @@ namespace AdvanceCRM.Operations.Forms
         public string CustomerName { get; set; }
 
         [HalfWidth]
+        [DisplayName("Firm Name")]
+        public string FirmName { get; set; }
+
+        [HalfWidth]
         [DisplayName("Bank Source / Company Name (Eg: Truewin, Finmart, Other)")]
         public string BankSourceOrCompanyName { get; set; }
         [HalfWidth, IntegerEditor(MinValue = 100, MaxValue = 999)]
         [Hint("Enter 3 digit score (100-999)")]
         public Int32 CibilScore { get; set; }
 
-        [HalfWidth, LookupEditor(typeof(LeadStageRow))]
+        [HalfWidth, LookupEditor(typeof(LeadStageRow), InplaceAdd = true)]
         [DisplayName("Lead Stage")]
         public Int32 LeadStageId { get; set; }
 

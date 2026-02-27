@@ -6,6 +6,7 @@
         BankNameId: Serenity.LookupEditor;
         RRSourceId: Serenity.LookupEditor;
         CustomerName: Serenity.StringEditor;
+        FirmName: Serenity.StringEditor;
         BankSourceOrCompanyName: Serenity.StringEditor;
         CibilScore: Serenity.IntegerEditor;
         LeadStageId: Serenity.LookupEditor;
@@ -52,6 +53,7 @@
                     'BankNameId', w2,
                     'RRSourceId', w2,
                     'CustomerName', w0,
+                    'FirmName', w0,
                     'BankSourceOrCompanyName', w0,
                     'CibilScore', w1,
                     'LeadStageId', w2,

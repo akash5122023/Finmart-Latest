@@ -61,7 +61,7 @@ namespace AdvanceCRM.Operations.Forms
 
         [HalfWidth]
         public string Location { get; set; }
-        [HalfWidth, LookupEditor(typeof(LeadStageRow))]
+        [HalfWidth, LookupEditor(typeof(LeadStageRow), InplaceAdd = true)]
         [DisplayName("Lead Stage")]
         public Int32 LeadStageId { get; set; }
 

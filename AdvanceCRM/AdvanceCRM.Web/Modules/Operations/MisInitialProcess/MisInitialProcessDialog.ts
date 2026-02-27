@@ -39,17 +39,23 @@ namespace AdvanceCRM.Operations {
         }
 
         // Update visibility based on CustomerType dropdown selection (Customer=1, ChannelPartner=2, etc.)
+        // Note: Label change is handled by updateFieldsVisibilityByContactType based on selected contact
         private updateFieldsVisibilityByCustomerType() {
-            var customerType = Q.toId(this.form.CustomerType.value);
-            var contactsIdLabel = this.form.ContactsId.getGridField().find('label');
+            // CustomerType is used for filtering contacts, but label is set by contact's ContactType
+            // Only set default label when no contact is selected
+            var contactId = Q.toId(this.form.ContactsId.value);
+            if (!contactId) {
+                var customerType = Q.toId(this.form.CustomerType.value);
+                var contactsIdLabel = this.form.ContactsId.getGridField().find('label');
 
-            // CustomerType 1 = Customer, 2 = Channel Partner
-            if (customerType == 1) {
-                contactsIdLabel.text('Customer');
-            } else if (customerType == 2) {
-                contactsIdLabel.text('Channel Partner');
-            } else {
-                contactsIdLabel.text('Contacts');
+                // CustomerType 1 = Customer, 2 = Channel Partner
+                if (customerType == 1) {
+                    contactsIdLabel.text('Customer');
+                } else if (customerType == 2) {
+                    contactsIdLabel.text('Channel Partner');
+                } else {
+                    contactsIdLabel.text('Contacts');
+                }
             }
         }
 
@@ -69,8 +75,14 @@ namespace AdvanceCRM.Operations {
                 }
             }
 
+            // Get the label element for ContactsId
+            var contactsIdLabel = this.form.ContactsId.getGridField().find('label');
+
             // ContactType 1 = Individual, ContactType 2 = Organization
             if (contactType == 1) {
+                // Individual - change label to Customer Name
+                contactsIdLabel.text('Customer Name');
+
                 // Individual - show CustomerName, hide FirmName
                 this.form.CustomerName.getGridField().toggle(true);
                 this.form.FirmName.getGridField().toggle(false);
@@ -85,6 +97,9 @@ namespace AdvanceCRM.Operations {
                     this.form.ContactsPhone.value = contactPhone;
                 }
             } else if (contactType == 2) {
+                // Organization - change label to Firm Name
+                contactsIdLabel.text('Firm Name');
+
                 // Organization - show FirmName, hide CustomerName
                 this.form.CustomerName.getGridField().toggle(false);
                 this.form.FirmName.getGridField().toggle(true);
@@ -94,6 +109,9 @@ namespace AdvanceCRM.Operations {
                 this.form.ContactPersonPhone.getGridField().toggle(true);
                 this.form.ContactsPhone.getGridField().toggle(false);
             } else {
+                // No selection - reset label to Contacts
+                contactsIdLabel.text('Contacts');
+
                 // No selection - show both CustomerName and FirmName
                 this.form.CustomerName.getGridField().toggle(true);
                 this.form.FirmName.getGridField().toggle(true);

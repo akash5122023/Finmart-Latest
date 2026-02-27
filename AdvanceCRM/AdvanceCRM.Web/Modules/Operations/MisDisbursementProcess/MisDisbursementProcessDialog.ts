@@ -15,6 +15,36 @@ namespace AdvanceCRM.Operations {
 
         protected form = new MisDisbursementProcessForm(this.idPrefix);
 
+        protected afterLoadEntity() {
+            super.afterLoadEntity();
+
+            // Update visibility based on which field has data
+            this.updateNameFieldsVisibility();
+        }
+
+        // Show CustomerName or FirmName based on which has data
+        private updateNameFieldsVisibility() {
+            var customerName = this.form.CustomerName.value;
+            var firmName = this.form.FirmName.value;
+
+            // If FirmName has value -> Organization (show FirmName, hide CustomerName)
+            // If CustomerName has value -> Individual (show CustomerName, hide FirmName)
+            // If both empty or both filled -> show both
+            if (firmName && !customerName) {
+                // Organization - show FirmName only
+                this.form.CustomerName.getGridField().toggle(false);
+                this.form.FirmName.getGridField().toggle(true);
+            } else if (customerName && !firmName) {
+                // Individual - show CustomerName only
+                this.form.CustomerName.getGridField().toggle(true);
+                this.form.FirmName.getGridField().toggle(false);
+            } else {
+                // Show both if both empty or both have values
+                this.form.CustomerName.getGridField().toggle(true);
+                this.form.FirmName.getGridField().toggle(true);
+            }
+        }
+
         protected onSaveSuccess(response: Serenity.SaveResponse): void {
             // Clear all existing notifications immediately
             $('.s-Message').remove();

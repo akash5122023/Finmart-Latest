@@ -132,7 +132,7 @@ namespace AdvanceCRM.Operations
             set => fields.BusinessDetailId[this] = value;
         }
         [DisplayName("Lead Stage"), ForeignKey("[dbo].[LeadStage]", "Id"), LeftJoin("jLeadStage"), TextualField("LeadStageName")]
-        [LookupEditor(typeof(LeadStageRow))]
+        [LookupEditor(typeof(LeadStageRow), InplaceAdd = true)]
         public Int32? LeadStageId
         {
             get => fields.LeadStageId[this];

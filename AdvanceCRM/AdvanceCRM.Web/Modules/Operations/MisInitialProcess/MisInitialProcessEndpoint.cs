@@ -223,7 +223,9 @@ namespace AdvanceCRM.Operations.Endpoints
             var f = MisInitialProcessRow.Fields;
             var sourceInitialProcess = uow.Connection.TryById<MisInitialProcessRow>(request.Id, q => q
                .SelectTableFields()
-               .Select(f.SourceName));  // Include expression field
+               .Select(f.SourceName)
+               .Select(f.ContactsName)
+               .Select(f.ContactsContactType));  // Include expression fields
 
             var cmp = CompanyDetailsRow.Fields;
             var company = uow.Connection.TryById<CompanyDetailsRow>(1, q => q
@@ -283,8 +285,13 @@ namespace AdvanceCRM.Operations.Endpoints
                     {
                         SrNo = sourceInitialProcess.SrNo,
                         SourceName = sourceInitialProcess.SourceName,
-                        CustomerName = sourceInitialProcess.CustomerName,
-                        FirmName = sourceInitialProcess.FirmName,
+                        // ContactType 1 = Individual -> CustomerName, ContactType 2 = Organization -> FirmName
+                        CustomerName = sourceInitialProcess.ContactsContactType == 1 
+                            ? (sourceInitialProcess.ContactsName ?? sourceInitialProcess.CustomerName) 
+                            : sourceInitialProcess.CustomerName,
+                        FirmName = sourceInitialProcess.ContactsContactType == 2 
+                            ? (sourceInitialProcess.ContactsName ?? sourceInitialProcess.FirmName) 
+                            : sourceInitialProcess.FirmName,
                         BankSourceOrCompanyName = sourceInitialProcess.BankSourceOrCompanyName,
                         FileHandledBy = sourceInitialProcess.FileHandledBy,
                         ContactPersonInTeam = sourceInitialProcess.ContactPersonInTeam,
