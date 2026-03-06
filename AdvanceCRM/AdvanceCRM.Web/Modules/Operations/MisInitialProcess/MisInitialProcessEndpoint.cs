@@ -202,6 +202,30 @@ namespace AdvanceCRM.Operations.Endpoints
         private static decimal? GetDecimal(object val) { if (val == null) return null; decimal d; return decimal.TryParse(val.ToString(), out d) ? d : null; }
         private static DateTime? GetDate(object val) { if (val == null) return null; DateTime dt; return DateTime.TryParse(val.ToString(), out dt) ? dt : null; }
 
+        // Helper method to get RRSourceId based on CustomerType
+        private static int? GetRRSourceIdByCustomerType(IDbConnection connection, int? customerType)
+        {
+            if (!customerType.HasValue)
+                return null;
+
+            // Map CustomerType to RRSource name
+            // CustomerType: 1 = Customer, 2 = Vendor, 3 = ChannelPartner, 4 = Referrer
+            var sourceNameMap = new Dictionary<int, string[]>
+            {
+                { 1, new[] { "Customer", "customer" } },
+                { 2, new[] { "Vendor", "vendor" } },
+                { 3, new[] { "ChannelPartner", "Channel Partner", "channelpartner", "channel partner", "CP" } },
+                { 4, new[] { "Referrer", "Referral", "referrer", "referral" } }
+            };
+
+            if (!sourceNameMap.TryGetValue(customerType.Value, out var sourceNames))
+                return null;
+
+            // Build the SQL with multiple possible names
+            var sql = "SELECT TOP 1 Id FROM [RRSource] WHERE [SourceName] IN @sourceNames";
+            return connection.Query<int?>(sql, new { sourceNames }).FirstOrDefault();
+        }
+
         [HttpPost, ServiceAuthorize("MISInitialProcess:Move To LogInProcess")]
         public StandardResponse MoveToLogInProcess(IUnitOfWork uow, SendMailRequest request)
         {
@@ -225,7 +249,8 @@ namespace AdvanceCRM.Operations.Endpoints
                .SelectTableFields()
                .Select(f.SourceName)
                .Select(f.ContactsName)
-               .Select(f.ContactsContactType));  // Include expression fields
+               .Select(f.ContactsContactType)
+               .Select(f.ContactsCustomerType));  // Include expression fields
 
             var cmp = CompanyDetailsRow.Fields;
             var company = uow.Connection.TryById<CompanyDetailsRow>(1, q => q
@@ -338,7 +363,8 @@ namespace AdvanceCRM.Operations.Endpoints
                         OwnerId = sourceInitialProcess.OwnerId,
                         AssignedId = sourceInitialProcess.AssignedId,
                         AdditionalInformation = sourceInitialProcess.AdditionalInformation,
-                        RRSourceId = sourceInitialProcess.RRSourceId,
+                        // Use RRSourceId if set, otherwise lookup by ContactsCustomerType
+                        RRSourceId = sourceInitialProcess.RRSourceId ?? GetRRSourceIdByCustomerType(conn, sourceInitialProcess.ContactsCustomerType),
                         LeadStageId = sourceInitialProcess.LeadStageId
                     });
 

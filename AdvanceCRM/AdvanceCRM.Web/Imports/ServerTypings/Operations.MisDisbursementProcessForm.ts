@@ -4,7 +4,6 @@
         Year: Serenity.IntegerEditor;
         MonthId: Serenity.LookupEditor;
         BankNameId: Serenity.LookupEditor;
-        RRSourceId: Serenity.LookupEditor;
         CustomerName: Serenity.StringEditor;
         FirmName: Serenity.StringEditor;
         BankSourceOrCompanyName: Serenity.StringEditor;
@@ -51,7 +50,6 @@
                     'Year', w1,
                     'MonthId', w2,
                     'BankNameId', w2,
-                    'RRSourceId', w2,
                     'CustomerName', w0,
                     'FirmName', w0,
                     'BankSourceOrCompanyName', w0,

@@ -27,9 +27,13 @@ namespace AdvanceCRM.Operations {
                     this.form.ContactPersonId.value = null;
                     this.form.ContactsPhone.value = null;
                     this.form.ContactPersonPhone.value = null;
+
+                    // Only auto-update SourceName when user changes CustomerType (not during load)
+                    this.updateSourceNameByCustomerType();
                 }
-                // Update field visibility based on selected type
+                // Update field visibility and filter contacts based on selected type
                 this.updateFieldsVisibilityByCustomerType();
+                this.filterContactsByCustomerType();
             });
 
             // When ContactsId changes, update visibility based on contact's ContactType
@@ -38,39 +42,92 @@ namespace AdvanceCRM.Operations {
             });
         }
 
-        // Update visibility based on CustomerType dropdown selection (Customer=1, ChannelPartner=2, etc.)
-        // Note: Label change is handled by updateFieldsVisibilityByContactType based on selected contact
-        private updateFieldsVisibilityByCustomerType() {
-            // CustomerType is used for filtering contacts, but label is set by contact's ContactType
-            // Only set default label when no contact is selected
-            var contactId = Q.toId(this.form.ContactsId.value);
-            if (!contactId) {
-                var customerType = Q.toId(this.form.CustomerType.value);
-                var contactsIdLabel = this.form.ContactsId.getGridField().find('label');
+        // Filter Contacts dropdown based on CustomerType selection
+        private filterContactsByCustomerType() {
+            var customerType = Q.toId(this.form.CustomerType.value);
+            var contactsEditor = this.form.ContactsId as any;
 
-                // CustomerType 1 = Customer, 2 = Channel Partner
-                if (customerType == 1) {
-                    contactsIdLabel.text('Customer');
-                } else if (customerType == 2) {
-                    contactsIdLabel.text('Channel Partner');
-                } else {
-                    contactsIdLabel.text('Contacts');
-                }
+            // Apply cascade filter based on CustomerType
+            if (customerType) {
+                contactsEditor.cascadeValue = customerType;
+                contactsEditor.cascadeField = 'CustomerType';
+            } else {
+                // Clear filter if no CustomerType selected
+                contactsEditor.cascadeValue = null;
+                contactsEditor.cascadeField = null;
+            }
+        }
+
+        // Auto-update SourceName (RRSourceId) based on CustomerType selection
+        private updateSourceNameByCustomerType() {
+            var customerType = Q.toId(this.form.CustomerType.value);
+
+            if (!customerType) {
+                this.form.RRSourceId.value = null;
+                return;
+            }
+
+            // CustomerType: 1 = Customer, 2 = Vendor, 3 = ChannelPartner, 4 = Referrer
+            // Map CustomerType to RRSourceId directly
+            var sourceIdMap: { [key: number]: number } = {
+                1: 1,  // Customer -> RRSource Id 1
+                2: 2,  // Vendor -> RRSource Id 2
+                3: 3,  // ChannelPartner -> RRSource Id 3
+                4: 4   // Referrer -> RRSource Id 4
+            };
+
+            var targetSourceId = sourceIdMap[customerType];
+            if (targetSourceId) {
+                this.form.RRSourceId.value = targetSourceId.toString();
+            }
+        }
+
+        // Update visibility based on CustomerType dropdown selection (Customer=1, Vendor=2, ChannelPartner=3)
+        private updateFieldsVisibilityByCustomerType() {
+            var contactId = Q.toId(this.form.ContactsId.value);
+            var customerType = Q.toId(this.form.CustomerType.value);
+            var contactsIdLabel = this.form.ContactsId.getGridField().find('label');
+
+            // Set label based on CustomerType when no contact is selected
+            // CustomerType: 1 = Customer, 2 = Vendor, 3 = ChannelPartner
+            if (customerType == 3) {
+                // ChannelPartner - change label to CP Name
+                contactsIdLabel.text('CP Name');
+                // ChannelPartner - hide both CustomerName and FirmName until contact is selected
+                // The actual visibility will be determined by ContactType (Individual/Organization)
+                this.form.CustomerName.getGridField().toggle(false);
+                this.form.FirmName.getGridField().toggle(false);
+            } else if (customerType == 1) {
+                contactsIdLabel.text('Customer');
+                // Customer - show CustomerName, hide FirmName
+                this.form.CustomerName.getGridField().toggle(true);
+                this.form.FirmName.getGridField().toggle(false);
+            } else if (customerType == 2) {
+                contactsIdLabel.text('Vendor');
+                // Vendor - show CustomerName, hide FirmName
+                this.form.CustomerName.getGridField().toggle(true);
+                this.form.FirmName.getGridField().toggle(false);
+            } else {
+                contactsIdLabel.text('Contacts');
             }
         }
 
         // Update visibility based on Contact's ContactType (Individual=1, Organization=2)
+        // Also considers CustomerType for ChannelPartner label
         private updateFieldsVisibilityByContactType() {
             var contactId = Q.toId(this.form.ContactsId.value);
+            var customerType = Q.toId(this.form.CustomerType.value);
             var contactType: number = null;
+            var contactCustomerType: number = null;
             var contactPhone: string = null;
 
-            // Get ContactType and Phone from lookup data
+            // Get ContactType, CustomerType and Phone from lookup data
             if (contactId) {
                 var contactsLookup = Contacts.ContactsRow.getLookup();
                 var contact = contactsLookup.itemById[contactId];
                 if (contact) {
                     contactType = contact.ContactType;
+                    contactCustomerType = contact.CustomerType;
                     contactPhone = contact.Phone;
                 }
             }
@@ -78,8 +135,39 @@ namespace AdvanceCRM.Operations {
             // Get the label element for ContactsId
             var contactsIdLabel = this.form.ContactsId.getGridField().find('label');
 
+            // Check if CustomerType is ChannelPartner (3) - this takes priority
+            if (customerType == 3 || contactCustomerType == 3) {
+                // ChannelPartner - change label to CP Name
+                contactsIdLabel.text('CP Name');
+
+                // ChannelPartner - check ContactType to show CustomerName or FirmName
+                // ContactType 1 = Individual, ContactType 2 = Organization
+                if (contactType == 1) {
+                    // Individual - show CustomerName, hide FirmName
+                    this.form.CustomerName.getGridField().toggle(true);
+                    this.form.FirmName.getGridField().toggle(false);
+                } else if (contactType == 2) {
+                    // Organization - show FirmName, hide CustomerName
+                    this.form.CustomerName.getGridField().toggle(false);
+                    this.form.FirmName.getGridField().toggle(true);
+                } else {
+                    // No ContactType selected yet - hide both until contact is selected
+                    this.form.CustomerName.getGridField().toggle(false);
+                    this.form.FirmName.getGridField().toggle(false);
+                }
+
+                // Hide ContactPerson fields for ChannelPartner
+                this.form.ContactPersonId.getGridField().toggle(false);
+                this.form.ContactPersonPhone.getGridField().toggle(false);
+                this.form.ContactsPhone.getGridField().toggle(true);
+
+                // Auto-populate ContactsPhone with Contact's Phone for ChannelPartner
+                if (contactPhone) {
+                    this.form.ContactsPhone.value = contactPhone;
+                }
+            }
             // ContactType 1 = Individual, ContactType 2 = Organization
-            if (contactType == 1) {
+            else if (contactType == 1) {
                 // Individual - change label to Customer Name
                 contactsIdLabel.text('Customer Name');
 
@@ -109,8 +197,16 @@ namespace AdvanceCRM.Operations {
                 this.form.ContactPersonPhone.getGridField().toggle(true);
                 this.form.ContactsPhone.getGridField().toggle(false);
             } else {
-                // No selection - reset label to Contacts
-                contactsIdLabel.text('Contacts');
+                // No selection - reset label based on CustomerType or default
+                if (customerType == 3) {
+                    contactsIdLabel.text('CP Name');
+                } else if (customerType == 1) {
+                    contactsIdLabel.text('Customer');
+                } else if (customerType == 2) {
+                    contactsIdLabel.text('Vendor');
+                } else {
+                    contactsIdLabel.text('Contacts');
+                }
 
                 // No selection - show both CustomerName and FirmName
                 this.form.CustomerName.getGridField().toggle(true);
@@ -127,10 +223,16 @@ namespace AdvanceCRM.Operations {
         protected loadEntity(entity: MisInitialProcessRow) {
             this.isLoadingEntity = true;
 
-            // Set CustomerType from ContactsCustomerType before form loads
-            if (entity.ContactsCustomerType) {
+            // For existing records with ContactsId, get the CustomerType from the contact
+            // This ensures the CustomerType dropdown shows the correct value
+            if (entity.ContactsId && entity.ContactsCustomerType) {
                 entity.CustomerType = entity.ContactsCustomerType;
             }
+
+            // IMPORTANT: Clear any cascade filter before loading to ensure ContactsId displays
+            var contactsEditor = this.form.ContactsId as any;
+            contactsEditor.cascadeValue = null;
+            contactsEditor.cascadeField = null;
 
             super.loadEntity(entity);
 
@@ -143,6 +245,12 @@ namespace AdvanceCRM.Operations {
             // Update visibility based on loaded data
             this.updateFieldsVisibilityByCustomerType();
             this.updateFieldsVisibilityByContactType();
+
+            // Only update SourceName for new records (not when editing existing ones)
+            // Existing records already have RRSourceId set from the database
+            if (this.isNew()) {
+                this.updateSourceNameByCustomerType();
+            }
 
             // Make OwnerId readonly when editing existing records
             if (!this.isNew()) {

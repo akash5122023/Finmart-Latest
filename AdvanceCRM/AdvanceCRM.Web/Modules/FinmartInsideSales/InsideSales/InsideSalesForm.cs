@@ -123,3 +123,4 @@ namespace AdvanceCRM.FinmartInsideSales.Forms
         public Int32 AssignedId { get; set; }
     }
 }
+

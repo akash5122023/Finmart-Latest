@@ -20,7 +20,7 @@ namespace AdvanceCRM.ChannelPartner.Forms
         public Int32 BankNameId { get; set; }
 
         [HalfWidth, DisplayName("Bank Sales Manager Name")]
-        
+
         public String BankSalesManagerName { get; set; }
         [Category("Loan Details")]
         [HalfWidth, LookupEditor(typeof(TypesOfProductsRow))]
@@ -48,3 +48,4 @@ namespace AdvanceCRM.ChannelPartner.Forms
         public Int32 OwnerId { get; set; }
     }
 }
+

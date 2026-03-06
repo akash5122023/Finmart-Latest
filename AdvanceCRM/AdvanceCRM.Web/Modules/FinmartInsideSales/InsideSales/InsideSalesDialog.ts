@@ -14,8 +14,12 @@
 
         protected form = new InsideSalesForm(this.idPrefix);
 
+        private followupsGrid: InsideSalesFollowupsGrid;
+
         constructor() {
             super();
+
+            this.followupsGrid = new InsideSalesFollowupsGrid(this.byId('FollowupsGrid'));
 
             // Toggle CustomerName/FirmName based on ContactType when Contact is selected
             this.form.ContactsId.changeSelect2(e => {
@@ -26,15 +30,17 @@
         private updateNameFieldsVisibility() {
             var contactId = Q.toId(this.form.ContactsId.value);
             var contactType: number = null;
+            var customerType: number = null;
             var contactName: string = null;
             var contactPhone: string = null;
 
-            // Get ContactType, Name and Phone from lookup data
+            // Get ContactType, CustomerType, Name and Phone from lookup data
             if (contactId) {
                 var contactsLookup = Contacts.ContactsRow.getLookup();
                 var contact = contactsLookup.itemById[contactId];
                 if (contact) {
                     contactType = contact.ContactType;
+                    customerType = contact.CustomerType;
                     contactName = contact.Name;
                     contactPhone = contact.Phone;
                 }
@@ -44,8 +50,19 @@
             var contactsIdLabel = this.form.ContactsId.getGridField().find('label');
             var companyMailIdLabel = this.form.CompanyMailId.getGridField().find('label');
 
+            // Check CustomerType first: ChannelPartner = 3
+            if (customerType == 3) {
+                // ChannelPartner - change label to CP Name
+                contactsIdLabel.text('CP Name');
+                companyMailIdLabel.text('CP Mail ID');
+
+                // Show ContactPerson fields for ChannelPartner
+                this.form.ContactPersonId.getGridField().toggle(true);
+                this.form.ContactPersonPhone.getGridField().toggle(true);
+                this.form.ContactsPhone.getGridField().toggle(false);
+            }
             // ContactType 1 = Individual, ContactType 2 = Organization
-            if (contactType == 1) {
+            else if (contactType == 1) {
                 // Individual - change labels
                 contactsIdLabel.text('Customer Name');
                 companyMailIdLabel.text('Individual Mail ID');
@@ -146,9 +163,6 @@
                 if (Q.toId(this.form.OwnerId.value) < 1) {
                     this.form.OwnerId.value = Authorization.userDefinition.UserId.toString();
                 }
-                // For new records, show both fields until a contact is selected
-                this.form.CustomerName.getGridField().toggle(true);
-                this.form.FirmName.getGridField().toggle(true);
             }
         }
 
@@ -163,6 +177,14 @@
 
             // Update name fields visibility based on contact type
             this.updateNameFieldsVisibility();
+        }
+
+        loadEntity(entity: InsideSalesRow) {
+            super.loadEntity(entity);
+
+            if (!this.isNewOrDeleted()) {
+                this.followupsGrid.insideSalesId = entity.Id.toString();
+            }
         }
     }
 }

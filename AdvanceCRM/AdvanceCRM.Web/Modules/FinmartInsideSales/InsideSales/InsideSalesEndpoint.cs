@@ -229,7 +229,10 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
 
             var quot = InsideSalesRow.Fields;
             var sourceInsideSales = uow.Connection.TryById<InsideSalesRow>(request.Id, q => q
-               .SelectTableFields());
+               .SelectTableFields()
+               .Select(quot.ContactsCustomerType)
+               .Select(quot.ContactsContactType)
+               .Select(quot.ContactsName));
             var cmp = CompanyDetailsRow.Fields;
             data.Company = uow.Connection.TryById<CompanyDetailsRow>(1, q => q
                 .SelectTableFields()
@@ -264,7 +267,7 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
                             ContactNumber, CompanyMailId, EmployeeName, ConfirmationMailTakenOrNot, 
                             AgreementSigningPersonName, LogInLoanStatusId, SalesLoanStatusId, 
                             MISDisbursementStatusId, Remark, StageOfTheCase, SubInsurancePF, 
-                            OwnerId, AssignedId, AdditionalInformation, ContactsId, ContactPersonId
+                            OwnerId, AssignedId, AdditionalInformation, ContactsId, ContactPersonId, RRSourceId
                         ) VALUES (
                             @SrNo, @SourceName, @CustomerName, @FirmName, @BankSourceOrCompanyName, 
                             @FileHandledBy, @ContactPersonInTeam, @SalesManager, @Location, @ProductId, 
@@ -277,7 +280,7 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
                             @ContactNumber, @CompanyMailId, @EmployeeName, @ConfirmationMailTakenOrNot, 
                             @AgreementSigningPersonName, @LogInLoanStatusId, @SalesLoanStatusId, 
                             @MISDisbursementStatusId, @Remark, @StageOfTheCase, @SubInsurancePF, 
-                            @OwnerId, @AssignedId, @AdditionalInformation, @ContactsId, @ContactPersonId
+                            @OwnerId, @AssignedId, @AdditionalInformation, @ContactsId, @ContactPersonId, @RRSourceId
                         )";
                     }
                     else
@@ -289,8 +292,13 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
                     {
                         SrNo = sourceInsideSales.SrNo,
                         SourceName = sourceInsideSales.SourceName,
-                        CustomerName = sourceInsideSales.CustomerName,
-                        FirmName = sourceInsideSales.FirmName,
+                        // ContactType 1 = Individual -> CustomerName, ContactType 2 = Organization -> FirmName
+                        CustomerName = sourceInsideSales.ContactsContactType == 1 
+                            ? (sourceInsideSales.ContactsName ?? sourceInsideSales.CustomerName) 
+                            : sourceInsideSales.CustomerName,
+                        FirmName = sourceInsideSales.ContactsContactType == 2 
+                            ? (sourceInsideSales.ContactsName ?? sourceInsideSales.FirmName) 
+                            : sourceInsideSales.FirmName,
                         BankSourceOrCompanyName = sourceInsideSales.BankSourceOrCompanyName,
                         FileHandledBy = sourceInsideSales.FileHandledBy,
                         ContactPersonInTeam = sourceInsideSales.ContactPersonInTeam,
@@ -338,7 +346,9 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
                         AssignedId = sourceInsideSales.AssignedId,
                         AdditionalInformation = sourceInsideSales.AdditionalInformation,
                         ContactsId = sourceInsideSales.ContactsId,
-                        ContactPersonId = sourceInsideSales.ContactPersonId
+                        ContactPersonId = sourceInsideSales.ContactPersonId,
+                        // Map ContactsCustomerType to RRSourceId by looking up the source name
+                        RRSourceId = GetRRSourceIdByCustomerType(conn, sourceInsideSales.ContactsCustomerType)
                     });
                     var inv = InsideSalesRow.Fields;
                     data.LastInvSO = conn.TryFirst<MisInitialProcessRow>(l => l
@@ -360,6 +370,30 @@ namespace AdvanceCRM.FinmartInsideSales.Endpoints
         private static int? GetInt(object val) { if (val == null) return null; int i; return int.TryParse(val.ToString(), out i) ? i : null; }
         private static decimal? GetDecimal(object val) { if (val == null) return null; decimal d; return decimal.TryParse(val.ToString(), out d) ? d : null; }
         private static DateTime? GetDate(object val) { if (val == null) return null; DateTime dt; return DateTime.TryParse(val.ToString(), out dt) ? dt : null; }
+
+        // Helper method to get RRSourceId based on CustomerType
+        private static int? GetRRSourceIdByCustomerType(IDbConnection connection, int? customerType)
+        {
+            if (!customerType.HasValue)
+                return null;
+
+            // Map CustomerType to RRSource name
+            // CustomerType: 1 = Customer, 2 = Vendor, 3 = ChannelPartner, 4 = Referrer
+            var sourceNameMap = new Dictionary<int, string[]>
+            {
+                { 1, new[] { "Customer", "customer" } },
+                { 2, new[] { "Vendor", "vendor" } },
+                { 3, new[] { "ChannelPartner", "Channel Partner", "channelpartner", "channel partner", "CP" } },
+                { 4, new[] { "Referrer", "Referral", "referrer", "referral" } }
+            };
+
+            if (!sourceNameMap.TryGetValue(customerType.Value, out var sourceNames))
+                return null;
+
+            // Build the SQL with multiple possible names
+            var sql = "SELECT TOP 1 Id FROM [RRSource] WHERE [SourceName] IN @sourceNames";
+            return connection.Query<int?>(sql, new { sourceNames }).FirstOrDefault();
+        }
 
         public class InsideSalesData
         {

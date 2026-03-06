@@ -28,9 +28,9 @@ namespace AdvanceCRM.Operations.Forms
         [HalfWidth, DateTimeEditor, DisplayName("Date")]
         public DateTime FileReceivedDateTime { get; set; }
 
-        [HalfWidth, LookupEditor(typeof(RrSourceRow))]
-        [DisplayName("Source Name")]
-        public Int32 RRSourceId { get; set; }
+        //[HalfWidth, LookupEditor(typeof(RrSourceRow))]
+        //[DisplayName("Source Name")]
+        //public Int32 RRSourceId { get; set; }
 
         [HalfWidth, LookupEditor(typeof(BankNameRow))]
         [DisplayName("Bank Names")]

@@ -4,7 +4,6 @@
         Year: Serenity.IntegerEditor;
         MonthId: Serenity.LookupEditor;
         FileReceivedDateTime: Serenity.DateTimeEditor;
-        RRSourceId: Serenity.LookupEditor;
         BankNameId: Serenity.LookupEditor;
         ProductId: Serenity.LookupEditor;
         CustomerName: Serenity.StringEditor;
@@ -52,7 +51,6 @@
                     'Year', w1,
                     'MonthId', w2,
                     'FileReceivedDateTime', w3,
-                    'RRSourceId', w2,
                     'BankNameId', w2,
                     'ProductId', w2,
                     'CustomerName', w0,

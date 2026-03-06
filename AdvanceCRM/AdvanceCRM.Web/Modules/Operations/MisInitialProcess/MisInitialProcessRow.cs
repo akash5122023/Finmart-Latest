@@ -411,7 +411,7 @@ namespace AdvanceCRM.Operations
         }
 
         [DisplayName("Contacts"), NotNull, ForeignKey("[dbo].[Contacts]", "Id"), LeftJoin("jContacts"), TextualField("ContactsName")]
-        [LookupEditor(typeof(ContactsRow), InplaceAdd = true, CascadeFrom = "CustomerType", CascadeField = "CustomerType")]
+        [LookupEditor(typeof(ContactsRow), InplaceAdd = true)]
         public Int32? ContactsId
         {
             get { return Fields.ContactsId[this]; }

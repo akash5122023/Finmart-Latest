@@ -213,3 +213,4 @@ CopilotIndices/
 CopilotSnapshots/
 copilot-chat/
 /AdvanceCRM/AdvanceCRM.Web/appsettings.json
+/AdvanceCRM/AdvanceCRM.Web/wwwroot/Scripts/site/AdvanceCRM.Web.js

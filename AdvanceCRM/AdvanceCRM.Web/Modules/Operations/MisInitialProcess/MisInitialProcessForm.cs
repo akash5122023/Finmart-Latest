@@ -19,6 +19,10 @@ namespace AdvanceCRM.Operations.Forms
         public Masters.ContactTypeMaster CustomerType { get; set; }
         [HalfWidth, FormCssClass("line-break-sm")]
         public Int32 ContactsId { get; set; }
+        [HalfWidth, DisplayName("Customer Name")]
+        public String CustomerName { get; set; }
+        [HalfWidth, DisplayName("Firm Name")]
+        public String FirmName { get; set; }
         [Hidden]
         public Int32 ContactsContactType { get; set; }
         [Hidden]
@@ -50,15 +54,13 @@ namespace AdvanceCRM.Operations.Forms
         //[HalfWidth, DisplayName("Sr No")]
         //public Int32 SrNo { get; set; }
 
-        [HalfWidth, LookupEditor(typeof(RrSourceRow), InplaceAdd = true)]
-        [DisplayName("Source Name")]
-        public Int32 RRSourceId { get; set; }
+        //[HalfWidth, LookupEditor(typeof(RrSourceRow)), ReadOnly(true)]
+        //[DisplayName("Source Name")]
+        //public Int32 RRSourceId { get; set; }
 
-        [HalfWidth, DisplayName("Customer Name")]
-        public String CustomerName { get; set; }
+        
 
-        [HalfWidth, DisplayName("Firm Name")]
-        public String FirmName { get; set; }
+        
 
         [HalfWidth, LookupEditor(typeof(LeadStageRow))]
         [DisplayName("Lead Stage")]

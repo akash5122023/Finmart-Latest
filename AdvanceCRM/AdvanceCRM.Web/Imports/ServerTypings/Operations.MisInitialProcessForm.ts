@@ -2,6 +2,8 @@
     export interface MisInitialProcessForm {
         CustomerType: Serenity.EnumEditor;
         ContactsId: Serenity.LookupEditor;
+        CustomerName: Serenity.StringEditor;
+        FirmName: Serenity.StringEditor;
         ContactsContactType: Serenity.IntegerEditor;
         ContactsName: Serenity.StringEditor;
         ContactsEmail: Serenity.StringEditor;
@@ -14,9 +16,6 @@
         ContactPersonWhatsapp: Serenity.StringEditor;
         ContactPersonProject: Serenity.StringEditor;
         ContactPersonAddress: Serenity.StringEditor;
-        RRSourceId: Serenity.LookupEditor;
-        CustomerName: Serenity.StringEditor;
-        FirmName: Serenity.StringEditor;
         LeadStageId: Serenity.LookupEditor;
         ProductId: Serenity.LookupEditor;
         Requirement: Serenity.TextAreaEditor;
@@ -43,8 +42,8 @@
                 var s = Serenity;
                 var w0 = s.EnumEditor;
                 var w1 = s.LookupEditor;
-                var w2 = s.IntegerEditor;
-                var w3 = s.StringEditor;
+                var w2 = s.StringEditor;
+                var w3 = s.IntegerEditor;
                 var w4 = s.TextAreaEditor;
                 var w5 = s.DecimalEditor;
                 var w6 = s.DateTimeEditor;
@@ -52,21 +51,20 @@
                 Q.initFormType(MisInitialProcessForm, [
                     'CustomerType', w0,
                     'ContactsId', w1,
-                    'ContactsContactType', w2,
-                    'ContactsName', w3,
-                    'ContactsEmail', w3,
-                    'ContactsPhone', w3,
-                    'ContactsWhatsapp', w3,
+                    'CustomerName', w2,
+                    'FirmName', w2,
+                    'ContactsContactType', w3,
+                    'ContactsName', w2,
+                    'ContactsEmail', w2,
+                    'ContactsPhone', w2,
+                    'ContactsWhatsapp', w2,
                     'ContactsAddress', w4,
                     'ContactPersonId', w1,
-                    'ContactPersonName', w3,
-                    'ContactPersonPhone', w3,
-                    'ContactPersonWhatsapp', w3,
-                    'ContactPersonProject', w3,
-                    'ContactPersonAddress', w3,
-                    'RRSourceId', w1,
-                    'CustomerName', w3,
-                    'FirmName', w3,
+                    'ContactPersonName', w2,
+                    'ContactPersonPhone', w2,
+                    'ContactPersonWhatsapp', w2,
+                    'ContactPersonProject', w2,
+                    'ContactPersonAddress', w2,
                     'LeadStageId', w1,
                     'ProductId', w1,
                     'Requirement', w4,

@@ -31,9 +31,9 @@ namespace AdvanceCRM.Operations.Forms
         [DisplayName("Bank Name")]
         public Int32 BankNameId { get; set; }
 
-        [HalfWidth, LookupEditor(typeof(RrSourceRow))]
-        [DisplayName("Source Name")]
-        public Int32 RRSourceId { get; set; }
+        //[HalfWidth, LookupEditor(typeof(RrSourceRow))]
+        //[DisplayName("Source Name")]
+        //public Int32 RRSourceId { get; set; }
 
         // ====== SECTION 2 - Applicant Information ======
         [Category("👤 Applicant Details")]

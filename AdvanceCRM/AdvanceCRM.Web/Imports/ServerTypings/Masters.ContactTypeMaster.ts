@@ -2,7 +2,8 @@
     export enum ContactTypeMaster {
         Customer = 1,
         Vendor = 2,
-        ChannelPartner = 3
+        ChannelPartner = 3,
+        Referrer = 4
     }
     Serenity.Decorators.registerEnumType(ContactTypeMaster, 'AdvanceCRM.Masters.ContactTypeMaster', 'Masters.ContactType');
 }

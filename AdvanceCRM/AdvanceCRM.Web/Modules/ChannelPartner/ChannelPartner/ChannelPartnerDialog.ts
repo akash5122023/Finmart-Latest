@@ -15,5 +15,20 @@ namespace AdvanceCRM.ChannelPartner {
 
         protected form = new ChannelPartnerForm(this.idPrefix);
 
+        private followupsGrid: ChannelPartnerFollowupsGrid;
+
+        constructor() {
+            super();
+
+            this.followupsGrid = new ChannelPartnerFollowupsGrid(this.byId('FollowupsGrid'));
+        }
+
+        loadEntity(entity: ChannelPartnerRow) {
+            super.loadEntity(entity);
+
+            if (!this.isNewOrDeleted()) {
+                this.followupsGrid.channelPartnerId = entity.Id.toString();
+            }
+        }
     }
 }
