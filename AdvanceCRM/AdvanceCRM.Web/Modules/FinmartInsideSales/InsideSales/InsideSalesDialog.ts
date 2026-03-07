@@ -19,7 +19,15 @@
         constructor() {
             super();
 
-            this.followupsGrid = new InsideSalesFollowupsGrid(this.byId('FollowupsGrid'));
+            // Try to create followups grid, but don't fail if it can't be created
+            try {
+                var followupsGridElement = this.byId('FollowupsGrid');
+                if (followupsGridElement && followupsGridElement.length > 0) {
+                    this.followupsGrid = new InsideSalesFollowupsGrid(followupsGridElement);
+                }
+            } catch (e) {
+                console.warn('Could not create InsideSalesFollowupsGrid:', e);
+            }
 
             // Toggle CustomerName/FirmName based on ContactType when Contact is selected
             this.form.ContactsId.changeSelect2(e => {
@@ -36,13 +44,18 @@
 
             // Get ContactType, CustomerType, Name and Phone from lookup data
             if (contactId) {
-                var contactsLookup = Contacts.ContactsRow.getLookup();
-                var contact = contactsLookup.itemById[contactId];
-                if (contact) {
-                    contactType = contact.ContactType;
-                    customerType = contact.CustomerType;
-                    contactName = contact.Name;
-                    contactPhone = contact.Phone;
+                try {
+                    var contactsLookup = Contacts.ContactsRow.getLookup();
+                    var contact = contactsLookup.itemById[contactId];
+                    if (contact) {
+                        contactType = contact.ContactType;
+                        customerType = contact.CustomerType;
+                        contactName = contact.Name;
+                        contactPhone = contact.Phone;
+                    }
+                } catch (e) {
+                    // Lookup not available
+                    console.warn('Contacts lookup not available');
                 }
             }
 
@@ -182,7 +195,7 @@
         loadEntity(entity: InsideSalesRow) {
             super.loadEntity(entity);
 
-            if (!this.isNewOrDeleted()) {
+            if (!this.isNewOrDeleted() && this.followupsGrid) {
                 this.followupsGrid.insideSalesId = entity.Id.toString();
             }
         }

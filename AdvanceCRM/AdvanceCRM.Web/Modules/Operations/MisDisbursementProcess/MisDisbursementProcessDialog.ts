@@ -24,6 +24,11 @@ namespace AdvanceCRM.Operations {
 
         // Show CustomerName or FirmName based on which has data
         private updateNameFieldsVisibility() {
+            // Check if fields exist on the form before accessing them
+            if (!this.form.CustomerName || !this.form.FirmName) {
+                return;
+            }
+
             var customerName = this.form.CustomerName.value;
             var firmName = this.form.FirmName.value;
 

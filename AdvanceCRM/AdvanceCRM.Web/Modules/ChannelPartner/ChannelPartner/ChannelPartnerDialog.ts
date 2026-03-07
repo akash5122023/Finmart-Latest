@@ -20,13 +20,21 @@ namespace AdvanceCRM.ChannelPartner {
         constructor() {
             super();
 
-            this.followupsGrid = new ChannelPartnerFollowupsGrid(this.byId('FollowupsGrid'));
+            // Try to create followups grid, but don't fail if it can't be created
+            try {
+                var followupsGridElement = this.byId('FollowupsGrid');
+                if (followupsGridElement && followupsGridElement.length > 0) {
+                    this.followupsGrid = new ChannelPartnerFollowupsGrid(followupsGridElement);
+                }
+            } catch (e) {
+                console.warn('Could not create ChannelPartnerFollowupsGrid:', e);
+            }
         }
 
         loadEntity(entity: ChannelPartnerRow) {
             super.loadEntity(entity);
 
-            if (!this.isNewOrDeleted()) {
+            if (!this.isNewOrDeleted() && this.followupsGrid) {
                 this.followupsGrid.channelPartnerId = entity.Id.toString();
             }
         }
