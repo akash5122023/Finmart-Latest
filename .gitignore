@@ -214,3 +214,4 @@ CopilotSnapshots/
 copilot-chat/
 /AdvanceCRM/AdvanceCRM.Web/appsettings.json
 /AdvanceCRM/AdvanceCRM.Web/wwwroot/Scripts/site/AdvanceCRM.Web.js
+/AdvanceCRM/AdvanceCRM.Web/Modules/Operations/MisInitialProcess/MisInitialProcessDialog.ts
