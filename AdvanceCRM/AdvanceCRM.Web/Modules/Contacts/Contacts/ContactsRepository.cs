@@ -71,25 +71,25 @@ namespace AdvanceCRM.Contacts.Repositories
                 .Select(od.UpperLevel5)
                 );
 
-                if (owner.HasValue())
+                if (owner != null && owner.UserId.HasValue)
                 {
                     userIds.Add(owner.UserId.Value);
-                    userIds.Add(owner.UpperLevel.Value);
-                    userIds.Add(owner.UpperLevel2.Value);
-                    userIds.Add(owner.UpperLevel3.Value);
-                    userIds.Add(owner.UpperLevel4.Value);
-                    userIds.Add(owner.UpperLevel5.Value);
+                    if (owner.UpperLevel.HasValue) userIds.Add(owner.UpperLevel.Value);
+                    if (owner.UpperLevel2.HasValue) userIds.Add(owner.UpperLevel2.Value);
+                    if (owner.UpperLevel3.HasValue) userIds.Add(owner.UpperLevel3.Value);
+                    if (owner.UpperLevel4.HasValue) userIds.Add(owner.UpperLevel4.Value);
+                    if (owner.UpperLevel5.HasValue) userIds.Add(owner.UpperLevel5.Value);
                 }
-                if (assigned.HasValue())
+                if (assigned != null && assigned.UserId.HasValue)
                 {
                     userIds.Add(assigned.UserId.Value);
-                    userIds.Add(assigned.UpperLevel.Value);
-                    userIds.Add(assigned.UpperLevel2.Value);
-                    userIds.Add(assigned.UpperLevel3.Value);
-                    userIds.Add(assigned.UpperLevel4.Value);
-                    userIds.Add(assigned.UpperLevel5.Value);
+                    if (assigned.UpperLevel.HasValue) userIds.Add(assigned.UpperLevel.Value);
+                    if (assigned.UpperLevel2.HasValue) userIds.Add(assigned.UpperLevel2.Value);
+                    if (assigned.UpperLevel3.HasValue) userIds.Add(assigned.UpperLevel3.Value);
+                    if (assigned.UpperLevel4.HasValue) userIds.Add(assigned.UpperLevel4.Value);
+                    if (assigned.UpperLevel5.HasValue) userIds.Add(assigned.UpperLevel5.Value);
                 }
-                if (Entity.MultiAssignList.HasValue() && Entity.MultiAssignList.Count > 0)
+                if (Entity.MultiAssignList != null && Entity.MultiAssignList.Count > 0)
                     userIds.AddRange(Entity.MultiAssignList);
             }
 
