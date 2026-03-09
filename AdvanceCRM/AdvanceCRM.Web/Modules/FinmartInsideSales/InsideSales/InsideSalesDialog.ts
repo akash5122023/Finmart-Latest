@@ -150,7 +150,7 @@
 
                                     // Only open InitialProcess dialog if user has permission
                                     if (Authorization.hasPermission("MISInitialProcess:Read")) {
-                                        new Operations.MisInitialProcessDialog().loadByIdAndOpenDialog(response.Id);
+                                        new AdvanceCRM.Operations.MisInitialProcessDialog().loadByIdAndOpenDialog(response.Id);
                                     }
 
                                     // Close current dialog

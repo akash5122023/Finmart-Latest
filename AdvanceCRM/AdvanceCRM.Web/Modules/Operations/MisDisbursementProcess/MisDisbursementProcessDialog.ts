@@ -24,29 +24,37 @@ namespace AdvanceCRM.Operations {
 
         // Show CustomerName or FirmName based on which has data
         private updateNameFieldsVisibility() {
-            // Check if fields exist on the form before accessing them
-            if (!this.form.CustomerName || !this.form.FirmName) {
-                return;
-            }
+            try {
+                // Check if field elements exist in the DOM before accessing them
+                var customerNameElement = this.byId('CustomerName');
+                var firmNameElement = this.byId('FirmName');
 
-            var customerName = this.form.CustomerName.value;
-            var firmName = this.form.FirmName.value;
+                if (!customerNameElement.length || !firmNameElement.length) {
+                    return;
+                }
 
-            // If FirmName has value -> Organization (show FirmName, hide CustomerName)
-            // If CustomerName has value -> Individual (show CustomerName, hide FirmName)
-            // If both empty or both filled -> show both
-            if (firmName && !customerName) {
-                // Organization - show FirmName only
-                this.form.CustomerName.getGridField().toggle(false);
-                this.form.FirmName.getGridField().toggle(true);
-            } else if (customerName && !firmName) {
-                // Individual - show CustomerName only
-                this.form.CustomerName.getGridField().toggle(true);
-                this.form.FirmName.getGridField().toggle(false);
-            } else {
-                // Show both if both empty or both have values
-                this.form.CustomerName.getGridField().toggle(true);
-                this.form.FirmName.getGridField().toggle(true);
+                var customerName = this.form.CustomerName.value;
+                var firmName = this.form.FirmName.value;
+
+                // If FirmName has value -> Organization (show FirmName, hide CustomerName)
+                // If CustomerName has value -> Individual (show CustomerName, hide FirmName)
+                // If both empty or both filled -> show both
+                if (firmName && !customerName) {
+                    // Organization - show FirmName only
+                    this.form.CustomerName.getGridField().toggle(false);
+                    this.form.FirmName.getGridField().toggle(true);
+                } else if (customerName && !firmName) {
+                    // Individual - show CustomerName only
+                    this.form.CustomerName.getGridField().toggle(true);
+                    this.form.FirmName.getGridField().toggle(false);
+                } else {
+                    // Show both if both empty or both have values
+                    this.form.CustomerName.getGridField().toggle(true);
+                    this.form.FirmName.getGridField().toggle(true);
+                }
+            } catch (e) {
+                // Fields may not exist on this form variant
+                console.warn('Could not update name fields visibility:', e);
             }
         }
 
