@@ -3,6 +3,7 @@ namespace AdvanceCRM.ChannelPartner {
     @Serenity.Decorators.registerClass()
     export class ChannelPartnerFollowupsGrid extends Serenity.EntityGrid<ChannelPartnerFollowupsRow, any> {
         protected getColumnsKey() { return 'ChannelPartner.ChannelPartnerFollowups'; }
+        protected getDialogType() { return ChannelPartnerFollowupsDialog; }
         protected getIdProperty() { return ChannelPartnerFollowupsRow.idProperty; }
         protected getInsertPermission() { return ChannelPartnerFollowupsRow.insertPermission; }
         protected getLocalTextPrefix() { return ChannelPartnerFollowupsRow.localTextPrefix; }

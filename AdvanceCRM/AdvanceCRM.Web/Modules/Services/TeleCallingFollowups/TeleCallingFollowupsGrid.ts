@@ -4,6 +4,7 @@ namespace AdvanceCRM.Services {
     @Serenity.Decorators.registerClass()
     export class TeleCallingFollowupsGrid extends Serenity.EntityGrid<TeleCallingFollowupsRow, any> {
         protected getColumnsKey() { return 'Services.TeleCallingFollowups'; }
+        protected getDialogType() { return TeleCallingFollowupsDialog; }
         protected getIdProperty() { return TeleCallingFollowupsRow.idProperty; }
         protected getInsertPermission() { return TeleCallingFollowupsRow.insertPermission; }
         protected getLocalTextPrefix() { return TeleCallingFollowupsRow.localTextPrefix; }

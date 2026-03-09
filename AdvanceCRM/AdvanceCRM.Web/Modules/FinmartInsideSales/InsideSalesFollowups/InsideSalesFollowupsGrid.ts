@@ -3,6 +3,7 @@ namespace AdvanceCRM.FinmartInsideSales {
     @Serenity.Decorators.registerClass()
     export class InsideSalesFollowupsGrid extends Serenity.EntityGrid<InsideSalesFollowupsRow, any> {
         protected getColumnsKey() { return 'FinmartInsideSales.InsideSalesFollowups'; }
+        protected getDialogType() { return InsideSalesFollowupsDialog; }
         protected getIdProperty() { return InsideSalesFollowupsRow.idProperty; }
         protected getInsertPermission() { return InsideSalesFollowupsRow.insertPermission; }
         protected getLocalTextPrefix() { return InsideSalesFollowupsRow.localTextPrefix; }

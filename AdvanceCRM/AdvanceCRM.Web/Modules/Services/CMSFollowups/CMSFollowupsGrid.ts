@@ -4,6 +4,7 @@ namespace AdvanceCRM.Services {
     @Serenity.Decorators.registerClass()
     export class CMSFollowupsGrid extends Serenity.EntityGrid<CMSFollowupsRow, any> {
         protected getColumnsKey() { return 'Services.CMSFollowups'; }
+        protected getDialogType() { return CMSFollowupsDialog; }
         protected getIdProperty() { return CMSFollowupsRow.idProperty; }
         protected getInsertPermission() { return CMSFollowupsRow.insertPermission; }
         protected getLocalTextPrefix() { return CMSFollowupsRow.localTextPrefix; }

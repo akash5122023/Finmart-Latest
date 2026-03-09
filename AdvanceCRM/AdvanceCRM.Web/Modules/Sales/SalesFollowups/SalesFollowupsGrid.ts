@@ -4,6 +4,7 @@ namespace AdvanceCRM.Sales {
     @Serenity.Decorators.registerClass()
     export class SalesFollowupsGrid extends Serenity.EntityGrid<SalesFollowupsRow, any> {
         protected getColumnsKey() { return 'Sales.SalesFollowups'; }
+        protected getDialogType() { return SalesFollowupsDialog; }
         protected getIdProperty() { return SalesFollowupsRow.idProperty; }
         protected getInsertPermission() { return SalesFollowupsRow.insertPermission; }
         protected getLocalTextPrefix() { return SalesFollowupsRow.localTextPrefix; }

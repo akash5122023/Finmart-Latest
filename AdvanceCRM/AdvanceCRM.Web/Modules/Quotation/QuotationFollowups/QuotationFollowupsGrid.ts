@@ -4,6 +4,7 @@ namespace AdvanceCRM.Quotation {
     @Serenity.Decorators.registerClass()
     export class QuotationFollowupsGrid extends Serenity.EntityGrid<QuotationFollowupsRow, any> {
         protected getColumnsKey() { return 'Quotation.QuotationFollowups'; }
+        protected getDialogType() { return QuotationFollowupsDialog; }
         protected getIdProperty() { return QuotationFollowupsRow.idProperty; }
         protected getInsertPermission() { return QuotationFollowupsRow.insertPermission; }
         protected getLocalTextPrefix() { return QuotationFollowupsRow.localTextPrefix; }

@@ -4,6 +4,7 @@ namespace AdvanceCRM.Enquiry {
     @Serenity.Decorators.registerClass()
     export class EnquiryFollowupsGrid extends Serenity.EntityGrid<EnquiryFollowupsRow, any> {
         protected getColumnsKey() { return 'Enquiry.EnquiryFollowups'; }
+        protected getDialogType() { return EnquiryFollowupsDialog; }
         protected getIdProperty() { return EnquiryFollowupsRow.idProperty; }
         protected getInsertPermission() { return EnquiryFollowupsRow.insertPermission; }
         protected getLocalTextPrefix() { return EnquiryFollowupsRow.localTextPrefix; }
