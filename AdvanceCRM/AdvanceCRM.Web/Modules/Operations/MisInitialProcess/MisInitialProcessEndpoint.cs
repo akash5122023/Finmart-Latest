@@ -311,11 +311,12 @@ namespace AdvanceCRM.Operations.Endpoints
                         SrNo = sourceInitialProcess.SrNo,
                         SourceName = sourceInitialProcess.SourceName,
                         // ContactType 1 = Individual -> CustomerName, ContactType 2 = Organization -> FirmName
+                        // Prioritize CustomerName/FirmName, use ContactsName only as fallback
                         CustomerName = sourceInitialProcess.ContactsContactType == 1 
-                            ? (sourceInitialProcess.ContactsName ?? sourceInitialProcess.CustomerName) 
+                            ? (sourceInitialProcess.CustomerName ?? sourceInitialProcess.ContactsName) 
                             : sourceInitialProcess.CustomerName,
                         FirmName = sourceInitialProcess.ContactsContactType == 2 
-                            ? (sourceInitialProcess.ContactsName ?? sourceInitialProcess.FirmName) 
+                            ? (sourceInitialProcess.FirmName ?? sourceInitialProcess.ContactsName) 
                             : sourceInitialProcess.FirmName,
                         BankSourceOrCompanyName = sourceInitialProcess.BankSourceOrCompanyName,
                         FileHandledBy = sourceInitialProcess.FileHandledBy,
